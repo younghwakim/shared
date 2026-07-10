@@ -1,0 +1,8 @@
+{
+  "maintenance": false,
+  "title": "잠시 점검 중이에요",
+  "message": "더 안정적인 서비스를 위해 서버를 정비하고 있어요.\n조금 뒤에 다시 열어주세요.",
+  "minSupportedVersion": "1.0.0",
+  "iosStoreUrl": "https://apps.apple.com/app/id0000000000",
+  "androidStoreUrl": "https://play.google.com/store/apps/details?id=com.buruda.app"
+}
