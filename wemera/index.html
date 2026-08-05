@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>wemera — both cameras, one shot</title>
+<meta name="description" content="wemera shoots with both of your cameras at the same time — the view in front of you and your face in one single photo.">
+<meta name="theme-color" content="#16130F">
+<link rel="icon" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="wemera — both cameras, one shot">
+<meta property="og:description" content="The view in front of you and your face, captured at the same moment — in a single photo.">
+<meta property="og:image" content="https://younghwakim.github.io/shared/wemera/assets/og.jpg">
+<meta property="og:url" content="https://younghwakim.github.io/shared/wemera/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{
+    --amber:#FFA733; --coral:#FF7A59; --amber-soft:#FFC266;
+    --ink:#16130F; --ink-deep:#0E0C09; --surface:#211D17; --surface-2:#2B261E;
+    --paper:#F7F2E9;
+    --text:#F7F2E9; --muted:rgba(247,242,233,.60); --faint:rgba(247,242,233,.38);
+    --line:rgba(247,242,233,.12);
+    --r-lg:24px; --r-md:18px;
+    --maxw:1080px;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--ink); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR","Noto Sans JP","Helvetica Neue",sans-serif;
+    line-height:1.6; letter-spacing:-.01em;
+    overflow-x:hidden;
+  }
+  img{max-width:100%; display:block}
+  a{color:inherit}
+
+  .wrap{width:100%; max-width:var(--maxw); margin:0 auto; padding:0 24px}
+
+  /* ---------- top bar ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:saturate(140%) blur(14px); -webkit-backdrop-filter:saturate(140%) blur(14px);
+    background:rgba(22,19,15,.72); border-bottom:1px solid transparent;
+    transition:border-color .3s ease, background .3s ease;
+  }
+  header.stuck{border-bottom-color:var(--line)}
+  .bar{display:flex; align-items:center; justify-content:space-between; gap:16px; height:60px}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:700; font-size:1.05rem; letter-spacing:-.02em}
+  .brand img{width:28px; height:28px; border-radius:8px}
+  .langs{display:flex; gap:4px; background:rgba(247,242,233,.06); padding:4px; border-radius:999px}
+  .langs button{
+    border:0; background:transparent; color:var(--muted); font:inherit; font-size:.8rem; font-weight:600;
+    padding:5px 11px; border-radius:999px; cursor:pointer; white-space:nowrap; transition:color .2s, background .2s;
+  }
+  .langs button:hover{color:var(--text)}
+  .langs button.on{background:var(--amber); color:#16130F}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative; padding:64px 0 40px; overflow:hidden}
+  .hero-glow{
+    position:absolute; left:50%; top:-140px; width:min(1100px,150vw); aspect-ratio:1/1; transform:translateX(-50%);
+    background:radial-gradient(circle at 50% 35%, rgba(255,167,51,.30), rgba(255,122,89,.13) 38%, transparent 66%);
+    pointer-events:none; z-index:0;
+  }
+  .hero .wrap{position:relative; z-index:1}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px; font-size:.78rem; font-weight:600; letter-spacing:.02em;
+    color:var(--amber); background:rgba(255,167,51,.10); border:1px solid rgba(255,167,51,.24);
+    padding:6px 13px; border-radius:999px; margin:0 0 22px;
+  }
+  .glyph{width:13px; height:13px; flex:0 0 auto}
+  h1{
+    font-size:clamp(2.3rem,7.4vw,4.1rem); line-height:1.06; letter-spacing:-.035em; font-weight:800;
+    margin:0 0 20px; max-width:15ch;
+  }
+  h1 .accent{background:linear-gradient(100deg,var(--amber-soft),var(--coral)); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .lede{font-size:clamp(1.02rem,2.5vw,1.24rem); color:var(--muted); margin:0 0 32px; max-width:44ch}
+  .cta-row{display:flex; flex-wrap:wrap; align-items:center; gap:14px 18px}
+  .cta{
+    display:inline-flex; align-items:center; gap:10px; text-decoration:none; font-weight:700; font-size:1rem;
+    color:#16130F; background:linear-gradient(100deg,var(--amber-soft),var(--amber) 55%,var(--coral));
+    padding:14px 26px; border-radius:999px; box-shadow:0 12px 34px -12px rgba(255,140,60,.7);
+    transition:transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s;
+  }
+  .cta:hover{transform:translateY(-2px); box-shadow:0 18px 40px -14px rgba(255,140,60,.85)}
+  .cta svg{width:16px; height:16px}
+  .cta-note{font-size:.86rem; color:var(--faint)}
+
+  /* ---------- phone ---------- */
+  .phone{
+    position:relative; width:100%; border-radius:34px; overflow:hidden; background:#000;
+    border:1px solid rgba(247,242,233,.16);
+    box-shadow:0 40px 80px -30px rgba(0,0,0,.9), 0 0 0 6px rgba(247,242,233,.03);
+  }
+  .phone img{width:100%; height:auto}
+  .hero-stage{
+    position:relative; margin:52px auto 0; width:min(280px,66vw);
+    will-change:transform;
+  }
+  .hero-stage::before,.hero-stage::after{
+    content:""; position:absolute; border-radius:26px; border:1.5px solid rgba(255,167,51,.42); z-index:-1;
+  }
+  .hero-stage::before{inset:-34px -52px 42% -18px; transform:rotate(-4deg)}
+  .hero-stage::after{inset:38% -18px -30px -50px; transform:rotate(4deg); border-color:rgba(255,122,89,.34)}
+
+  /* ---------- sections ---------- */
+  section{position:relative}
+  .band{padding:76px 0}
+  /* 한국어·일본어에서 낱말 중간이 끊기지 않게 */
+  h1,h2,h3,.lede,.body,.card p,.split-caption{word-break:keep-all}
+  .kicker{
+    font-size:.76rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--amber);
+    margin:0 0 14px;
+  }
+  h2{font-size:clamp(1.6rem,4.2vw,2.5rem); line-height:1.15; letter-spacing:-.03em; font-weight:800; margin:0 0 16px; max-width:18ch}
+  .body{color:var(--muted); font-size:1.02rem; margin:0; max-width:46ch}
+
+  /* split demo */
+  .split-demo{max-width:300px; margin:44px auto 0}
+  .split-frame{
+    position:relative; border-radius:30px; overflow:hidden; aspect-ratio:1206/2622;
+    background:radial-gradient(120% 60% at 50% 50%, var(--amber-soft), var(--coral) 70%);
+    border:1px solid rgba(247,242,233,.16); box-shadow:0 40px 80px -34px rgba(0,0,0,.9);
+  }
+  .pane{position:absolute; left:0; width:100%; height:50%; background-image:var(--shot); background-size:100% 200%; will-change:transform}
+  .pane.top{top:0; background-position:top center}
+  .pane.bot{bottom:0; background-position:bottom center}
+  .split-caption{text-align:center; color:var(--faint); font-size:.85rem; margin:18px 0 0}
+
+  /* feature rows */
+  .row{display:grid; grid-template-columns:1fr; gap:38px; align-items:center}
+  .row>*{min-width:0}  /* 마퀴가 칸 밖으로 넘치지 않게 */
+  .row .shot{width:min(272px,64vw); margin:0 auto}
+  @media(min-width:820px){
+    .row{grid-template-columns:1fr 1fr; gap:64px}
+    .row.rev .copy{order:2}
+    .row.rev .shot{order:1}
+    .row .shot{width:100%; max-width:288px}
+    h1{font-size:clamp(3rem,5.6vw,4.3rem)}
+    .hero-stage{width:300px; margin-top:0}
+    .hero-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center}
+  }
+
+  /* chips marquee */
+  .marquee{margin:34px 0 0; overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent); mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  .track{display:flex; gap:10px; width:max-content; animation:slide 26s linear infinite}
+  .chip{
+    border:1px solid var(--line); background:var(--surface); color:var(--muted);
+    padding:9px 17px; border-radius:999px; font-size:.88rem; font-weight:600; white-space:nowrap;
+  }
+  .chip.hot{border-color:rgba(255,167,51,.5); color:var(--amber); background:rgba(255,167,51,.08)}
+  @keyframes slide{to{transform:translateX(-50%)}}
+
+  /* trio cards */
+  .cards{display:grid; grid-template-columns:1fr; gap:14px; margin-top:40px}
+  @media(min-width:720px){.cards{grid-template-columns:repeat(3,1fr); gap:18px}}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); padding:26px 24px}
+  .card h3{margin:0 0 8px; font-size:1.06rem; letter-spacing:-.02em}
+  .card p{margin:0; color:var(--muted); font-size:.95rem}
+  .card .dot{width:34px; height:34px; border-radius:11px; background:rgba(255,167,51,.13); display:grid; place-items:center; margin-bottom:16px}
+  .card .dot svg{width:17px; height:17px; color:var(--amber)}
+
+  /* free block */
+  .free{
+    border-radius:var(--r-lg); padding:44px 32px; text-align:center;
+    background:radial-gradient(120% 130% at 50% 0%, rgba(255,167,51,.20), rgba(255,122,89,.07) 55%, transparent 78%), var(--surface);
+    border:1px solid rgba(255,167,51,.22);
+  }
+  .free h2{margin:0 auto 14px; max-width:20ch}
+  .free .body{margin:0 auto; max-width:50ch}
+
+  /* footer */
+  footer{border-top:1px solid var(--line); padding:44px 0 60px; margin-top:20px}
+  .foot{display:flex; flex-wrap:wrap; gap:14px 26px; align-items:center; justify-content:space-between}
+  .foot nav{display:flex; flex-wrap:wrap; gap:22px}
+  .foot a{color:var(--muted); text-decoration:none; font-size:.92rem}
+  .foot a:hover{color:var(--text)}
+  .req{color:var(--faint); font-size:.82rem; margin:26px 0 0; max-width:60ch}
+  .copy-line{color:var(--faint); font-size:.82rem; margin:8px 0 0}
+
+  /* reveal */
+  .r{opacity:0; transform:translateY(26px); transition:opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1)}
+  .r.in{opacity:1; transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .r{opacity:1; transform:none; transition:none}
+    .track{animation:none}
+    .hero-stage,.pane{transform:none !important}
+    .cta{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap bar">
+    <a class="brand" href="./"><img src="assets/icon.png" alt=""><span>wemera</span></a>
+    <div class="langs" id="langs">
+      <button data-lang="en">EN</button>
+      <button data-lang="ko">한국어</button>
+      <button data-lang="ja">日本語</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow r">
+          <svg class="glyph" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="2.2" y="2.2" width="14" height="14" rx="4" stroke="currentColor" stroke-width="2"/>
+            <rect x="8" y="8" width="13.8" height="13.8" rx="4" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span data-i="eyebrow">Front &amp; back, at the same moment</span>
+        </p>
+        <h1 class="r" data-delay="1"><span data-i="h1a">Both cameras.</span><br><span class="accent" data-i="h1b">One shot.</span></h1>
+        <p class="lede r" data-delay="2" data-i="lede">The view in front of you and your face, captured at the same moment — in a single photo.</p>
+        <div class="cta-row r" data-delay="3">
+          <a class="cta" id="store" href="https://apps.apple.com/app/id6793656140">
+            <span data-i="cta">Download on the App Store</span>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <span class="cta-note" data-i="ctaNote">Free · No account · iPhone XS/XR or later</span>
+        </div>
+      </div>
+      <div class="hero-stage r" data-delay="2" id="heroStage">
+        <div class="phone"><img id="heroShot" src="assets/en/01.jpg" width="640" height="1392" alt="wemera camera screen"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="kicker r" data-i="s1k">Simultaneous capture</p>
+    <h2 class="r" data-delay="1" data-i="s1h">Not two photos stitched together.</h2>
+    <p class="body r" data-delay="2" data-i="s1p">Both lenses fire at the same moment. What you see on the screen is exactly what gets saved.</p>
+    <div class="split-demo r" data-delay="2" id="splitDemo">
+      <div class="split-frame">
+        <div class="pane top"></div>
+        <div class="pane bot"></div>
+      </div>
+      <p class="split-caption" data-i="s1c">One shutter · two views · one file</p>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap row">
+    <div class="copy">
+      <p class="kicker r" data-i="s2k">Everyone in frame</p>
+      <h2 class="r" data-delay="1" data-i="s2h">The one holding the camera stays in the photo.</h2>
+      <p class="body r" data-delay="2" data-i="s2p">No asking a stranger, no being missing from your own trip. The person shooting is in the shot too.</p>
+    </div>
+    <div class="shot r" data-delay="1"><div class="phone"><img data-shot="02" src="assets/en/02.jpg" loading="lazy" width="640" height="1392" alt="Saved result screen"></div></div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap row rev">
+    <div class="copy">
+      <p class="kicker r" data-i="s3k">Templates</p>
+      <h2 class="r" data-delay="1" data-i="s3h">A layout for the moment.</h2>
+      <p class="body r" data-delay="2" data-i="s3p">Split, PIP, Polaroid, booth strips, pairs and recaps. Pick one before you shoot — or change it after.</p>
+      <div class="marquee r" data-delay="2">
+        <div class="track" id="track"></div>
+      </div>
+    </div>
+    <div class="shot r" data-delay="1"><div class="phone"><img data-shot="03" src="assets/en/03.jpg" loading="lazy" width="640" height="1392" alt="Shooting setup sheet"></div></div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap row">
+    <div class="copy">
+      <p class="kicker r" data-i="s4k">Filters</p>
+      <h2 class="r" data-delay="1" data-i="s4h">A different filter for each lens.</h2>
+      <p class="body r" data-delay="2" data-i="s4p">Front and back are tuned separately, and you see it live on screen before you press the shutter.</p>
+    </div>
+    <div class="shot r" data-delay="1"><div class="phone"><img data-shot="04" src="assets/en/04.jpg" loading="lazy" width="640" height="1392" alt="Filter row on the camera screen"></div></div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap row rev">
+    <div class="copy">
+      <p class="kicker r" data-i="s5k">Burst</p>
+      <h2 class="r" data-delay="1" data-i="s5h">Keep smiling — the next cut follows.</h2>
+      <p class="body r" data-delay="2" data-i="s5p">A voice countdown fills the strip cut by cut, so nobody has to reset their face between shots.</p>
+    </div>
+    <div class="shot r" data-delay="1"><div class="phone"><img data-shot="05" src="assets/en/05.jpg" loading="lazy" width="640" height="1392" alt="Photo booth strip result"></div></div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <p class="kicker r" data-i="s6k">Made simple</p>
+    <h2 class="r" data-delay="1" data-i="s6h">Nothing between you and the shutter.</h2>
+    <div class="cards">
+      <div class="card r" data-delay="1">
+        <div class="dot"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5v14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div>
+        <h3 data-i="c1h">No account</h3>
+        <p data-i="c1p">Open and shoot. There is nothing to sign up for.</p>
+      </div>
+      <div class="card r" data-delay="2">
+        <div class="dot"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6l7-3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+        <h3 data-i="c2h">Stays on your device</h3>
+        <p data-i="c2p">Photos are processed and saved only on your phone. wemera has no server.</p>
+      </div>
+      <div class="card r" data-delay="3">
+        <div class="dot"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0113.7-5.7M20 12a8 8 0 01-13.7 5.7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 3v4h-4M6 21v-4h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3 data-i="c3h">Re-edit anytime</h3>
+        <p data-i="c3p">Change the template and the filters on shots you already saved.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="free r">
+      <p class="kicker" data-i="s7k">Free</p>
+      <h2 data-i="s7h">Every template and every filter, free.</h2>
+      <p class="body" data-i="s7p">Free saves carry a small wemera mark. Watch one short ad to start a Golden Hour — an hour of mark-free saving and re-editing.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="brand" href="#top"><img src="assets/icon.png" alt=""><span>wemera</span></a>
+      <nav>
+        <a href="https://apps.apple.com/app/id6793656140" data-i="fStore">App Store</a>
+        <a href="privacy.html" data-i="fPrivacy">Privacy Policy</a>
+        <a href="mailto:younghwa.kym@gmail.com" data-i="fSupport">Support</a>
+      </nav>
+    </div>
+    <p class="req" data-i="req">Requires an iPhone that supports simultaneous front + back capture (iPhone XS / XR or later).</p>
+    <p class="copy-line">© 2026 Younghwa Kim</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var STRINGS = {
+    en:{
+      title:"wemera — both cameras, one shot",
+      eyebrow:"Front & back, at the same moment",
+      h1a:"Both cameras.", h1b:"One shot.",
+      lede:"The view in front of you and your face, captured at the same moment — in a single photo.",
+      cta:"Download on the App Store",
+      ctaNote:"Free · No account · iPhone XS/XR or later",
+      s1k:"Simultaneous capture",
+      s1h:"Not two photos stitched together.",
+      s1p:"Both lenses fire at the same moment. What you see on the screen is exactly what gets saved.",
+      s1c:"One shutter · two views · one file",
+      s2k:"Everyone in frame",
+      s2h:"The one holding the camera stays in the photo.",
+      s2p:"No asking a stranger, no being missing from your own trip. The person shooting is in the shot too.",
+      s3k:"Templates",
+      s3h:"A layout for the moment.",
+      s3p:"Split, PIP, Polaroid, booth strips, pairs and recaps. Pick one before you shoot — or change it after.",
+      s4k:"Filters",
+      s4h:"A different filter for each lens.",
+      s4p:"Front and back are tuned separately, and you see it live on screen before you press the shutter.",
+      s5k:"Burst",
+      s5h:"Keep smiling — the next cut follows.",
+      s5p:"A voice countdown fills the strip cut by cut, so nobody has to reset their face between shots.",
+      s6k:"Made simple",
+      s6h:"Nothing between you and the shutter.",
+      c1h:"No account", c1p:"Open and shoot. There is nothing to sign up for.",
+      c2h:"Stays on your device", c2p:"Photos are processed and saved only on your phone. wemera has no server.",
+      c3h:"Re-edit anytime", c3p:"Change the template and the filters on shots you already saved.",
+      s7k:"Free",
+      s7h:"Every template and every filter, free.",
+      s7p:"Free saves carry a small wemera mark. Watch one short ad to start a Golden Hour — an hour of mark-free saving and re-editing.",
+      fStore:"App Store", fPrivacy:"Privacy Policy", fSupport:"Support",
+      req:"Requires an iPhone that supports simultaneous front + back capture (iPhone XS / XR or later)."
+    },
+    ko:{
+      title:"wemera — 앞뒤 카메라를 한 장에",
+      eyebrow:"앞과 뒤를, 같은 순간에",
+      h1a:"앞뒤 카메라를", h1b:"한 장에.",
+      lede:"내 눈앞의 풍경과 내 표정을 같은 순간에 — 한 장으로 담습니다.",
+      cta:"App Store에서 받기",
+      ctaNote:"무료 · 계정 없음 · iPhone XS/XR 이상",
+      s1k:"동시 촬영",
+      s1h:"두 장을 이어 붙인 게 아닙니다.",
+      s1p:"두 렌즈가 같은 순간에 찍힙니다. 화면에 보이는 그대로 저장돼요.",
+      s1c:"셔터 한 번 · 두 화면 · 한 장",
+      s2k:"다 같이",
+      s2h:"찍어주는 사람도 사진 속에 남습니다.",
+      s2p:"지나가는 사람에게 부탁하지 않아도 되고, 내 여행에서 내가 빠지지도 않아요.",
+      s3k:"템플릿",
+      s3h:"장면에 맞는 배치.",
+      s3p:"Split, PIP, 폴라로이드, 포토부스 스트립, 페어와 리캡. 찍기 전에 고르고, 찍은 뒤에도 바꿉니다.",
+      s4k:"필터",
+      s4h:"렌즈마다 다른 필터.",
+      s4p:"전면과 후면을 따로 맞춥니다. 셔터를 누르기 전에 화면에서 그대로 보여요.",
+      s5k:"연속 촬영",
+      s5h:"웃는 채로 다음 칸이 이어집니다.",
+      s5p:"음성 카운트다운이 칸을 하나씩 채웁니다. 중간에 표정을 고쳐 잡지 않아도 돼요.",
+      s6k:"단순하게",
+      s6h:"셔터까지 가로막는 게 없습니다.",
+      c1h:"계정 없음", c1p:"열고 바로 촬영. 가입할 게 없습니다.",
+      c2h:"기기에만 저장", c2p:"사진은 내 폰 안에서만 처리·저장됩니다. 자체 서버가 없어요.",
+      c3h:"언제든 다시 편집", c3p:"저장한 사진도 템플릿과 필터를 바꿀 수 있습니다.",
+      s7k:"무료",
+      s7h:"템플릿도 필터도 전부 무료.",
+      s7p:"무료 저장물엔 작은 wemera 마크가 붙습니다. 짧은 광고 한 편이면 1시간 동안 마크 없이 저장하고 다시 편집할 수 있어요(Golden Hour).",
+      fStore:"App Store", fPrivacy:"개인정보처리방침", fSupport:"문의",
+      req:"전·후면 동시 촬영을 지원하는 iPhone이 필요합니다 (iPhone XS/XR 이상)."
+    },
+    ja:{
+      title:"wemera — 前と後ろ、1枚で",
+      eyebrow:"前も後ろも、同じ瞬間に",
+      h1a:"前と後ろを、", h1b:"1枚で。",
+      lede:"目の前の景色と自分の表情を、同じ瞬間に1枚で。",
+      cta:"App Storeで入手",
+      ctaNote:"無料・アカウント不要・iPhone XS/XR以降",
+      s1k:"同時撮影",
+      s1h:"2枚をつなげたものではありません。",
+      s1p:"2つのレンズが同じ瞬間に撮影します。画面に見えるまま保存されます。",
+      s1c:"シャッター1回・2つの画面・1枚",
+      s2k:"みんな一緒に",
+      s2h:"撮る人も写真の中に残ります。",
+      s2p:"通りすがりの人に頼まなくても、自分の旅に自分が写ります。",
+      s3k:"テンプレート",
+      s3h:"シーンに合うレイアウト。",
+      s3p:"Split、PIP、ポラロイド、フォトブース、ペアとリキャップ。撮る前に選び、撮った後も変えられます。",
+      s4k:"フィルター",
+      s4h:"レンズごとに違うフィルター。",
+      s4p:"前面と背面を別々に調整。シャッターを押す前に画面で確認できます。",
+      s5k:"連続撮影",
+      s5h:"笑ったまま、次のコマへ。",
+      s5p:"音声カウントダウンがコマを1つずつ埋めます。途中で表情を作り直さなくて大丈夫。",
+      s6k:"シンプルに",
+      s6h:"シャッターまで、何も挟みません。",
+      c1h:"アカウント不要", c1p:"開いてすぐ撮影。登録するものはありません。",
+      c2h:"端末の中だけ", c2p:"写真は端末内だけで処理・保存されます。独自サーバーはありません。",
+      c3h:"いつでも再編集", c3p:"保存した写真もテンプレートとフィルターを変えられます。",
+      s7k:"無料",
+      s7h:"テンプレートもフィルターも全部無料。",
+      s7p:"無料保存には小さなwemeraマークが入ります。短い広告1本で1時間、マークなしの保存と再編集ができます（Golden Hour）。",
+      fStore:"App Store", fPrivacy:"プライバシーポリシー", fSupport:"お問い合わせ",
+      req:"前面・背面カメラの同時撮影に対応したiPhoneが必要です（iPhone XS/XR以降）。"
+    }
+  };
+
+  var TEMPLATES = ["Meet 2","Split 2","Side 2","Pola 2","PIP 2","Orb 2","Card 2","Tri 3","Recap 4","Booth 4","Strip 4"];
+  var track = document.getElementById('track');
+  function chips(){
+    var html = TEMPLATES.map(function(t,i){ return '<span class="chip'+(i===1?' hot':'')+'">'+t+'</span>'; }).join('');
+    track.innerHTML = html + html; // 두 벌 이어붙여 끊김 없이 순환
+  }
+  chips();
+
+  var heroShot = document.getElementById('heroShot');
+  var splitDemo = document.getElementById('splitDemo');
+  var langButtons = document.querySelectorAll('#langs button');
+
+  function apply(lang){
+    var s = STRINGS[lang] || STRINGS.en;
+    document.documentElement.lang = lang;
+    document.title = s.title;
+    document.querySelectorAll('[data-i]').forEach(function(el){
+      var v = s[el.getAttribute('data-i')];
+      if (v) el.textContent = v;
+    });
+    heroShot.src = 'assets/'+lang+'/01.jpg';
+    document.querySelectorAll('[data-shot]').forEach(function(img){
+      img.src = 'assets/'+lang+'/'+img.getAttribute('data-shot')+'.jpg';
+    });
+    splitDemo.querySelector('.split-frame').style.setProperty('--shot','url(assets/'+lang+'/01.jpg)');
+    langButtons.forEach(function(b){ b.classList.toggle('on', b.dataset.lang === lang); });
+    try{ localStorage.setItem('wemera-lang', lang); }catch(e){}
+  }
+
+  langButtons.forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.dataset.lang); });
+  });
+
+  var saved = null;
+  try{ saved = localStorage.getItem('wemera-lang'); }catch(e){}
+  var sys = (navigator.language || 'en').slice(0,2).toLowerCase();
+  apply(saved || (sys === 'ko' || sys === 'ja' ? sys : 'en'));
+
+  // ---- 등장 애니메이션: 화면에 들어올 때 한 번만 ----
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var targets = document.querySelectorAll('.r');
+  if (reduce || !('IntersectionObserver' in window)) {
+    targets.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        var d = parseInt(e.target.getAttribute('data-delay') || '0', 10);
+        e.target.style.transitionDelay = (d * 90) + 'ms';
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+    targets.forEach(function(el){ io.observe(el); });
+  }
+
+  // ---- 스크롤 연동: 히어로 시차 + 분할 데모가 벌어졌다 붙는다 ----
+  var header = document.querySelector('header');
+  var stage = document.getElementById('heroStage');
+  var top = splitDemo.querySelector('.pane.top');
+  var bot = splitDemo.querySelector('.pane.bot');
+  var ticking = false;
+
+  function frame(){
+    ticking = false;
+    var y = window.scrollY || 0;
+    header.classList.toggle('stuck', y > 8);
+    if (reduce) return;
+
+    if (y < window.innerHeight * 1.2) {
+      stage.style.transform = 'translateY(' + (y * -0.07).toFixed(2) + 'px)';
+    }
+    var rect = splitDemo.getBoundingClientRect();
+    var vh = window.innerHeight;
+    if (rect.bottom > 0 && rect.top < vh) {
+      // 화면을 지나가는 동안 0 → 1: 두 칸이 벌어졌다가 다시 만난다
+      var p = 1 - Math.min(1, Math.max(0, (rect.top + rect.height * 0.5) / vh));
+      var gap = Math.sin(p * Math.PI) * 3.2;   // 최대 3.2% — 두 창이 잠깐 벌어졌다 다시 만난다
+      top.style.transform = 'translateY(' + (-gap) + '%)';
+      bot.style.transform = 'translateY(' + gap + '%)';
+    }
+  }
+  function onScroll(){ if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('resize', onScroll, { passive:true });
+  frame();
+})();
+</script>
+</body>
+</html>
