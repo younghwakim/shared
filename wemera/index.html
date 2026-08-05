@@ -180,11 +180,12 @@
   .req{color:var(--faint); font-size:.82rem; margin:26px 0 0; max-width:60ch}
   .copy-line{color:var(--faint); font-size:.82rem; margin:8px 0 0}
 
-  /* reveal */
-  .r{opacity:0; transform:translateY(26px); transition:opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1)}
-  .r.in{opacity:1; transform:none}
+  /* reveal — 기본은 '보이는 상태'다. 스크립트가 관찰자를 붙인 뒤에만 숨겼다 띄운다
+     (스크립트가 죽어도 빈 화면이 되지 않게) */
+  html.anim .r{opacity:0; transform:translateY(26px); transition:opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1)}
+  html.anim .r.in{opacity:1; transform:none}
   @media(prefers-reduced-motion:reduce){
-    .r{opacity:1; transform:none; transition:none}
+    html.anim .r{opacity:1; transform:none; transition:none}
     .track{animation:none}
     .hero-stage,.pane{transform:none !important}
     .cta{transition:none}
@@ -492,6 +493,9 @@
   // ---- 등장 애니메이션: 화면에 들어올 때 한 번만 ----
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var targets = document.querySelectorAll('.r');
+  if (!reduce && ('IntersectionObserver' in window)) {
+    document.documentElement.classList.add('anim');   // 여기서부터 숨김이 걸린다
+  }
   if (reduce || !('IntersectionObserver' in window)) {
     targets.forEach(function(el){ el.classList.add('in'); });
   } else {
