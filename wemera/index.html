@@ -86,6 +86,9 @@
   }
   .cta:hover{transform:translateY(-2px); box-shadow:0 18px 40px -14px rgba(255,140,60,.85)}
   .cta svg{width:16px; height:16px}
+  .cta.ghost{background:transparent; color:var(--text); border:1px solid rgba(247,242,233,.28); box-shadow:none}
+  .cta.ghost:hover{border-color:rgba(247,242,233,.5); box-shadow:none}
+  .cta[hidden]{display:none}
   .cta-note{font-size:.86rem; color:var(--faint)}
 
   /* ---------- phone ---------- */
@@ -124,9 +127,11 @@
     background:radial-gradient(120% 60% at 50% 50%, var(--amber-soft), var(--coral) 70%);
     border:1px solid rgba(247,242,233,.16); box-shadow:0 40px 80px -34px rgba(0,0,0,.9);
   }
-  .pane{position:absolute; left:0; width:100%; height:50%; background-image:var(--shot); background-size:100% 200%; will-change:transform}
-  .pane.top{top:0; background-position:top center}
-  .pane.bot{bottom:0; background-position:bottom center}
+  /* 두 칸의 경계는 스크린샷에서 후면/전면 화면이 실제로 갈리는 자리(51.5%)에 맞춘다 —
+     반씩 자르면 아래 칸 위에 앞 사진 한 줄이 남는다 */
+  .pane{position:absolute; left:0; width:100%; background-image:var(--shot); will-change:transform}
+  .pane.top{top:0; height:51.5%; background-size:100% 194.2%; background-position:top center}
+  .pane.bot{bottom:0; height:48.5%; background-size:100% 206.2%; background-position:bottom center}
   .split-caption{text-align:center; color:var(--faint); font-size:.85rem; margin:18px 0 0}
 
   /* feature rows */
@@ -180,12 +185,9 @@
   .req{color:var(--faint); font-size:.82rem; margin:26px 0 0; max-width:60ch}
   .copy-line{color:var(--faint); font-size:.82rem; margin:8px 0 0}
 
-  /* reveal — 기본은 '보이는 상태'다. 스크립트가 관찰자를 붙인 뒤에만 숨겼다 띄운다
-     (스크립트가 죽어도 빈 화면이 되지 않게) */
-  html.anim .r{opacity:0; transform:translateY(26px); transition:opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1)}
-  html.anim .r.in{opacity:1; transform:none}
+  /* 등장 애니메이션은 GSAP 이 맡는다. CSS 로는 아무것도 숨기지 않는다 —
+     스크립트가 없거나 실패해도 페이지는 그대로 다 보인다. */
   @media(prefers-reduced-motion:reduce){
-    html.anim .r{opacity:1; transform:none; transition:none}
     .track{animation:none}
     .hero-stage,.pane{transform:none !important}
     .cta{transition:none}
@@ -222,6 +224,11 @@
         <div class="cta-row r" data-delay="3">
           <a class="cta" id="store" href="https://apps.apple.com/app/id6793656140">
             <span data-i="cta">Download on the App Store</span>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <!-- 안드로이드 버튼: 아래 PLAY_URL 에 주소를 넣는 순간 나타난다 (정식 출시 전엔 숨김) -->
+          <a class="cta ghost" id="play" href="#" hidden>
+            <span data-i="ctaPlay">Get it on Google Play</span>
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
           <span class="cta-note" data-i="ctaNote">Free · No account · iPhone XS/XR or later</span>
@@ -345,6 +352,9 @@
   </div>
 </footer>
 
+<!-- 외부 CDN 대신 repo 안의 사본을 쓴다 — 남의 서버가 죽어도 페이지는 멀쩡하다 -->
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
 <script>
 (function(){
   var STRINGS = {
@@ -354,6 +364,7 @@
       h1a:"Both cameras.", h1b:"One shot.",
       lede:"The view in front of you and your face, captured at the same moment — in a single photo.",
       cta:"Download on the App Store",
+      ctaPlay:"Get it on Google Play",
       ctaNote:"Free · No account · iPhone XS/XR or later",
       s1k:"Simultaneous capture",
       s1h:"Not two photos stitched together.",
@@ -388,6 +399,7 @@
       h1a:"앞뒤 카메라를", h1b:"한 장에.",
       lede:"내 눈앞의 풍경과 내 표정을 같은 순간에 — 한 장으로 담습니다.",
       cta:"App Store에서 받기",
+      ctaPlay:"Google Play에서 받기",
       ctaNote:"무료 · 계정 없음 · iPhone XS/XR 이상",
       s1k:"동시 촬영",
       s1h:"두 장을 이어 붙인 게 아닙니다.",
@@ -422,6 +434,7 @@
       h1a:"前と後ろを、", h1b:"1枚で。",
       lede:"目の前の景色と自分の表情を、同じ瞬間に1枚で。",
       cta:"App Storeで入手",
+      ctaPlay:"Google Playで入手",
       ctaNote:"無料・アカウント不要・iPhone XS/XR以降",
       s1k:"同時撮影",
       s1h:"2枚をつなげたものではありません。",
@@ -451,6 +464,11 @@
       req:"前面・背面カメラの同時撮影に対応したiPhoneが必要です（iPhone XS/XR以降）。"
     }
   };
+
+  // 안드로이드 정식 출시 후 이 한 줄에 주소를 넣으면 버튼이 나온다.
+  // 'https://play.google.com/store/apps/details?id=com.wemera.app'
+  var PLAY_URL = null;
+  if (PLAY_URL) { var playBtn = document.getElementById('play'); playBtn.href = PLAY_URL; playBtn.hidden = false; }
 
   var TEMPLATES = ["Meet 2","Split 2","Side 2","Pola 2","PIP 2","Orb 2","Card 2","Tri 3","Recap 4","Booth 4","Strip 4"];
   var track = document.getElementById('track');
@@ -490,57 +508,110 @@
   var sys = (navigator.language || 'en').slice(0,2).toLowerCase();
   apply(saved || (sys === 'ko' || sys === 'ja' ? sys : 'en'));
 
-  // ---- 등장 애니메이션: 화면에 들어올 때 한 번만 ----
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var targets = document.querySelectorAll('.r');
-  if (!reduce && ('IntersectionObserver' in window)) {
-    document.documentElement.classList.add('anim');   // 여기서부터 숨김이 걸린다
-  }
-  if (reduce || !('IntersectionObserver' in window)) {
-    targets.forEach(function(el){ el.classList.add('in'); });
-  } else {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (!e.isIntersecting) return;
-        var d = parseInt(e.target.getAttribute('data-delay') || '0', 10);
-        e.target.style.transitionDelay = (d * 90) + 'ms';
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
-    targets.forEach(function(el){ io.observe(el); });
-  }
-
-  // ---- 스크롤 연동: 히어로 시차 + 분할 데모가 벌어졌다 붙는다 ----
+  // ---- 헤더 경계선 ----
   var header = document.querySelector('header');
-  var stage = document.getElementById('heroStage');
-  var top = splitDemo.querySelector('.pane.top');
-  var bot = splitDemo.querySelector('.pane.bot');
-  var ticking = false;
+  function headerLine(){ header.classList.toggle('stuck', (window.scrollY||0) > 8); }
+  window.addEventListener('scroll', headerLine, { passive:true });
+  headerLine();
 
-  function frame(){
-    ticking = false;
-    var y = window.scrollY || 0;
-    header.classList.toggle('stuck', y > 8);
-    if (reduce) return;
+  // ---- 움직임: GSAP + ScrollTrigger ----
+  // 없거나(로드 실패) 사용자가 애니메이션을 꺼뒀으면 아무것도 하지 않는다. 페이지는 그대로 다 보인다.
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !window.gsap || !window.ScrollTrigger) return;
 
-    if (y < window.innerHeight * 1.2) {
-      stage.style.transform = 'translateY(' + (y * -0.07).toFixed(2) + 'px)';
-    }
-    var rect = splitDemo.getBoundingClientRect();
-    var vh = window.innerHeight;
-    if (rect.bottom > 0 && rect.top < vh) {
-      // 화면을 지나가는 동안 0 → 1: 두 칸이 벌어졌다가 다시 만난다
-      var p = 1 - Math.min(1, Math.max(0, (rect.top + rect.height * 0.5) / vh));
-      var gap = Math.sin(p * Math.PI) * 3.2;   // 최대 3.2% — 두 창이 잠깐 벌어졌다 다시 만난다
-      top.style.transform = 'translateY(' + (-gap) + '%)';
-      bot.style.transform = 'translateY(' + gap + '%)';
-    }
+  gsap.registerPlugin(ScrollTrigger);
+  var EASE = 'power3.out';
+
+  // 첫 페인트 전에 숨긴다(이 스크립트는 동기 실행이라 깜빡임이 없다)
+  gsap.set('.r', { opacity:0 });
+
+  // 히어로: 문구가 차례로 올라오고, 폰은 기울어진 채 들어와 정면으로 선다
+  var intro = gsap.timeline({ defaults:{ ease:EASE } })
+    .set('h1', { opacity:1 }, 0)   // 줄 단위로 따로 움직이므로 h1 자체는 바로 띄운다
+    .fromTo('.eyebrow', {y:14, opacity:0}, {y:0, opacity:1, duration:.6})
+    .fromTo('h1 span', {y:30, opacity:0}, {y:0, opacity:1, duration:.9, stagger:.09}, '-=.35')
+    .fromTo('.lede',   {y:20, opacity:0}, {y:0, opacity:1, duration:.7}, '-=.55')
+    .fromTo('.cta-row',{y:16, opacity:0}, {y:0, opacity:1, duration:.7}, '-=.45')
+    .fromTo('#heroStage', {y:70, rotate:-3, scale:.94, opacity:0}, {y:0, rotate:0, scale:1, opacity:1, duration:1.2}, '-=1');
+
+  // 히어로 폰은 스크롤을 따라 천천히 밀린다
+  gsap.to('#heroStage', {
+    yPercent:-9, ease:'none',
+    scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:.6 }
+  });
+
+  // 동시 촬영 데모: 화면에 고정해두고, 스크롤하는 동안 두 창이 벌어졌다 다시 만난다
+  var panes = gsap.timeline()
+    .to('.pane.top', {yPercent:-7, ease:'none'}, 0)
+    .to('.pane.bot', {yPercent: 7, ease:'none'}, 0)
+    .to('.pane.top', {yPercent:0, ease:'none'}, 1)
+    .to('.pane.bot', {yPercent:0, ease:'none'}, 1);
+
+  gsap.fromTo('#splitDemo', {opacity:0, y:40}, {
+    opacity:1, y:0, duration:.9, ease:EASE,
+    scrollTrigger:{ trigger:'#splitDemo', start:'top 82%' }
+  });
+
+  // 세로가 넉넉할 때만 고정한다 — 짧은 화면에서 고정하면 답답해진다
+  if (window.innerHeight >= 720) {
+    ScrollTrigger.create({
+      trigger:'#splitDemo', start:'center center', end:'+=760',
+      pin:true, pinSpacing:true, scrub:.5, animation:panes
+    });
+  } else {
+    ScrollTrigger.create({
+      trigger:'#splitDemo', start:'top bottom', end:'bottom top',
+      scrub:.5, animation:panes
+    });
   }
-  function onScroll(){ if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
-  window.addEventListener('scroll', onScroll, { passive:true });
-  window.addEventListener('resize', onScroll, { passive:true });
-  frame();
+
+  // 기능 줄: 문구가 올라오고, 스크린샷은 살짝 기울어진 채 들어와 제자리를 찾는다
+  gsap.utils.toArray('.row').forEach(function(row){
+    var shot = row.querySelector('.shot');
+    var bits = row.querySelectorAll('.copy > .r');
+    var dir  = row.classList.contains('rev') ? -1 : 1;
+
+    gsap.timeline({ defaults:{ease:EASE}, scrollTrigger:{ trigger:row, start:'top 78%' } })
+      .fromTo(bits, {y:26, opacity:0}, {y:0, opacity:1, duration:.75, stagger:.09})
+      .fromTo(shot, {y:80, opacity:0, rotate:dir*3.5, scale:.95}, {y:0, opacity:1, rotate:0, scale:1, duration:1.1}, '-=.55');
+
+    gsap.to(shot, {
+      yPercent:-7, ease:'none',
+      scrollTrigger:{ trigger:row, start:'top bottom', end:'bottom top', scrub:.7 }
+    });
+  });
+
+  // 카드 3장 · 무료 블록
+  gsap.utils.toArray('.card').forEach(function(card, i){
+    gsap.fromTo(card, {y:30, opacity:0}, {
+      y:0, opacity:1, duration:.7, ease:EASE, delay:i*.08,
+      scrollTrigger:{ trigger:card, start:'top 88%' }
+    });
+  });
+  gsap.utils.toArray('.band > .wrap > .kicker.r, .band > .wrap > h2.r, .band > .wrap > .body.r').forEach(function(el){
+    gsap.fromTo(el, {y:24, opacity:0}, {
+      y:0, opacity:1, duration:.75, ease:EASE,
+      scrollTrigger:{ trigger:el, start:'top 88%' }
+    });
+  });
+  gsap.fromTo('.free', {y:40, opacity:0, scale:.97}, {
+    y:0, opacity:1, scale:1, duration:.9, ease:EASE,
+    scrollTrigger:{ trigger:'.free', start:'top 85%' }
+  });
+
+  // 언어를 바꾸면 이미지가 갈리므로 위치를 다시 잰다
+  langButtons.forEach(function(b){
+    b.addEventListener('click', function(){ setTimeout(function(){ ScrollTrigger.refresh(); }, 60); });
+  });
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+
+  // 안전망: 보이는 탭인데도 4초 뒤까지 인트로가 한 프레임도 못 돌았다면
+  // (애니메이션 엔진이 어떤 이유로든 죽은 것) 숨김을 걷어내고 그냥 다 보여준다.
+  setTimeout(function(){
+    if (document.visibilityState === 'visible' && intro.progress() === 0) {
+      gsap.set('.r', { opacity:1, y:0, rotate:0, scale:1 });
+    }
+  }, 4000);
 })();
 </script>
 </body>
