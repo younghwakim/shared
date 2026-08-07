@@ -1,6 +1,6 @@
 {
   "ads": {
-    "ios": true,
+    "ios": false,
     "android": true
   }
 }
