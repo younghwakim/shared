@@ -111,23 +111,6 @@ button.tpl, button.primary-tpl { font-family: inherit; }
 .state p { color: var(--ink2); font-size: 14px; line-height: 1.6; }
 .state p b { color: var(--ink); }
 
-/* ── 응답 안내: 실제 도착한 알림으로 오해되지 않게 설명 먼저 + 예시 배지 ── */
-.reply-tease { margin-top: 30px; }
-.rt-lead { text-align: center; font-size: 13.5px; color: var(--ink2);
-  margin-bottom: 12px; line-height: 1.6; }
-.rt-lead b { color: var(--ink); }
-.rt-noti { background: var(--card); border: 1.5px dashed var(--line); border-radius: 14px;
-  padding: 13px 15px; display: flex; align-items: center; gap: 11px; text-align: left;
-  position: relative; }
-.rt-badge { position: absolute; top: -9px; right: 14px; background: var(--bg);
-  border: 1px solid var(--line); color: var(--ink3); font-size: 10.5px; font-weight: 800;
-  padding: 2px 9px; border-radius: 999px; }
-.rt-icon { width: 34px; height: 34px; border-radius: 50%; background: var(--blue);
-  display: grid; place-items: center; flex-shrink: 0; }
-.rt-text { flex: 1; }
-.rt-title { font-size: 11.5px; font-weight: 700; color: var(--ink3); margin-bottom: 2px; }
-.rt-body { font-size: 14.5px; font-weight: 700; color: var(--ink); }
-
 /* ── 설치 카드 (Google Play / 아이폰 수요) ── */
 /* 설치 카드가 무관한 광고로 읽히지 않게 — 방금 한 행동과 잇는 맥락 문장 */
 .install-cap { text-align: center; font-size: 13.5px; color: var(--ink2);
@@ -202,21 +185,8 @@ button.tpl, button.primary-tpl { font-family: inherit; }
       <p id="doneDetail"></p>
     </div>
 
-    <!-- 웹 발신은 답장을 못 받는다 — 설명을 먼저 두고, 말풍선은 예시임을 배지로 명시 -->
-    <div class="reply-tease">
-      <p class="rt-lead"><b>부루다 앱</b>에서 보내면<br>차주의 응답을 알림으로 받을 수 있어요</p>
-      <div class="rt-noti">
-        <span class="rt-badge">예시</span>
-        <span class="rt-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="7" y="9" width="14" height="8" rx="1.6"/><circle cx="10" cy="13" r="0.7" fill="#fff" stroke="none"/><circle cx="18" cy="13" r="0.7" fill="#fff" stroke="none"/><path d="M4.5 10.5 a4.5 4.5 0 0 0 0 5" stroke-linecap="round"/><path d="M2.3 8.8 a7.2 7.2 0 0 0 0 8.4" stroke-linecap="round"/></svg></span>
-        <span class="rt-text">
-          <span class="rt-title">차주의 응답</span><br>
-          <!-- 차주가 앱에서 실제로 누르는 응답 버튼 문구 그대로 -->
-          <span class="rt-body">🏃 바로 나갈게요!</span>
-        </span>
-      </div>
-    </div>
-
-    <p class="install-cap">방금 보낸 차량 알림이 <b>부루다</b>예요</p>
+    <!-- 알림 모양 흉내는 어떤 형태든 '실제로 온 응답'으로 오해된다 — 문장으로만 안내 -->
+    <p class="install-cap">방금 보낸 차량 알림이 <b>부루다</b>예요<br>앱에서 보내면 차주의 응답까지 알림으로 받을 수 있어요</p>
     <div class="install">
       <span class="install-icon" id="doneInstallIcon"></span>
       <span class="install-text"><b>부루다</b><span id="doneInstallSub"></span></span>
