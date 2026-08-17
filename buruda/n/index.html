@@ -103,9 +103,10 @@ button.tpl, button.primary-tpl { font-family: inherit; }
   display: grid; place-items: center; margin: 0 auto 16px; }
 .done-ring .inner { width: 50px; height: 50px; border-radius: 50%; background: var(--blue);
   color: #fff; font-size: 26px; font-weight: 900; display: grid; place-items: center; }
-.dead-plate { border: 3px dashed var(--line); border-radius: 10px; padding: 12px;
-  text-align: center; font-size: 28px; font-weight: 900; letter-spacing: 4px;
-  color: var(--ink3); margin-bottom: 18px; background: var(--card); }
+.warn-ring { width: 72px; height: 72px; border-radius: 50%; background: var(--blue-soft);
+  display: grid; place-items: center; margin: 0 auto 16px; }
+.warn-ring .inner { width: 50px; height: 50px; border-radius: 50%; background: var(--ink3);
+  color: var(--card); font-size: 26px; font-weight: 900; display: grid; place-items: center; }
 .state h2 { font-size: 21px; font-weight: 900; letter-spacing: -0.4px; margin-bottom: 8px; }
 .state p { color: var(--ink2); font-size: 14px; line-height: 1.6; }
 .state p b { color: var(--ink); }
@@ -128,6 +129,11 @@ button.tpl, button.primary-tpl { font-family: inherit; }
 .rt-body { font-size: 14.5px; font-weight: 700; color: var(--ink); }
 
 /* ── 설치 카드 (Google Play / 아이폰 수요) ── */
+/* 설치 카드가 무관한 광고로 읽히지 않게 — 방금 한 행동과 잇는 맥락 문장 */
+.install-cap { text-align: center; font-size: 13.5px; color: var(--ink2);
+  margin-top: 30px; line-height: 1.6; }
+.install-cap b { color: var(--ink); }
+.install-cap + .install { margin-top: 12px; }
 .install { margin-top: 30px; background: var(--card); border: 1.5px solid var(--line);
   border-radius: 14px; padding: 15px; display: flex; align-items: center; gap: 12px;
   text-align: left; }
@@ -210,6 +216,7 @@ button.tpl, button.primary-tpl { font-family: inherit; }
       </div>
     </div>
 
+    <p class="install-cap">방금 보낸 차량 알림이 <b>부루다</b>예요</p>
     <div class="install">
       <span class="install-icon" id="doneInstallIcon"></span>
       <span class="install-text"><b>부루다</b><span id="doneInstallSub"></span></span>
@@ -220,10 +227,11 @@ button.tpl, button.primary-tpl { font-family: inherit; }
   <!-- 막힘 화면 -->
   <section id="blocked" class="hidden">
     <div class="state">
-      <div class="dead-plate">— — —</div>
+      <div class="warn-ring"><div class="inner">!</div></div>
       <h2 id="blockedTitle"></h2>
       <p id="blockedDetail"></p>
     </div>
+    <p class="install-cap"><b>부루다 앱</b>에서는 번호판 입력으로<br>알림을 보낼 수 있어요</p>
     <div class="install">
       <span class="install-icon" id="blockInstallIcon"></span>
       <span class="install-text"><b>부루다</b><span id="blockInstallSub"></span></span>
