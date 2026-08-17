@@ -96,6 +96,8 @@ button.tpl, button.primary-tpl { font-family: inherit; }
   background: var(--blue); color: #fff; font-family: inherit; letter-spacing: -0.2px; }
 .cta:disabled { opacity: 0.4; cursor: default; }
 .cta-note { text-align: center; font-size: 11px; color: var(--ink3); margin-top: 7px; }
+.cta-remain { text-align: center; font-size: 11.5px; color: var(--ink3); margin-bottom: 8px; }
+.cta-remain b { color: var(--ink2); }
 
 /* ── 완료/막힘 화면 ── */
 .state { text-align: center; padding: 46px 6px 10px; }
@@ -212,6 +214,7 @@ button.tpl, button.primary-tpl { font-family: inherit; }
 
 <div class="bar" id="sendBar" style="display:none">
   <div class="bar-inner">
+    <div class="cta-remain hidden" id="remainLine"></div>
     <button class="cta" id="sendBtn">「차를 빼주세요」 보내기</button>
     <div class="cta-note">보내는 사람 정보는 차주에게 전달되지 않습니다</div>
   </div>
@@ -368,6 +371,16 @@ button.tpl, button.primary-tpl { font-family: inherit; }
         if (!v.canNotify) {
           showBlocked('지금은 알림을 보낼 수 없어요', '차주가 알림을 받지 않는 상태예요. 잠시 후 다시 시도해보세요.');
           return;
+        }
+        // 일일 상한을 이미 다 쓴 경우 — 전송 화면 대신 미리 안내
+        if (typeof v.webRemainingToday === 'number' && v.webRemainingToday <= 0) {
+          showBlocked('오늘은 이 차량에 보낼 수 없어요',
+            '이 페이지로 보낼 수 있는 횟수를 오늘은 다 썼어요. 내일 다시 시도해주세요.');
+          return;
+        }
+        if (typeof v.webRemainingToday === 'number') {
+          $('remainLine').innerHTML = '오늘 <b>' + v.webRemainingToday + '회</b> 더 보낼 수 있어요';
+          $('remainLine').classList.remove('hidden');
         }
         $('plate').textContent = v.maskedPlate;
         if (v.ownerMessage) {
