@@ -104,6 +104,17 @@ button.tpl, button.primary-tpl { font-family: inherit; }
 .state p { color: var(--ink2); font-size: 14px; line-height: 1.6; }
 .state p b { color: var(--ink); }
 
+/* ── 응답 미리보기: 앱에서 보내면 받게 되는 알림 모양 ── */
+.reply-tease { margin-top: 30px; }
+.rt-noti { background: var(--card); border: 1.5px solid var(--line); border-radius: 14px;
+  padding: 13px 15px; display: flex; align-items: center; gap: 11px; text-align: left; }
+.rt-icon { width: 34px; height: 34px; border-radius: 50%; background: var(--blue);
+  display: grid; place-items: center; flex-shrink: 0; }
+.rt-text { flex: 1; }
+.rt-title { font-size: 11.5px; font-weight: 700; color: var(--ink3); margin-bottom: 2px; }
+.rt-body { font-size: 14.5px; font-weight: 700; color: var(--ink); }
+.rt-cap { text-align: center; font-size: 12.5px; color: var(--ink2); margin-top: 9px; line-height: 1.5; }
+
 /* ── 설치 카드 (Google Play / 아이폰 수요) ── */
 .install { margin-top: 30px; background: var(--card); border: 1.5px solid var(--line);
   border-radius: 14px; padding: 15px; display: flex; align-items: center; gap: 12px;
@@ -170,6 +181,19 @@ button.tpl, button.primary-tpl { font-family: inherit; }
       <h2>알림을 보냈어요</h2>
       <p id="doneDetail"></p>
     </div>
+
+    <!-- 웹 발신은 답장을 못 받는다 — 앱에서 보내면 받게 되는 응답 알림을 그대로 보여준다 -->
+    <div class="reply-tease">
+      <div class="rt-noti">
+        <span class="rt-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="7" y="9" width="14" height="8" rx="1.6"/><circle cx="10" cy="13" r="0.7" fill="#fff" stroke="none"/><circle cx="18" cy="13" r="0.7" fill="#fff" stroke="none"/><path d="M4.5 10.5 a4.5 4.5 0 0 0 0 5" stroke-linecap="round"/><path d="M2.3 8.8 a7.2 7.2 0 0 0 0 8.4" stroke-linecap="round"/></svg></span>
+        <span class="rt-text">
+          <span class="rt-title">부루다 · 응답이 왔어요!</span><br>
+          <span class="rt-body">차주분이 바로 나오신대요!</span>
+        </span>
+      </div>
+      <p class="rt-cap">부루다 앱에서 보내면 차주의 응답을<br>이렇게 알림으로 받을 수 있어요</p>
+    </div>
+
     <div class="install">
       <span class="install-icon" id="doneInstallIcon"></span>
       <span class="install-text"><b>부루다</b><span id="doneInstallSub"></span></span>
@@ -353,7 +377,7 @@ button.tpl, button.primary-tpl { font-family: inherit; }
       .then(function (r) {
         if (r.ok) {
           var title = (r.body.data && r.body.data.templateTitle) || selectedTitle;
-          $('doneDetail').innerHTML = '<b>「' + title + '」</b> 메시지가<br>차주 휴대폰으로 전송됐어요.<br>잠시 기다려 주세요.';
+          $('doneDetail').innerHTML = '<b>「' + title + '」</b> 메시지가<br>차주 휴대폰으로 전송됐어요.';
           show('done');
           return;
         }
