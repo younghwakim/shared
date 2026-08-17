@@ -159,8 +159,38 @@ h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 6
   var selectedId = null;
   var sending = false;
 
-  $('storeDone').href = STORE;
-  $('storeBar').href = STORE;
+  // 아이폰은 아직 앱이 없다 — Play 스토어로 보내면 오해가 생기므로
+  // 설치 버튼을 "출시 요청"으로 바꾸고 수요만 집계한다
+  var IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+    || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var IOS_ASKED_KEY = 'buruda_ios_interest';
+
+  function setupInstallButton(el, subtitleEl) {
+    if (!IS_IOS) {
+      el.href = STORE;
+      return;
+    }
+    if (subtitleEl) subtitleEl.textContent = '아이폰 버전은 준비 중이에요';
+    var asked = false;
+    try { asked = !!localStorage.getItem(IOS_ASKED_KEY); } catch (e) {}
+    el.removeAttribute('href');
+    el.style.cursor = 'pointer';
+    el.textContent = asked ? '출시 요청됨' : '아이폰 출시 요청';
+    if (asked) return;
+    el.onclick = function () {
+      el.textContent = '출시 요청됨';
+      el.onclick = null;
+      try { localStorage.setItem(IOS_ASKED_KEY, '1'); } catch (e) {}
+      fetch(API + '/v1/web/metrics', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ metric: 'IOS_INSTALL_INTEREST' })
+      }).catch(function () {});
+    };
+  }
+
+  setupInstallButton($('storeDone'), document.querySelector('#done .install-text span'));
+  setupInstallButton($('storeBar'), null);
 
   function show(id) {
     ['loading', 'notify', 'done', 'blocked'].forEach(function (s) {
