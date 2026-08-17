@@ -46,6 +46,12 @@ main { max-width: 480px; margin: 0 auto; padding: 14px 14px 120px; }
   font-size: 13px; line-height: 1.5; }
 .cp-msg b { display: block; font-size: 11px; opacity: .75; margin-bottom: 2px; }
 
+/* ── 다른 차 안내 (조용한 탈출구) ── */
+.mismatch { text-align: center; font-size: 12.5px; color: var(--ink3);
+  margin-top: 12px; line-height: 1.6; }
+.mismatch a, .mismatch .link { color: var(--blue); font-weight: 700;
+  text-decoration: none; cursor: pointer; }
+
 /* ── 메시지 선택 ── */
 .sec-label { font-size: 13px; font-weight: 800; color: var(--ink2);
   letter-spacing: .4px; margin: 16px 2px 8px; }
@@ -161,6 +167,8 @@ button.tpl, button.primary-tpl { font-family: inherit; }
       <div class="cp-check">앞 차량의 번호판 뒷자리와 맞는지 확인하세요</div>
       <div class="cp-msg hidden" id="ownerMsg"><b>차주가 남긴 메시지</b><span id="ownerMsgText"></span></div>
     </div>
+
+    <p class="mismatch" id="mismatch"></p>
 
     <div class="sec-label">보낼 메시지</div>
     <button class="primary-tpl" id="primaryTpl">
@@ -292,6 +300,31 @@ button.tpl, button.primary-tpl { font-family: inherit; }
   }
   setupInstall($('doneInstallIcon'), $('doneInstallSub'), $('doneInstallBtn'));
   setupInstall($('blockInstallIcon'), $('blockInstallSub'), $('blockInstallBtn'));
+
+  // 번호판이 다른 차인 경우의 탈출구 — 입력창 대신 앱으로 안내
+  function setupMismatch(el) {
+    if (!IS_IOS) {
+      el.innerHTML = '앞 차와 번호판이 다른가요?<br><a href="' + STORE
+        + '">부루다 앱</a>에서는 번호판 입력으로 보낼 수 있어요';
+      return;
+    }
+    var asked = false;
+    try { asked = !!localStorage.getItem(IOS_ASKED_KEY); } catch (e) {}
+    el.innerHTML = '앞 차와 번호판이 다른가요? 번호판 입력은 부루다 앱에서 할 수 있어요<br>'
+      + '<span class="link" id="mismatchIos">' + (asked ? '아이폰 출시 요청됨' : '아이폰 출시 요청') + '</span>';
+    if (asked) return;
+    $('mismatchIos').onclick = function () {
+      $('mismatchIos').textContent = '아이폰 출시 요청됨';
+      $('mismatchIos').onclick = null;
+      try { localStorage.setItem(IOS_ASKED_KEY, '1'); } catch (e) {}
+      fetch(API + '/v1/web/metrics', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ metric: 'IOS_INSTALL_INTEREST' })
+      }).catch(function () {});
+    };
+  }
+  setupMismatch($('mismatch'));
 
   function show(id) {
     ['loading', 'notify', 'done', 'blocked'].forEach(function (s) {
