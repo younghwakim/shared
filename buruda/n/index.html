@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>부루다 — 차주에게 알림 보내기</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%233182F6'/%3E%3Ctext x='50' y='68' font-size='52' font-weight='800' text-anchor='middle' fill='%23fff' font-family='sans-serif'%3EP%3C/text%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #FDFBF8; --card: #FFFFFF; --text: #191F28; --text2: #505967;
+  --line: #E5E8EB; --primary: #3182F6; --primary-dark: #1B64DA;
+  --primary-soft: #E8F0FE; --danger: #EF4444; --ok: #16A34A;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121212; --card: #1E1E1E; --text: #F5F6F8; --text2: #A8B0BA;
+    --line: #33383F; --primary: #60A5FA; --primary-dark: #93C5FD;
+    --primary-soft: #1E3A5F; --ok: #4ADE80;
+  }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; }
+main { max-width: 480px; margin: 0 auto; padding: 20px 20px 120px; }
+
+.brand { display: flex; align-items: center; gap: 8px; padding: 4px 0 20px; }
+.brand-mark { width: 26px; height: 26px; border-radius: 7px; background: var(--primary);
+  color: #fff; font-weight: 800; font-size: 15px; display: grid; place-items: center; }
+.brand-name { font-weight: 800; font-size: 17px; letter-spacing: -0.3px; }
+
+h1 { font-size: 22px; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 6px; }
+.sub { color: var(--text2); font-size: 14px; line-height: 1.5; }
+
+.plate-box { margin: 20px 0 6px; background: var(--card); border: 1.5px solid var(--line);
+  border-radius: 14px; padding: 16px; display: flex; align-items: center; gap: 14px; }
+.plate { font-size: 26px; font-weight: 800; letter-spacing: 2px; font-variant-numeric: tabular-nums;
+  border: 2px solid var(--text); border-radius: 8px; padding: 6px 14px; white-space: nowrap; }
+.plate-note { color: var(--text2); font-size: 13px; line-height: 1.5; }
+
+.owner-msg { margin: 10px 0 0; background: var(--primary-soft); border-radius: 12px;
+  padding: 12px 14px; font-size: 14px; line-height: 1.5; }
+.owner-msg b { font-size: 12px; color: var(--primary); display: block; margin-bottom: 3px; }
+
+.section-label { margin: 24px 0 10px; font-size: 14px; font-weight: 700; color: var(--text2); }
+.tpl { display: block; width: 100%; text-align: left; background: var(--card);
+  border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-bottom: 8px;
+  font-size: 16px; font-weight: 600; color: var(--text); cursor: pointer; }
+.tpl.sel { border-color: var(--primary); background: var(--primary-soft); }
+.tpl .desc { display: block; font-size: 13px; font-weight: 400; color: var(--text2); margin-top: 2px; }
+
+.send-bar { position: fixed; left: 0; right: 0; bottom: 0; background: var(--bg);
+  border-top: 1px solid var(--line); padding: 12px 20px calc(12px + env(safe-area-inset-bottom)); }
+.send-bar-inner { max-width: 480px; margin: 0 auto; }
+.btn { display: block; width: 100%; border: 0; border-radius: 14px; padding: 16px;
+  font-size: 17px; font-weight: 700; cursor: pointer; text-align: center; text-decoration: none; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:disabled { opacity: 0.4; cursor: default; }
+
+.state { text-align: center; padding: 48px 0 24px; }
+.state .icon { font-size: 44px; margin-bottom: 14px; }
+.state h2 { font-size: 20px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.3px; }
+.state p { color: var(--text2); font-size: 14px; line-height: 1.6; }
+.spinner { width: 28px; height: 28px; margin: 60px auto; border: 3px solid var(--line);
+  border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.install { margin-top: 28px; background: var(--card); border: 1.5px solid var(--line);
+  border-radius: 14px; padding: 16px; display: flex; align-items: center; gap: 12px; text-align: left; }
+.install .brand-mark { width: 40px; height: 40px; border-radius: 11px; font-size: 21px; flex-shrink: 0; }
+.install-text { flex: 1; }
+.install-text b { display: block; font-size: 15px; margin-bottom: 2px; }
+.install-text span { font-size: 13px; color: var(--text2); }
+.install a { flex-shrink: 0; background: var(--primary); color: #fff; text-decoration: none;
+  font-size: 14px; font-weight: 700; padding: 9px 16px; border-radius: 10px; }
+
+.hidden { display: none; }
+.err-inline { color: var(--danger); font-size: 14px; text-align: center; margin-top: 10px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="brand"><div class="brand-mark">P</div><div class="brand-name">부루다</div></div>
+
+  <div id="loading"><div class="spinner"></div></div>
+
+  <section id="notify" class="hidden">
+    <h1>차주에게 알림 보내기</h1>
+    <p class="sub">전화번호 없이 차주 휴대폰으로 알림이 갑니다. 보내는 사람 정보는 전달되지 않습니다.</p>
+
+    <div class="plate-box">
+      <div class="plate" id="plate"></div>
+      <div class="plate-note">번호판 뒷자리가 앞의 차와<br>맞는지 확인하세요</div>
+    </div>
+    <div class="owner-msg hidden" id="ownerMsg"><b>차주가 남긴 메시지</b><span id="ownerMsgText"></span></div>
+
+    <div class="section-label">보낼 메시지</div>
+    <div id="tplList"></div>
+    <p class="err-inline hidden" id="sendErr"></p>
+  </section>
+
+  <section id="done" class="hidden">
+    <div class="state">
+      <div class="icon">✅</div>
+      <h2>알림을 보냈어요</h2>
+      <p id="doneDetail"></p>
+    </div>
+    <div class="install">
+      <div class="brand-mark">P</div>
+      <div class="install-text"><b>부루다</b><span>내 차에도 번호판 알림 받기</span></div>
+      <a id="storeDone" href="#">설치</a>
+    </div>
+  </section>
+
+  <section id="blocked" class="hidden">
+    <div class="state">
+      <div class="icon">🔕</div>
+      <h2 id="blockedTitle"></h2>
+      <p id="blockedDetail"></p>
+    </div>
+  </section>
+</main>
+
+<div class="send-bar" id="sendBar" style="display:none">
+  <div class="send-bar-inner">
+    <button class="btn btn-primary" id="sendBtn" disabled>알림 보내기</button>
+  </div>
+</div>
+<div class="send-bar" id="installBar" style="display:none">
+  <div class="send-bar-inner">
+    <a class="btn btn-primary" id="storeBar" href="#">부루다 앱 설치</a>
+  </div>
+</div>
+
+<script>
+(function () {
+  var API = 'https://buruda-api-887421056838.asia-northeast3.run.app';
+  var STORE = 'https://play.google.com/store/apps/details?id=com.buruda.app';
+  // 서버 TemplateCode enum(1~6)과 동일해야 한다
+  var TEMPLATES = [
+    { id: 1, title: '차를 빼주세요', desc: '차량이 출입을 막고 있어요' },
+    { id: 2, title: '비상등이 켜져 있어요', desc: '비상등을 확인해주세요' },
+    { id: 3, title: '창문이 열려 있어요', desc: '차량 창문을 확인해주세요' },
+    { id: 4, title: '트렁크가 열려 있어요', desc: '트렁크를 확인해주세요' },
+    { id: 5, title: '타이어에 이상이 있어요', desc: '타이어 상태를 확인해주세요' },
+    { id: 6, title: '주변이 위험해요', desc: '차량 주변 상황을 확인해주세요' }
+  ];
+  var ERROR_MESSAGES = {
+    R001: null, // 무효 코드 → blocked 화면에서 별도 처리
+    V004: '차주가 지금은 알림을 받지 않도록 설정해 두었어요.',
+    I006: '차주가 지금은 알림을 받을 수 없는 상태예요.',
+    I008: '차주가 알림 수신을 꺼둔 상태예요.',
+    I007: '요청이 너무 많아요. 잠시 후 다시 시도해주세요.',
+    I014: '오늘은 이 차량에 더 이상 보낼 수 없어요. 내일 다시 시도해주세요.'
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var code = new URLSearchParams(location.search).get('c') || '';
+  var selectedId = null;
+  var sending = false;
+
+  $('storeDone').href = STORE;
+  $('storeBar').href = STORE;
+
+  function show(id) {
+    ['loading', 'notify', 'done', 'blocked'].forEach(function (s) {
+      $(s).classList.toggle('hidden', s !== id);
+    });
+    $('sendBar').style.display = id === 'notify' ? 'block' : 'none';
+    $('installBar').style.display = (id === 'blocked') ? 'block' : 'none';
+  }
+
+  function showBlocked(title, detail) {
+    $('blockedTitle').textContent = title;
+    $('blockedDetail').textContent = detail;
+    show('blocked');
+  }
+
+  function renderTemplates() {
+    var list = $('tplList');
+    TEMPLATES.forEach(function (t) {
+      var b = document.createElement('button');
+      b.className = 'tpl';
+      b.innerHTML = t.title + '<span class="desc">' + t.desc + '</span>';
+      b.onclick = function () {
+        selectedId = t.id;
+        list.querySelectorAll('.tpl').forEach(function (el) { el.classList.remove('sel'); });
+        b.classList.add('sel');
+        $('sendBtn').disabled = false;
+        $('sendErr').classList.add('hidden');
+      };
+      list.appendChild(b);
+    });
+  }
+
+  function load() {
+    if (!code) {
+      showBlocked('잘못된 접근이에요', '부루다 카드의 QR 코드를 카메라로 스캔해서 열어주세요.');
+      return;
+    }
+    fetch(API + '/v1/web/vehicles/' + encodeURIComponent(code))
+      .then(function (res) { return res.json().then(function (body) { return { ok: res.ok, body: body }; }); })
+      .then(function (r) {
+        if (!r.ok) {
+          showBlocked('유효하지 않은 QR 코드예요',
+            '카드가 오래됐거나 차주가 등록을 해제했을 수 있어요.');
+          return;
+        }
+        var v = r.body.data;
+        if (!v.canNotify) {
+          showBlocked('지금은 알림을 보낼 수 없어요',
+            '차주가 알림을 받지 않는 상태예요. 잠시 후 다시 시도해보세요.');
+          return;
+        }
+        $('plate').textContent = v.maskedPlate;
+        if (v.ownerMessage) {
+          $('ownerMsgText').textContent = v.ownerMessage;
+          $('ownerMsg').classList.remove('hidden');
+        }
+        renderTemplates();
+        show('notify');
+      })
+      .catch(function () {
+        showBlocked('연결에 실패했어요', '네트워크 상태를 확인하고 페이지를 새로고침해주세요.');
+      });
+  }
+
+  $('sendBtn').onclick = function () {
+    if (!selectedId || sending) return;
+    sending = true;
+    $('sendBtn').disabled = true;
+    $('sendBtn').textContent = '보내는 중…';
+    fetch(API + '/v1/web/notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ webCode: code, templateId: selectedId })
+    })
+      .then(function (res) { return res.json().then(function (body) { return { ok: res.ok, body: body }; }); })
+      .then(function (r) {
+        if (r.ok) {
+          var title = (r.body.data && r.body.data.templateTitle) || '';
+          $('doneDetail').textContent =
+            (title ? '「' + title + '」 메시지가 ' : '') + '차주 휴대폰으로 전송됐어요.';
+          show('done');
+          return;
+        }
+        var known = ERROR_MESSAGES[r.body.code];
+        if (r.body.code === 'R001') {
+          showBlocked('유효하지 않은 QR 코드예요', '카드가 오래됐거나 차주가 등록을 해제했을 수 있어요.');
+          return;
+        }
+        fail(known || '전송에 실패했어요. 잠시 후 다시 시도해주세요.');
+      })
+      .catch(function () { fail('네트워크 오류로 전송하지 못했어요. 다시 시도해주세요.'); });
+  };
+
+  function fail(message) {
+    sending = false;
+    $('sendBtn').disabled = false;
+    $('sendBtn').textContent = '알림 보내기';
+    $('sendErr').textContent = message;
+    $('sendErr').classList.remove('hidden');
+  }
+
+  load();
+})();
+</script>
+</body>
+</html>
