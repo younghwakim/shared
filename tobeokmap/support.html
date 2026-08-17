@@ -5,16 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>뚜벅맵 — 지원</title>
 <style>
-  :root { color-scheme: light dark; }
+  :root { color-scheme: light dark; --brand: #108A72; --brand-strong: #0C6E5B; }
+  @media (prefers-color-scheme: dark) { :root { --brand: #3BB99E; --brand-strong: #3BB99E; } }
   body { font-family: -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-         max-width: 680px; margin: 0 auto; padding: 32px 20px 80px; line-height: 1.7; }
-  h1 { font-size: 1.6rem; margin-bottom: 0; }
-  h2 { font-size: 1.15rem; margin-top: 2.2em; }
+         max-width: 680px; margin: 0 auto; padding: 40px 20px 80px; line-height: 1.7; }
+  .app { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--brand-strong);
+         font-size: .95rem; margin-bottom: 28px; }
+  .app::before { content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--brand); }
+  h1 { font-size: 1.6rem; margin-bottom: 0; letter-spacing: -0.02em; }
+  h2 { font-size: 1.15rem; margin-top: 2.2em; padding-top: 1.2em; border-top: 1px solid rgba(128,128,128,.2); }
+  a { color: var(--brand-strong); }
 </style>
 </head>
 <body>
 
-<h1>뚜벅맵 지원</h1>
+<div class="app">뚜벅맵</div>
+<h1>지원</h1>
 
 <p>뚜벅맵은 지하철 환승 없이 갈 수 있는 카페·식당을 지도에서 찾아주는 앱입니다.</p>
 

@@ -5,17 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>뚜벅맵 — 개인정보 처리방침</title>
 <style>
-  :root { color-scheme: light dark; }
+  :root { color-scheme: light dark; --brand: #108A72; --brand-strong: #0C6E5B; }
+  @media (prefers-color-scheme: dark) { :root { --brand: #3BB99E; --brand-strong: #3BB99E; } }
   body { font-family: -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-         max-width: 680px; margin: 0 auto; padding: 32px 20px 80px; line-height: 1.7; }
-  h1 { font-size: 1.6rem; margin-bottom: 0; }
-  h2 { font-size: 1.15rem; margin-top: 2.2em; }
+         max-width: 680px; margin: 0 auto; padding: 40px 20px 80px; line-height: 1.7; }
+  .app { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--brand-strong);
+         font-size: .95rem; margin-bottom: 28px; }
+  .app::before { content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--brand); }
+  h1 { font-size: 1.6rem; margin-bottom: 0; letter-spacing: -0.02em; }
+  h2 { font-size: 1.15rem; margin-top: 2.2em; padding-top: 1.2em; border-top: 1px solid rgba(128,128,128,.2); }
   .updated { color: #888; font-size: .85rem; }
+  a { color: var(--brand-strong); }
 </style>
 </head>
 <body>
 
-<h1>뚜벅맵 개인정보 처리방침</h1>
+<div class="app">뚜벅맵</div>
+<h1>개인정보 처리방침</h1>
 <p class="updated">최종 수정: 2026년 8월 18일</p>
 
 <p>뚜벅맵은 개인정보를 수집·저장하는 서버를 운영하지 않습니다. 이 문서는 앱이 어떤 정보를
