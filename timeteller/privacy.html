@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>타임머신 타고 모의투자 — 개인정보처리방침</title>
+<title>타임머신 타고 모의투자 — 개인정보처리방침 · Privacy Policy</title>
 <style>
   :root { color-scheme: light dark; }
   body { font-family: -apple-system, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
          max-width: 680px; margin: 0 auto; padding: 32px 20px 80px; line-height: 1.7; }
-  h1 { font-size: 1.5rem; margin-bottom: 0; }
+  h1 { font-size: 1.4rem; margin-bottom: 0; }
   h2 { font-size: 1.15rem; margin-top: 2.2em; }
   h3 { font-size: 1rem; margin-top: 1.6em; }
   .updated { color: #888; font-size: .85rem; }
@@ -17,13 +17,27 @@
   ul { padding-left: 1.2em; }
   a { color: #1d8f7c; }
   @media (prefers-color-scheme: dark) { a { color: #5EEAD4; } }
+  .lang { border-top: 1px solid #8884; margin-top: 3em; padding-top: 1em; }
+  nav button { margin-right: 8px; padding: 6px 14px; border: 1px solid #8886; border-radius: 999px;
+               background: transparent; color: inherit; font-size: .9rem; cursor: pointer; }
+  nav button.on { background: #2BB8A0; border-color: #2BB8A0; color: #10141f; font-weight: 700; }
+  /* JS가 있을 때만 한 언어씩 표시 — JS 없으면(심사 봇 등) 두 언어 전체 나열로 폴백 */
+  html.js section[hidden] { display: none; }
+  html.js .lang { border-top: 0; margin-top: 0; padding-top: 0; }
 </style>
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
-<h1>「타임머신 타고 모의투자」 개인정보처리방침</h1>
-<p class="updated">최종 수정: 2026-08-25 · 이 방침은 앱 출시일부터 적용됩니다</p>
+<h1>타임머신 타고 모의투자 · Time Machine: Crypto Sim</h1>
+<p class="updated">최종 수정 / Last updated: 2026-08-25 · 앱 출시일부터 적용 / Effective from app release</p>
+<nav id="langnav">
+  <button data-lang="ko">한국어</button>
+  <button data-lang="en">English</button>
+</nav>
 
+<section id="ko" class="lang">
+<h2>개인정보처리방침</h2>
 <p>「타임머신 타고 모의투자」(이하 "앱")는 가상의 돈으로 하는 모의거래 게임입니다.
 이 방침은 앱이 개인정보를 어떻게 다루는지 설명합니다. 짧게 요약하면 이렇습니다.</p>
 
@@ -34,19 +48,19 @@
 앱이 오류로 종료되면 원인 파악을 위한 기술 정보(개인 식별 불가)가 수집됩니다.</p>
 </div>
 
-<h2>1. 개발자가 수집하는 개인정보</h2>
+<h3>1. 개발자가 수집하는 개인정보</h3>
 <p>없습니다. 앱은 회원가입·로그인·서버 통신 없이 동작하며, 개발자는 이용자가 누구인지 알 수 없고
 이용자의 데이터에 접근할 수도 없습니다.</p>
 
-<h2>2. 기기 안에만 저장되는 정보</h2>
+<h3>2. 기기 안에만 저장되는 정보</h3>
 <p>다음 정보는 이용자의 기기 안에만 저장되며, 외부로 전송되지 않습니다.</p>
-<ul><li>게임 기록: 가상 거래 내역, 보유 물건, 수익률, 광고 시청 횟수, 게임 설정</li></ul>
+<ul><li>게임 기록: 가상 거래 내역, 보유 물건, 수익률, 광고 시청 횟수, 게임·언어 설정</li></ul>
 <p>이 정보는 앱을 삭제하면 함께 삭제되며, 앱 안의 「설정 → 처음부터 다시」로도 지울 수 있습니다.
 삭제된 기록은 복구할 수 없습니다(개발자에게 사본이 없기 때문입니다).</p>
 
-<h2>3. 제3자가 처리하는 정보</h2>
+<h3>3. 제3자가 처리하는 정보</h3>
 
-<h3>광고 — Google AdMob</h3>
+<h4>광고 — Google AdMob</h4>
 <p>앱의 수익원은 보상형 광고 하나이며, 광고는 Google AdMob이 제공합니다.
 광고를 게재하는 과정에서 Google이 다음 정보를 수집·처리할 수 있습니다.</p>
 <ul><li>광고 식별자(IDFA — 추적을 허용한 경우에만), 기기 정보, IP 주소, 광고 상호작용 기록</li></ul>
@@ -65,7 +79,7 @@
 <a href="https://policies.google.com/technologies/partner-sites?hl=ko">광고 기술 안내</a>)</li>
 </ul>
 
-<h3>오류(크래시) 수집 — Sentry</h3>
+<h4>오류(크래시) 수집 — Sentry</h4>
 <p>앱이 오류로 멈추거나 종료되면 원인을 고치기 위해 다음의 기술 정보가
 Sentry(Functional Software, Inc.)로 전송됩니다.</p>
 <ul><li>오류 내용과 발생 위치(코드 스택), 앱 버전, 기기 모델, 운영체제 버전</li></ul>
@@ -83,33 +97,119 @@ IP 주소를 저장하지 않도록 설정되어 있습니다. 게임 기록(거
 (<a href="https://sentry.io/privacy/">Sentry 개인정보처리방침</a>)</li>
 </ul>
 
-<h3>시세 — 업비트(Upbit)</h3>
-<p>앱은 가상자산 시세를 업비트 공개 API에서 받아옵니다. 이 과정에서 시세 요청이 기기에서
-업비트 서버로 직접 전달되며, 통신에 필요한 IP 주소가 업비트에 전송됩니다.
-앱은 이 요청에 어떤 개인정보도 담지 않으며, 개발자는 이 통신 내용을 수집하지 않습니다.</p>
+<h4>시세 — 업비트(Upbit) · Coinbase</h4>
+<p>앱은 가상자산 시세를 공개 API에서 받아옵니다 — 한국어(원화) 게임은 업비트,
+영어(달러) 게임은 Coinbase. 이 과정에서 시세 요청이 기기에서 해당 거래소 서버로 직접
+전달되며, 통신에 필요한 IP 주소가 전송됩니다. 앱은 이 요청에 어떤 개인정보도 담지 않으며,
+개발자는 이 통신 내용을 수집하지 않습니다.</p>
 
-<h2>4. 보유 기간과 파기</h2>
+<h3>4. 보유 기간과 파기</h3>
 <p>개발자는 개인정보를 수집하지 않으므로 보유하거나 파기할 개인정보가 없습니다.
 기기 안의 게임 기록은 이용자가 앱을 삭제하거나 초기화하는 즉시 삭제됩니다.
 제3자(Google·Sentry)가 처리하는 정보의 보유·파기는 해당 회사의 방침을 따릅니다.</p>
 
-<h2>5. 이용자의 권리</h2>
+<h3>5. 이용자의 권리</h3>
 <ul>
 <li><strong>추적 거부·변경</strong>: iOS 「설정 → 개인정보 보호 및 보안 → 추적」</li>
 <li><strong>맞춤 광고 설정</strong>: <a href="https://adssettings.google.com">Google 광고 설정</a></li>
 <li><strong>기록 삭제</strong>: 앱 삭제 또는 앱 안의 「설정 → 처음부터 다시」</li>
 </ul>
 
-<h2>6. 아동의 개인정보</h2>
+<h3>6. 아동의 개인정보</h3>
 <p>앱은 아동을 주 대상으로 하지 않으며, 개발자는 연령을 불문하고 개인정보를 수집하지 않습니다.
 광고는 전체이용가 등급에 맞는 수위로 제한해 요청합니다.</p>
 
-<h2>7. 문의</h2>
+<h3>7. 문의</h3>
 <p>개인정보 처리에 관한 문의: <strong>younghwa.labs@gmail.com</strong></p>
 
-<h2>8. 방침의 변경</h2>
+<h3>8. 방침의 변경</h3>
 <p>이 방침이 바뀌면 이 페이지에 변경 내용과 시행일을 게시합니다.
 앱에 새로운 정보 수집(예: 랭킹)이 추가되는 경우 반드시 이 방침을 먼저 고칩니다.</p>
+</section>
+
+<section id="en" class="lang" hidden>
+<h2>Privacy Policy</h2>
+<p>"Time Machine: Crypto Sim" (the "app") is a simulated trading game played with virtual money.
+This policy explains how the app handles personal data. In short:</p>
+
+<div class="summary">
+<p><strong>The app has no accounts, no login, and no server. The developer collects nothing that can identify you.</strong>
+To serve ads, Google AdMob may process the advertising identifier — you choose whether to allow this
+in the iOS tracking prompt shown before your first ad. If the app crashes, technical diagnostics
+(not personally identifiable) are collected to fix the cause.</p>
+</div>
+
+<h3>1. What the developer collects</h3>
+<p>Nothing. The app runs without sign-up, login, or a server. The developer cannot see who you are
+or access your data.</p>
+
+<h3>2. Data stored only on your device</h3>
+<ul><li>Game records: simulated trades, owned items, returns, ads watched, game and language settings</li></ul>
+<p>Deleting the app deletes this data; "Settings → Start over" inside the app erases it too.
+Erased records cannot be recovered — the developer holds no copy.</p>
+
+<h3>3. Data processed by third parties</h3>
+
+<h4>Ads — Google AdMob</h4>
+<p>The app's only revenue is rewarded ads served by Google AdMob. To serve ads, Google may process:</p>
+<ul><li>Advertising identifier (IDFA — only if you allow tracking), device information, IP address, ad interaction records</li></ul>
+<p><strong>Tracking is your choice.</strong> iOS asks before your first ad; if you decline, ads are
+non-personalized and every feature of the app still works. You can change this anytime in
+iOS Settings → Privacy &amp; Security → Tracking.
+See the <a href="https://policies.google.com/privacy">Google Privacy Policy</a> and
+<a href="https://policies.google.com/technologies/partner-sites">how Google uses data from partners</a>.</p>
+
+<h4>Crash reporting — Sentry</h4>
+<p>If the app crashes or a feature fails, technical diagnostics are sent to Sentry
+(Functional Software, Inc., USA) to find and fix the cause: the error and its location (stack trace),
+app version, device model, and OS version. This includes no name, email, advertising identifier,
+or game records, and Sentry is configured not to store IP addresses. Data is retained under
+Sentry's policy (90 days by default). Deleting the app stops all transmission.
+See the <a href="https://sentry.io/privacy/">Sentry Privacy Policy</a>.</p>
+
+<h4>Market prices — Upbit · Coinbase</h4>
+<p>The app fetches cryptocurrency prices from public APIs — Upbit for Korean (KRW) games and
+Coinbase for English (USD) games. Price requests go directly from your device to the exchange,
+which necessarily receives your IP address. The requests contain no personal data, and the
+developer does not collect this traffic.</p>
+
+<h3>4. Retention and deletion</h3>
+<p>The developer collects no personal data, so there is nothing to retain or delete on the
+developer's side. On-device game records are deleted the moment you delete or reset the app.
+Data processed by third parties (Google, Sentry) follows their retention policies.</p>
+
+<h3>5. Your choices</h3>
+<ul>
+<li><strong>Tracking</strong>: iOS Settings → Privacy &amp; Security → Tracking</li>
+<li><strong>Ad personalization</strong>: <a href="https://adssettings.google.com">Google Ads Settings</a></li>
+<li><strong>Delete your records</strong>: delete the app, or use "Settings → Start over" inside it</li>
+</ul>
+
+<h3>6. Children</h3>
+<p>The app is not directed at children, and the developer collects no personal data from anyone,
+regardless of age. Ads are requested at a general-audience content rating.</p>
+
+<h3>7. Contact</h3>
+<p>Privacy questions: <strong>younghwa.labs@gmail.com</strong></p>
+
+<h3>8. Changes</h3>
+<p>Changes to this policy are posted on this page with their effective date. If the app ever adds
+new data collection (for example, rankings), this policy is updated first.</p>
+</section>
+
+<script>
+(function () {
+  var sections = { ko: document.getElementById('ko'), en: document.getElementById('en') };
+  var buttons = document.querySelectorAll('#langnav button');
+  function show(l) {
+    Object.keys(sections).forEach(function (k) { sections[k].hidden = k !== l; });
+    buttons.forEach(function (b) { b.classList.toggle('on', b.dataset.lang === l); });
+  }
+  buttons.forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.lang); }); });
+  var nav = (navigator.language || 'en').slice(0, 2);
+  show(nav === 'ko' ? 'ko' : 'en');
+})();
+</script>
 
 </body>
 </html>
