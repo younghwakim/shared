@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>타임머신 타고 모의투자 — 개인정보처리방침 · Privacy Policy · プライバシーポリシー</title>
+<title>타임모의신 — 개인정보처리방침 · Privacy Policy · プライバシーポリシー</title>
 <style>
   :root { color-scheme: light dark; }
   body { font-family: -apple-system, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
@@ -29,8 +29,8 @@
 </head>
 <body>
 
-<h1>타임머신 타고 모의투자 · Time Machine: Crypto Sim</h1>
-<p class="updated">최종 수정 / Last updated: 2026-09-04 · 앱 출시일부터 적용 / Effective from app release</p>
+<h1>타임모의신 · Time Sim · タイムシム</h1>
+<p class="updated">최종 수정 / Last updated: 2026-09-06 · 앱 출시일부터 적용 / Effective from app release</p>
 <nav id="langnav">
   <button data-lang="ko">한국어</button>
   <button data-lang="en">English</button>
@@ -39,7 +39,7 @@
 
 <section id="ko" class="lang">
 <h2>개인정보처리방침</h2>
-<p>「타임머신 타고 모의투자」(이하 "앱")는 가상의 돈으로 하는 모의거래 게임입니다.
+<p>「타임모의신」(타임머신 타고 모의투자, 이하 "앱")는 가상의 돈으로 하는 모의거래 게임입니다.
 이 방침은 앱이 개인정보를 어떻게 다루는지 설명합니다. 짧게 요약하면 이렇습니다.</p>
 
 <div class="summary">
@@ -47,12 +47,14 @@
 광고를 보여주는 과정에서 Google AdMob이 기기 정보 등을 처리할 수 있습니다.
 앱은 추적 허용(ATT)을 요청하지 않으므로 광고 식별자(IDFA)는 수집되지 않고,
 광고는 맞춤이 아닌 일반 광고로 나옵니다.
-앱이 오류로 종료되면 원인 파악을 위한 기술 정보(개인 식별 불가)가 수집됩니다.</p>
+앱을 어떻게 쓰는지에 대한 익명 사용 통계(어떤 버튼을 눌렀는지 등)와,
+앱이 오류로 종료됐을 때의 기술 정보가 개인 식별 불가 형태로 수집됩니다.</p>
 </div>
 
 <h3>1. 개발자가 수집하는 개인정보</h3>
-<p>없습니다. 앱은 회원가입·로그인·서버 통신 없이 동작하며, 개발자는 이용자가 누구인지 알 수 없고
-이용자의 데이터에 접근할 수도 없습니다.</p>
+<p>이름·이메일·전화번호·계정처럼 이용자가 누구인지 알 수 있는 정보는 수집하지 않습니다.
+앱은 회원가입·로그인·자체 서버 없이 동작하며, 개발자는 이용자의 게임 데이터에 접근할 수 없습니다.
+아래 3항의 업체를 통해 익명의 사용 통계와 오류 정보만 받습니다.</p>
 
 <h3>2. 기기 안에만 저장되는 정보</h3>
 <p>다음 정보는 이용자의 기기 안에만 저장되며, 외부로 전송되지 않습니다.</p>
@@ -81,6 +83,26 @@
 <a href="https://policies.google.com/technologies/partner-sites?hl=ko">광고 기술 안내</a>)</li>
 </ul>
 
+<h4>사용 분석 — PostHog</h4>
+<p>앱을 더 낫게 고치기 위해, 이용자가 앱에서 무엇을 했는지가 익명 통계로 PostHog(PostHog, Inc.)에 전송됩니다.</p>
+<ul>
+<li>행동 이름: 앱 열기·닫기(사용 시간), 온보딩 완료, 주문(매수/매도와 종목), 시대 전환, 광고 시청 완료·광고 없음,
+    물건 구매(물건 종류), 송금 방향, 처음부터 다시</li>
+<li>앱 버전, 운영체제 종류, 앱이 설치될 때 만든 무작위 식별번호(이용자와 연결되지 않으며, 재설치하면 새로 만들어집니다)</li>
+</ul>
+<p>이름·이메일·광고 식별자·가상 잔액·거래 금액은 보내지 않습니다. 이 통계는 어느 기능이 쓰이고
+어디서 이용자가 멈추는지를 보는 용도로만 쓰며, 개별 이용자를 식별하거나 추적하는 데 쓰지 않습니다.</p>
+<p>이 정보는 아래와 같이 국외로 이전되어 처리됩니다.</p>
+<ul>
+<li><strong>이전받는 자</strong>: PostHog, Inc.</li>
+<li><strong>이전되는 국가</strong>: 미국</li>
+<li><strong>이전 목적</strong>: 앱 기능 개선을 위한 이용 통계 분석</li>
+<li><strong>이전 항목</strong>: 위에 적은 행동 이름, 앱 버전, 운영체제, 무작위 설치 식별번호, 통신 과정에서 전달되는 IP 주소</li>
+<li><strong>보유·이용 기간</strong>: PostHog의 보관 정책에 따름</li>
+<li><strong>거부 방법</strong>: 앱을 삭제하면 더 이상 전송되지 않습니다.
+(<a href="https://posthog.com/privacy">PostHog 개인정보처리방침</a>)</li>
+</ul>
+
 <h4>오류(크래시) 수집 — Sentry</h4>
 <p>앱이 오류로 멈추거나 종료되면 원인을 고치기 위해 다음의 기술 정보가
 Sentry(Functional Software, Inc.)로 전송됩니다.</p>
@@ -99,26 +121,25 @@ IP 주소를 저장하지 않도록 설정되어 있습니다. 게임 기록(거
 (<a href="https://sentry.io/privacy/">Sentry 개인정보처리방침</a>)</li>
 </ul>
 
-<h4>시세 — 업비트(Upbit) · Coinbase</h4>
-<p>앱은 가상자산 시세를 공개 API에서 받아옵니다 — 한국어(원화) 게임은 업비트,
-영어(달러) 게임은 Coinbase. 이 과정에서 시세 요청이 기기에서 해당 거래소 서버로 직접
-전달되며, 통신에 필요한 IP 주소가 전송됩니다. 앱은 이 요청에 어떤 개인정보도 담지 않으며,
-개발자는 이 통신 내용을 수집하지 않습니다.</p>
+<h4>시세 — 빗썸(Bithumb)</h4>
+<p>앱은 가상자산 시세를 빗썸의 공개 API에서 받아옵니다. 이 과정에서 시세 요청이 기기에서
+빗썸 서버로 직접 전달되며, 통신에 필요한 IP 주소가 전송됩니다. 앱은 이 요청에 어떤 개인정보도 담지 않으며,
+개발자는 이 통신 내용을 수집하지 않습니다. 시세는 화면에 보여주는 용도이며 실제 거래와 연결되지 않습니다.</p>
 
 <h3>4. 보유 기간과 파기</h3>
-<p>개발자는 개인정보를 수집하지 않으므로 보유하거나 파기할 개인정보가 없습니다.
+<p>개발자는 이용자를 식별하는 개인정보를 수집하지 않으므로 보유하거나 파기할 개인정보가 없습니다.
 기기 안의 게임 기록은 이용자가 앱을 삭제하거나 초기화하는 즉시 삭제됩니다.
-제3자(Google·Sentry)가 처리하는 정보의 보유·파기는 해당 회사의 방침을 따릅니다.</p>
+제3자(Google·PostHog·Sentry)가 처리하는 정보의 보유·파기는 해당 회사의 방침을 따릅니다.</p>
 
 <h3>5. 이용자의 권리</h3>
 <ul>
-<li><strong>추적 거부·변경</strong>: iOS 「설정 → 개인정보 보호 및 보안 → 추적」</li>
-<li><strong>맞춤 광고 설정</strong>: <a href="https://adssettings.google.com">Google 광고 설정</a></li>
+<li><strong>사용 통계·오류 정보 전송 중단</strong>: 앱을 삭제하면 즉시 중단됩니다</li>
 <li><strong>기록 삭제</strong>: 앱 삭제 또는 앱 안의 「설정 → 처음부터 다시」</li>
+<li><strong>광고 설정</strong>: <a href="https://adssettings.google.com">Google 광고 설정</a> (앱의 광고는 맞춤 광고가 아닙니다)</li>
 </ul>
 
 <h3>6. 아동의 개인정보</h3>
-<p>앱은 아동을 주 대상으로 하지 않으며, 개발자는 연령을 불문하고 개인정보를 수집하지 않습니다.
+<p>앱은 아동을 주 대상으로 하지 않으며, 개발자는 연령을 불문하고 이용자를 식별하는 개인정보를 수집하지 않습니다.
 광고는 전체이용가 등급에 맞는 수위로 제한해 요청합니다.</p>
 
 <h3>7. 문의</h3>
@@ -131,19 +152,21 @@ IP 주소를 저장하지 않도록 설정되어 있습니다. 게임 기록(거
 
 <section id="en" class="lang" hidden>
 <h2>Privacy Policy</h2>
-<p>"Time Machine: Crypto Sim" (the "app") is a simulated trading game played with virtual money.
+<p>"Time Sim" (the "app") is a simulated trading game played with virtual money.
 This policy explains how the app handles personal data. In short:</p>
 
 <div class="summary">
 <p><strong>The app has no accounts, no login, and no server. The developer collects nothing that can identify you.</strong>
-To serve ads, Google AdMob may process the advertising identifier — you choose whether to allow this
-in the iOS tracking prompt shown before your first ad. If the app crashes, technical diagnostics
-(not personally identifiable) are collected to fix the cause.</p>
+To serve ads, Google AdMob may process device information. The app does not request App Tracking
+Transparency (ATT), so the advertising identifier (IDFA) is not collected and ads are non-personalized.
+Anonymous usage statistics (which buttons you use) and, if the app crashes, technical diagnostics
+are collected in a form that cannot identify you.</p>
 </div>
 
 <h3>1. What the developer collects</h3>
-<p>Nothing. The app runs without sign-up, login, or a server. The developer cannot see who you are
-or access your data.</p>
+<p>No name, email, phone number, or account — nothing that says who you are. The app runs without
+sign-up, login, or a server of its own, and the developer cannot access your game data.
+Only anonymous usage statistics and crash diagnostics reach the developer, through the services in section 3.</p>
 
 <h3>2. Data stored only on your device</h3>
 <ul><li>Game records: simulated trades, owned items, returns, ads watched, game and language settings</li></ul>
@@ -154,12 +177,25 @@ Erased records cannot be recovered — the developer holds no copy.</p>
 
 <h4>Ads — Google AdMob</h4>
 <p>The app's only revenue is rewarded ads served by Google AdMob. To serve ads, Google may process:</p>
-<ul><li>Advertising identifier (IDFA — only if you allow tracking), device information, IP address, ad interaction records</li></ul>
-<p><strong>Tracking is your choice.</strong> iOS asks before your first ad; if you decline, ads are
-non-personalized and every feature of the app still works. You can change this anytime in
-iOS Settings → Privacy &amp; Security → Tracking.
+<ul><li>Device information, IP address, ad interaction records</li></ul>
+<p><strong>The app does not request tracking permission (ATT).</strong> The advertising identifier (IDFA)
+is therefore never collected or sent, and ads are non-personalized. Every feature of the app works
+whether or not you watch ads.
 See the <a href="https://policies.google.com/privacy">Google Privacy Policy</a> and
 <a href="https://policies.google.com/technologies/partner-sites">how Google uses data from partners</a>.</p>
+
+<h4>Usage analytics — PostHog</h4>
+<p>To improve the app, anonymous statistics about what you do in it are sent to PostHog (PostHog, Inc., USA):</p>
+<ul>
+<li>Action names: app open/close (session length), onboarding completed, orders (buy/sell and the market),
+    era switch, ad watched / no ad available, item purchase (item type), transfer direction, start over</li>
+<li>App version, operating system, and a random identifier created when the app is installed
+    (not linked to you; reinstalling creates a new one)</li>
+</ul>
+<p>No name, email, advertising identifier, virtual balance, or trade amount is sent. These statistics are used
+only to see which features are used and where people stop; they are not used to identify or track individuals.
+Retention follows PostHog's policy. Deleting the app stops all transmission.
+See the <a href="https://posthog.com/privacy">PostHog Privacy Policy</a>.</p>
 
 <h4>Crash reporting — Sentry</h4>
 <p>If the app crashes or a feature fails, technical diagnostics are sent to Sentry
@@ -169,26 +205,25 @@ or game records, and Sentry is configured not to store IP addresses. Data is ret
 Sentry's policy (90 days by default). Deleting the app stops all transmission.
 See the <a href="https://sentry.io/privacy/">Sentry Privacy Policy</a>.</p>
 
-<h4>Market prices — Upbit · Coinbase</h4>
-<p>The app fetches cryptocurrency prices from public APIs — Upbit for Korean (KRW) games and
-Coinbase for English (USD) games. Price requests go directly from your device to the exchange,
-which necessarily receives your IP address. The requests contain no personal data, and the
-developer does not collect this traffic.</p>
+<h4>Market prices — Bithumb</h4>
+<p>The app fetches cryptocurrency prices from Bithumb's public API. Price requests go directly from your
+device to the exchange, which necessarily receives your IP address. The requests contain no personal data,
+and the developer does not collect this traffic. Prices are for display only and are not connected to real trading.</p>
 
 <h3>4. Retention and deletion</h3>
-<p>The developer collects no personal data, so there is nothing to retain or delete on the
+<p>The developer collects no identifying personal data, so there is nothing to retain or delete on the
 developer's side. On-device game records are deleted the moment you delete or reset the app.
-Data processed by third parties (Google, Sentry) follows their retention policies.</p>
+Data processed by third parties (Google, PostHog, Sentry) follows their retention policies.</p>
 
 <h3>5. Your choices</h3>
 <ul>
-<li><strong>Tracking</strong>: iOS Settings → Privacy &amp; Security → Tracking</li>
-<li><strong>Ad personalization</strong>: <a href="https://adssettings.google.com">Google Ads Settings</a></li>
+<li><strong>Stop usage statistics and crash reports</strong>: delete the app — transmission stops immediately</li>
 <li><strong>Delete your records</strong>: delete the app, or use "Settings → Start over" inside it</li>
+<li><strong>Ad settings</strong>: <a href="https://adssettings.google.com">Google Ads Settings</a> (ads in this app are not personalized)</li>
 </ul>
 
 <h3>6. Children</h3>
-<p>The app is not directed at children, and the developer collects no personal data from anyone,
+<p>The app is not directed at children, and the developer collects no identifying personal data from anyone,
 regardless of age. Ads are requested at a general-audience content rating.</p>
 
 <h3>7. Contact</h3>
@@ -201,19 +236,20 @@ new data collection (for example, rankings), this policy is updated first.</p>
 
 <section id="ja" class="lang" hidden>
 <h2>プライバシーポリシー</h2>
-<p>「タイムマシンで模擬投資」（以下「本アプリ」）は、仮想のお金で行う模擬取引ゲームです。
+<p>「タイムシム」（以下「本アプリ」）は、仮想のお金で行う模擬取引ゲームです。
 本ポリシーは、本アプリが個人情報をどのように扱うかを説明します。要約すると次のとおりです。</p>
 
 <div class="summary">
 <p><strong>本アプリにはアカウントもログインもサーバーもありません。開発者は利用者を識別できる情報を一切収集しません。</strong>
-広告配信のために Google AdMob が広告識別子などを処理することがありますが、これは初回広告の前に表示される
-iOSのトラッキング許可ダイアログで利用者自身が選択できます。アプリがクラッシュした場合は、
-原因究明のための技術情報（個人を識別できないもの）が収集されます。</p>
+広告配信のために Google AdMob が端末情報などを処理することがあります。本アプリはトラッキング許可（ATT）を
+求めないため、広告識別子（IDFA）は収集されず、広告はパーソナライズされない一般広告です。
+利用者が本アプリで何をしたかの匿名の利用統計と、クラッシュ時の技術情報が、個人を識別できない形で収集されます。</p>
 </div>
 
 <h3>1. 開発者が収集する情報</h3>
-<p>ありません。本アプリは会員登録・ログイン・サーバー通信なしで動作し、開発者は利用者が誰であるかを知ることも、
-利用者のデータにアクセスすることもできません。</p>
+<p>氏名・メールアドレス・電話番号・アカウントなど、利用者が誰であるかを示す情報は収集しません。
+本アプリは会員登録・ログイン・自前のサーバーなしで動作し、開発者は利用者のゲームデータにアクセスできません。
+開発者に届くのは、第3項の事業者を通じた匿名の利用統計とクラッシュ情報のみです。</p>
 
 <h3>2. 端末内にのみ保存される情報</h3>
 <ul><li>ゲーム記録：模擬取引の履歴、保有品、リターン、広告視聴回数、ゲーム・言語設定</li></ul>
@@ -224,12 +260,22 @@ iOSのトラッキング許可ダイアログで利用者自身が選択でき�
 
 <h4>広告 — Google AdMob</h4>
 <p>本アプリの唯一の収益はGoogle AdMobが配信するリワード広告です。広告配信のためにGoogleが処理する可能性がある情報：</p>
-<ul><li>広告識別子（IDFA — トラッキングを許可した場合のみ）、端末情報、IPアドレス、広告の操作記録</li></ul>
-<p><strong>トラッキングは利用者の選択です。</strong>初回広告の前にiOSが許可を求めます。許可しない場合は
-パーソナライズされない広告が表示され、アプリのすべての機能はそのまま使えます。設定はいつでも
-iOS設定 → プライバシーとセキュリティ → トラッキング で変更できます。
+<ul><li>端末情報、IPアドレス、広告の操作記録</li></ul>
+<p><strong>本アプリはトラッキング許可（ATT）を求めません。</strong>そのため広告識別子（IDFA）は収集・送信されず、
+広告はパーソナライズされない一般広告として表示されます。広告を見ても見なくても、アプリのすべての機能はそのまま使えます。
 （<a href="https://policies.google.com/privacy?hl=ja">Googleプライバシーポリシー</a> ·
 <a href="https://policies.google.com/technologies/partner-sites?hl=ja">Googleのデータ利用について</a>）</p>
+
+<h4>利用分析 — PostHog</h4>
+<p>本アプリを改善するため、利用者がアプリで何をしたかの匿名統計がPostHog（PostHog, Inc.・米国）へ送信されます：</p>
+<ul>
+<li>行動名：アプリの起動・終了（利用時間）、オンボーディング完了、注文（買い/売りと銘柄）、時代の切り替え、
+    広告視聴完了・広告なし、アイテム購入（種類）、送金の方向、最初からやり直す</li>
+<li>アプリのバージョン、OSの種類、インストール時に生成されるランダムな識別番号（利用者とは紐づかず、再インストールで新しくなります）</li>
+</ul>
+<p>氏名・メールアドレス・広告識別子・仮想残高・取引金額は送信しません。この統計は、どの機能が使われ、
+どこで利用者が離脱するかを見る目的にのみ使い、個人の識別や追跡には使いません。保持期間はPostHogのポリシーに従います。
+アプリを削除するとすべての送信が止まります。（<a href="https://posthog.com/privacy">PostHogプライバシーポリシー</a>）</p>
 
 <h4>クラッシュ報告 — Sentry</h4>
 <p>アプリがクラッシュした場合、原因を修正するための技術情報がSentry（Functional Software, Inc.・米国）へ送信されます：
@@ -238,24 +284,24 @@ iOS設定 → プライバシーとセキュリティ → トラッキング で
 データはSentryの保持ポリシー（既定90日）に従います。アプリを削除するとすべての送信が止まります。
 （<a href="https://sentry.io/privacy/">Sentryプライバシーポリシー</a>）</p>
 
-<h4>相場 — Upbit · Coinbase</h4>
-<p>本アプリは暗号資産の相場を公開APIから取得します — 韓国語（ウォン）ゲームはUpbit、
-英語・日本語（ドル）ゲームはCoinbase。相場リクエストは端末から各取引所へ直接送信され、
-通信に必要なIPアドレスが取引所へ伝わります。リクエストに個人情報は含まれず、開発者はこの通信を収集しません。</p>
+<h4>相場 — Bithumb</h4>
+<p>本アプリは暗号資産の相場をBithumbの公開APIから取得します。相場リクエストは端末から取引所へ直接送信され、
+通信に必要なIPアドレスが取引所へ伝わります。リクエストに個人情報は含まれず、開発者はこの通信を収集しません。
+相場は表示のためのものであり、実際の取引とは接続されていません。</p>
 
 <h3>4. 保持と削除</h3>
-<p>開発者は個人情報を収集しないため、開発者側に保持・削除の対象はありません。端末内のゲーム記録は、
-アプリの削除または初期化と同時に消去されます。第三者（Google・Sentry）が処理する情報は各社のポリシーに従います。</p>
+<p>開発者は個人を識別する情報を収集しないため、開発者側に保持・削除の対象はありません。端末内のゲーム記録は、
+アプリの削除または初期化と同時に消去されます。第三者（Google・PostHog・Sentry）が処理する情報は各社のポリシーに従います。</p>
 
 <h3>5. 利用者の選択</h3>
 <ul>
-<li><strong>トラッキング</strong>：iOS設定 → プライバシーとセキュリティ → トラッキング</li>
-<li><strong>広告のパーソナライズ</strong>：<a href="https://adssettings.google.com">Google広告設定</a></li>
+<li><strong>利用統計・クラッシュ報告の停止</strong>：アプリを削除すると直ちに停止します</li>
 <li><strong>記録の削除</strong>：アプリの削除、またはアプリ内「設定 → 最初からやり直す」</li>
+<li><strong>広告の設定</strong>：<a href="https://adssettings.google.com">Google広告設定</a>（本アプリの広告はパーソナライズされていません）</li>
 </ul>
 
 <h3>6. 子どもについて</h3>
-<p>本アプリは子ども向けではなく、開発者は年齢を問わず誰からも個人情報を収集しません。
+<p>本アプリは子ども向けではなく、開発者は年齢を問わず誰からも個人を識別する情報を収集しません。
 広告は全年齢向けのコンテンツレーティングでリクエストされます。</p>
 
 <h3>7. お問い合わせ</h3>
