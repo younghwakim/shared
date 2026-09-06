@@ -1,0 +1,6 @@
+{
+  "sources": { "KRW": "bithumb", "USD": "coinbase" },
+  "pollMs": { "KRW": 3000, "USD": 3000 },
+  "halt": false,
+  "notice": null
+}
