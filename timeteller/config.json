@@ -1,6 +1,6 @@
 {
   "sources": { "KRW": "bithumb", "USD": "coinbase" },
   "pollMs": { "KRW": 3000, "USD": 3000 },
-  "halt": false,
-  "notice": null
+  "halt": true,
+  "notice": "점검 테스트 중입니다. 시세와 주문을 잠시 멈췄습니다."
 }
