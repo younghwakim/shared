@@ -1,5 +1,5 @@
 {
-  "maintenance": true,
+  "maintenance": false,
   "title": "잠시 점검 중이에요",
   "message": "더 안정적으로 쓸 수 있게 손보고 있어요.\n조금 뒤에 다시 열어주세요.",
   "minSupportedVersion": "1.0.0",
