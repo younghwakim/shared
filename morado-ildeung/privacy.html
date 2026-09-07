@@ -89,7 +89,10 @@ Apple의 처리 방식은 <a href="https://www.apple.com/legal/privacy/">Apple �
 <p>앱이 오류로 종료되면 오류 위치와 기기 종류·OS 버전 등 기술 정보가 Sentry(미국)에 전송됩니다. 개인 식별 정보(IP, 이메일)는 포함하지 않도록 설정되어 있습니다.</p>
 
 <h3>4. 권한</h3>
-<p>앱은 카메라·마이크·위치·사진·연락처 등 어떤 시스템 권한도 요청하지 않습니다. 가속도계·배터리 잔량은 권한 없이 읽을 수 있는 값이며 기기 밖으로 나가지 않습니다.</p>
+<p>앱은 카메라·위치·사진·연락처 권한을 요청하지 않습니다. 가속도계·자이로·배터리 잔량은 권한 없이 읽을 수 있는 값이며, 기록(숫자) 외에는 기기 밖으로 나가지 않습니다. 아래 두 권한은 <strong>해당 종목을 열 때만</strong> 묻고, 거부하면 그 종목만 참여할 수 없습니다.</p>
+<p><strong>마이크</strong>(목소리 종목 4개): 소리에서 크기(dB)와 음정(Hz)만 기기 안에서 계산합니다. <strong>소리를 녹음·저장·전송하지 않습니다.</strong></p>
+<p><strong>동작 및 피트니스</strong>(만보기 종목 3개): 폰의 만보기(Core Motion)에서 오늘 걸음 수·이동 거리·오른 층수만 읽습니다. <strong>건강(HealthKit) 데이터는 접근하지 않습니다.</strong> 읽은 값은 그 종목의 기록으로만 Game Center 에 올라갑니다.</p>
+<p><strong>국기</strong>: 기기의 지역 설정(또는 앱에서 직접 고른 나라)이 Game Center 점수와 함께 저장되어, 순위에서 다른 사용자에게 국기로 표시됩니다. 앱 설정 &gt; 국기에서 끌 수 있습니다. 위치 정보는 사용하지 않습니다.</p>
 
 <h3>5. 아동</h3>
 <p>앱은 만 14세 미만 아동을 대상으로 하지 않으며, 아동의 개인정보를 의도적으로 수집하지 않습니다.</p>
@@ -119,7 +122,10 @@ Ads play only when you tap "Watch" in the "Ad Finisher" event. The App does not 
 <p><strong>Apple App Store · RevenueCat</strong> — the one-time card-style unlock. Payment is processed by Apple; RevenueCat (US) receives a random install ID and receipt data to verify and restore the purchase.</p>
 <p><strong>PostHog</strong> (US) — anonymous usage statistics with a random install ID, event names, app version, and device type. <strong>Sentry</strong> (US) — crash reports without personal identifiers.</p>
 <h3>4. Permissions</h3>
-<p>The App requests no system permissions (no camera, microphone, location, photos, or contacts). Accelerometer and battery level are read without permission and never leave the device.</p>
+<p>The App does not request camera, location, photo or contact permissions. Accelerometer, gyroscope and battery level are read without permission, and nothing but the resulting number leaves the device. The two permissions below are asked <strong>only when you open one of those events</strong>; declining only disables those events.</p>
+<p><strong>Microphone</strong> (4 voice events): loudness (dB) and pitch (Hz) are computed on the device. <strong>Audio is never recorded, stored or transmitted.</strong></p>
+<p><strong>Motion &amp; Fitness</strong> (3 walking events): today's steps, distance and floors climbed are read from the phone's own pedometer (Core Motion). <strong>Health (HealthKit) data is not accessed.</strong> The value is submitted to Game Center only as that event's record.</p>
+<p><strong>Country flag</strong>: your device region (or a country you choose in the app) is stored with your Game Center score and shown to other players as a flag next to your rank. You can turn it off in Settings &gt; Flag. Location services are not used.</p>
 <h3>5. Children</h3>
 <p>The App is not directed at children under 14 and does not knowingly collect their data.</p>
 <h3>6. Contact</h3>
