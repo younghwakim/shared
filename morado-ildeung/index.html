@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>1st at Something · 모라도 일등 · なんかで1位</title>
+<meta name="description" content="Best wins. Worst wins too. 18 phone-measured events, Game Center leaderboards where both ends win. No sign-up.">
+<meta property="og:title" content="1st at Something — Best wins. Worst wins too.">
+<meta property="og:description" content="18 phone-measured events. Every leaderboard has a winner at both ends. No sign-up, play in 3 seconds.">
+<meta property="og:image" content="https://younghwakim.github.io/shared/morado-ildeung/assets/og.jpg">
+<link rel="icon" href="assets/icon.png">
+<style>
+  :root { --lime:#D4F531; --paper:#F4F1EA; --ink:#17161A; --muted:#6B6A66; --line:rgba(23,22,26,.12); }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:-apple-system,"Apple SD Gothic Neo","Hiragino Sans","Noto Sans KR",sans-serif; line-height:1.55; }
+  header { display:flex; align-items:center; justify-content:space-between; padding:18px 20px; max-width:1040px; margin:0 auto; }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:-.01em; }
+  .brand img { width:36px; height:36px; border-radius:9px; }
+  .langs button { background:none; border:1px solid var(--line); border-radius:999px; padding:6px 12px; margin-left:6px; font:inherit; font-size:13px; cursor:pointer; color:var(--ink); }
+  .langs button.on { background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .hero { max-width:1040px; margin:0 auto; padding:36px 20px 8px; display:grid; grid-template-columns:1.1fr 1fr; gap:32px; align-items:center; }
+  h1 { font-size:clamp(38px,6vw,64px); line-height:1.05; margin:0 0 14px; letter-spacing:-.02em; font-weight:900; }
+  h1 .accent { background:var(--lime); padding:0 .12em; border-radius:.18em; box-decoration-break:clone; }
+  .sub { font-size:19px; color:var(--muted); margin:0 0 26px; max-width:32ch; }
+  .cta { display:inline-flex; align-items:center; gap:10px; background:var(--ink); color:var(--paper); text-decoration:none; padding:14px 22px; border-radius:999px; font-weight:700; font-size:16px; }
+  .cta.soon { background:transparent; color:var(--ink); border:2px solid var(--ink); }
+  .note { font-size:13px; color:var(--muted); margin-top:12px; }
+  .shots { display:flex; gap:14px; justify-content:center; }
+  .shots img { width:31%; max-width:250px; border-radius:22px; box-shadow:0 20px 50px rgba(0,0,0,.18); background:#000; }
+  .points { max-width:1040px; margin:40px auto 0; padding:0 20px; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .pt { background:#fff; border-radius:18px; padding:20px; border:1px solid var(--line); }
+  .pt b { display:block; font-size:17px; margin-bottom:6px; }
+  .pt span { color:var(--muted); font-size:15px; }
+  footer { max-width:1040px; margin:48px auto 60px; padding:0 20px; color:var(--muted); font-size:13px; display:flex; gap:18px; flex-wrap:wrap; }
+  footer a { color:var(--ink); }
+  @media (max-width:760px) { .hero { grid-template-columns:1fr; padding-top:20px; } .points { grid-template-columns:1fr; } .shots img { width:32%; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><img src="assets/icon.png" alt=""><span data-i="brand">1st at Something</span></div>
+  <div class="langs"><button data-lang="en">EN</button><button data-lang="ko">한국어</button><button data-lang="ja">日本語</button></div>
+</header>
+
+<section class="hero">
+  <div>
+    <h1><span data-i="h1a">Best wins.</span><br><span class="accent" data-i="h1b">Worst wins too.</span></h1>
+    <p class="sub" data-i="sub">18 events your phone can measure — reaction, taps, voice, steps. Every Game Center leaderboard has a winner at both ends. No sign-up.</p>
+    <a class="cta" id="store" href="https://apps.apple.com/app/id6809404958"><span data-i="cta">Download on the App Store</span></a>
+    <p class="note" data-i="note">iPhone · Free · Korean, English, Japanese</p>
+  </div>
+  <div class="shots" id="shots">
+    <img src="assets/en/1.jpg" alt=""><img src="assets/en/2.jpg" alt=""><img src="assets/en/3.jpg" alt="">
+  </div>
+</section>
+
+<section class="points">
+  <div class="pt"><b data-i="p1b">Both ends win</b><span data-i="p1s">Fastest reaction is 1st. So is the slowest. Every event has two winners.</span></div>
+  <div class="pt"><b data-i="p2b">A new board every day</b><span data-i="p2s">Today's boards reset at midnight KST for everyone. Few players means a real shot at 1st.</span></div>
+  <div class="pt"><b data-i="p3b">No sign-up, no server</b><span data-i="p3s">Game Center only. Open the app and play in 3 seconds.</span></div>
+</section>
+
+<footer>
+  <a href="privacy.html" data-i="privacy">Privacy policy</a>
+  <a href="support.html" data-i="support">Support</a>
+  <span>© 2026 Younghwa Kim</span>
+</footer>
+
+<script>
+const T = {
+  en: { brand:'1st at Something', h1a:'Best wins.', h1b:'Worst wins too.', sub:'18 events your phone can measure — reaction, taps, voice, steps. Every Game Center leaderboard has a winner at both ends. No sign-up.', cta:'Download on the App Store', note:'iPhone · Free · Korean, English, Japanese', p1b:'Both ends win', p1s:'Fastest reaction is 1st. So is the slowest. Every event has two winners.', p2b:'A new board every day', p2s:"Today's boards reset at midnight KST for everyone. Few players means a real shot at 1st.", p3b:'No sign-up, no server', p3s:'Game Center only. Open the app and play in 3 seconds.', privacy:'Privacy policy', support:'Support' },
+  ko: { brand:'모라도 일등', h1a:'잘해도 1등', h1b:'못해도 1등', sub:'반응속도·연타·목소리·걸음, 폰으로 재는 종목 18개. Game Center 순위마다 양쪽 끝이 다 1등. 가입 없이 바로.', cta:'App Store에서 받기', note:'iPhone · 무료 · 한국어·영어·일본어', p1b:'양쪽 끝이 1등', p1s:'반응이 제일 빠른 사람도 1등, 제일 느긋한 사람도 1등. 종목마다 1등이 둘.', p2b:'매일 새 판', p2s:'오늘 판은 전 세계가 같이 한국 시간 자정에 리셋. 사람 적을 때가 기회.', p3b:'가입 없음, 서버 없음', p3s:'Game Center만. 켜서 3초면 시작.', privacy:'개인정보처리방침', support:'지원' },
+  ja: { brand:'なんかで1位', h1a:'うまくても1位', h1b:'下手でも1位', sub:'反応速度・連打・声・歩数、スマホで測る18種目。Game Centerのランキングは両端がどちらも1位。登録なし。', cta:'App Storeでダウンロード', note:'iPhone · 無料 · 韓国語・英語・日本語', p1b:'両端が1位', p1s:'いちばん速い人も1位、いちばんのんびりな人も1位。種目ごとに1位が2人。', p2b:'毎日新しい板', p2s:'今日の板は世界共通、韓国時間0時にリセット。人が少ないときがチャンス。', p3b:'登録なし、サーバーなし', p3s:'Game Centerだけ。開いて3秒で始まる。', privacy:'プライバシーポリシー', support:'サポート' },
+};
+const SHOT = { en:'en', ko:'ko', ja:'ja' };
+function setLang(l) {
+  document.documentElement.lang = l;
+  document.querySelectorAll('[data-i]').forEach(el => { const v = T[l][el.dataset.i]; if (v) el.textContent = v; });
+  document.querySelectorAll('#shots img').forEach((img, i) => { img.src = `assets/${SHOT[l]}/${i+1}.jpg`; });
+  document.querySelectorAll('.langs button').forEach(b => b.classList.toggle('on', b.dataset.lang === l));
+  document.getElementById('store').href = `https://apps.apple.com/${l === 'ko' ? 'kr' : l === 'ja' ? 'jp' : 'us'}/app/id6809404958`;
+  try { localStorage.setItem('lang', l); } catch {}
+}
+document.querySelectorAll('.langs button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+let l = 'en'; try { l = localStorage.getItem('lang') || l; } catch {}
+if (!localStorage.getItem('lang')) { const n = (navigator.language || 'en').slice(0,2); if (T[n]) l = n; }
+setLang(l);
+</script>
+</body>
+</html>
