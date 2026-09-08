@@ -212,7 +212,7 @@
       <span><b>타임모의신</b><small>타임머신 타고 모의투자</small></span>
     </a>
     <nav class="nav" aria-label="시대">
-      <a class="era" id="chip" href="#day"><span class="sq" aria-hidden="true"></span><span id="chip-text">2126 미래</span></a>
+      <a class="era" id="chip" href="#day"><span class="sq" aria-hidden="true"></span><span id="chip-text"><span data-y="future">2126</span> 미래</span></a>
       <a class="btn-sm" href="https://apps.apple.com/kr/app/id6809161436" rel="noopener">App Store</a>
     </nav>
   </div>
@@ -223,9 +223,9 @@
     <canvas id="stars" aria-hidden="true"></canvas>
     <div class="wrap">
       <div>
-        <span class="era"><span class="sq" aria-hidden="true"></span>2126 미래 · 모의거래 · 실제 아님</span>
+        <span class="era"><span class="sq" aria-hidden="true"></span><span data-y="future">2126</span> 미래 · 모의거래 · 실제 아님</span>
         <h1 id="h1"><span class="mint">진짜 시세,</span><br><span class="accent">가짜 돈.</span></h1>
-        <p class="lede">2126년에서 배급을 받아 2026년으로 보내고, 실제 시세로 코인을 사고팝니다. 불린 돈으로는 미래의 물건을 삽니다. 가상인 것은 돈뿐입니다.</p>
+        <p class="lede">2126년에서 배급을 받아 <span data-y="now">2026</span>년으로 보내고, 실제 시세로 코인을 사고팝니다. 불린 돈으로는 미래의 물건을 삽니다. 가상인 것은 돈뿐입니다.</p>
         <div class="cta">
           <a class="btn" href="https://apps.apple.com/kr/app/id6809161436" rel="noopener">
             App Store에서 받기
@@ -241,7 +241,7 @@
       <div class="stage">
         <div class="glow" aria-hidden="true"></div>
         <div class="phone px">
-          <img src="assets/shot-arrive.webp" alt="앱 첫 화면 — 2126년에 도착했다는 안내와 규칙 셋" width="603" height="1311" fetchpriority="high">
+          <img src="assets/shot-arrive.webp" alt="앱 첫 화면 — 100년 뒤에 도착했다는 안내와 규칙 셋" width="603" height="1311" fetchpriority="high">
         </div>
       </div>
     </div>
@@ -254,7 +254,7 @@
   <section id="day" aria-labelledby="h-day">
     <div class="wrap">
       <div class="head rv">
-        <span class="era"><span class="sq" aria-hidden="true"></span>2126 미래</span>
+        <span class="era"><span class="sq" aria-hidden="true"></span><span data-y="future">2126</span> 미래</span>
         <h2 id="h-day">하루는 이렇게 돌아갑니다</h2>
         <p>얼음 한 컵이 1200만 원인 시대. 가진 것은 광고를 보면 나오는 배급뿐이라, 돈을 100년 전으로 보내 불려 옵니다.</p>
       </div>
@@ -280,7 +280,7 @@
         <article class="step card px rv">
           <div class="pic shot"><img src="assets/shot-shop.webp" alt="미래 상점 화면 — 씹는 산소 한 알 300만 등" loading="lazy"><span class="n">4</span></div>
           <h3>불린 돈으로 미래 물건을 삽니다</h3>
-          <p>다시 2126으로 돌려보내면 그 시대 물가로 삽니다. 사 모은 물건은 선반에 쌓입니다.</p>
+          <p>다시 <span data-y="future">2126</span>으로 돌려보내면 그 시대 물가로 삽니다. 사 모은 물건은 선반에 쌓입니다.</p>
           <span class="tag">얼음 한 컵 1200만</span>
         </article>
       </div>
@@ -291,7 +291,7 @@
     <div class="wrap split">
       <div>
         <div class="head rv">
-          <span class="era now"><span class="sq" aria-hidden="true"></span>2026 현재</span>
+          <span class="era now"><span class="sq" aria-hidden="true"></span><span data-y="now">2026</span> 현재</span>
           <h2 id="h-now">시세만은 진짜입니다</h2>
           <p>게임용 가짜 숫자가 아닙니다. 그래서 버는 감각도 잃는 감각도 실전과 같습니다.</p>
         </div>
@@ -312,7 +312,7 @@
   <section id="shop" aria-labelledby="h-shop">
     <div class="wrap">
       <div class="head rv">
-        <span class="era"><span class="sq" aria-hidden="true"></span>2126 미래</span>
+        <span class="era"><span class="sq" aria-hidden="true"></span><span data-y="future">2126</span> 미래</span>
         <h2 id="h-shop">미래의 나에겐 뭐가 필요할까</h2>
         <p>상점에는 26종이 있습니다. 매일이면 닿는 것부터, 투자해야 닿는 것까지. 어떤 건 몇 개 안 남았습니다.</p>
       </div>
@@ -383,6 +383,9 @@
 
 <script>
 (function(){
+  // 연도는 앱과 같은 계산 — 올해와 올해+100. 글자로 박아 두면 해가 바뀔 때 페이지만 늙는다
+  var NOW = new Date().getFullYear(), FUT = NOW + 100;
+  document.querySelectorAll('[data-y]').forEach(function(el){ el.textContent = el.getAttribute('data-y') === 'now' ? NOW : FUT; });
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // 헤더: 스크롤하면 밑줄, 2026 구역에 들어가면 칩이 「2026 현재」로 바뀐다(앱의 시대 전환)
@@ -395,7 +398,7 @@
         var on = e.isIntersecting;
         document.body.classList.toggle('in-now', on);
         chip.classList.toggle('now', on);
-        chipText.textContent = on ? '2026 현재' : '2126 미래';
+        chipText.textContent = on ? NOW + ' 현재' : FUT + ' 미래';
         chip.setAttribute('href', on ? '#shop' : '#day');
       });
     }, {rootMargin:'-45% 0px -45% 0px'}).observe(now);
