@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>타임모의신 — 진짜 시세, 가짜 돈</title>
+<meta name="description" content="100년 뒤에서 온 돈으로 오늘의 코인을 굴려보는 모의투자 게임. 시세는 빗썸 실시간 그대로, 돈만 가짜입니다. 계정 없음 · 무료 · iOS.">
+<meta name="theme-color" content="#141B33">
+<link rel="icon" href="assets/icon.png">
+<link rel="apple-touch-icon" href="assets/icon.png">
+<link rel="canonical" href="https://younghwakim.github.io/shared/timeteller/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="타임모의신 — 진짜 시세, 가짜 돈">
+<meta property="og:description" content="100년 뒤에서 온 돈으로 오늘의 코인을 굴려보는 모의투자 게임. 시세는 빗썸 실시간 그대로, 돈만 가짜입니다.">
+<meta property="og:image" content="https://younghwakim.github.io/shared/timeteller/assets/og.jpg">
+<meta property="og:url" content="https://younghwakim.github.io/shared/timeteller/">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6809161436">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+  /* 갈무리 — 앱과 같은 비트맵 폰트(SIL OFL). 이 페이지의 글자만 남긴 서브셋 */
+  @font-face{font-family:"Galmuri14";src:url(assets/fonts/Galmuri14.sub.woff2) format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Galmuri11";src:url(assets/fonts/Galmuri11.sub.woff2) format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Galmuri11";src:url(assets/fonts/Galmuri11-Bold.sub.woff2) format("woff2");font-weight:700;font-display:swap}
+
+  /* 색은 앱의 brand.json tokens 그대로 — 2126(남색)과 2026(먹색) 두 세계 */
+  :root{
+    --bg:#141B33; --surface:#1E2848; --elev:#27335A; --line:#3A4877; --shadow:#05070F;
+    --text:#E9EEFA; --muted:#8E9CC4;
+    --mint:#5EEAD4; --mint-deep:#2BA694; --gold:#FFC94A; --gold-deep:#C9931F;
+    --up:#FF5A5A; --down:#4D8DFF;
+    --now-bg:#0B0C10; --now-surface:#15171E; --now-elev:#1D202A; --now-line:#2A2F3B; --now-muted:#79808F; --now-text:#EDEFF5;
+    --display:"Galmuri14","Galmuri11",-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+    --label:"Galmuri11","Galmuri14",-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+    --body:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Segoe UI",Roboto,sans-serif;
+    --maxw:1080px; --cut:6px;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.65;letter-spacing:-.005em;overflow-x:hidden;word-break:keep-all}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* 픽셀 상자: 모서리를 깎는다(앱의 PixelBox) + 딱딱한 그림자 */
+  .px{clip-path:polygon(var(--cut) 0,calc(100% - var(--cut)) 0,100% var(--cut),100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,var(--cut) 100%,0 calc(100% - var(--cut)),0 var(--cut))}
+  .card{background:var(--surface);border:2px solid var(--line);position:relative}
+  .card::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(233,238,250,.03)}
+
+  /* 라벨(갈무리11)·헤드라인(갈무리14) — 픽셀이 딱 떨어지는 크기만 쓴다: 11/22, 14/28/42/56 */
+  .label{font-family:var(--label);font-size:11px;line-height:1;letter-spacing:0;text-transform:none;color:var(--muted)}
+  .label.lg{font-size:22px}
+  h1,h2,h3,.num{font-family:var(--display);font-weight:400;letter-spacing:0;margin:0}
+  h1{font-size:56px;line-height:1.15}
+  h2{font-size:42px;line-height:1.2;text-wrap:balance}
+  h3{font-size:28px;line-height:1.25}
+  @media (max-width:720px){h1{font-size:42px}h2{font-size:28px}h3{font-size:28px}}
+  @media (max-width:380px){h1{font-size:28px}}
+  .accent{color:var(--gold)}
+  .mint{color:var(--mint)}
+  .num{font-variant-numeric:tabular-nums}
+  p{margin:0}
+  .lede{font-size:1.1rem;color:var(--muted);max-width:44ch}
+
+  /* 시대 칩 — 앱 상단의 「2126 미래 ▾」 */
+  .era{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:2px solid var(--mint);color:var(--mint);font-family:var(--label);font-size:11px;line-height:1;background:rgba(94,234,212,.06)}
+  .era.now{border-color:var(--up);color:var(--up);background:rgba(255,90,90,.06)}
+  .era .sq{width:6px;height:6px;background:currentColor}
+
+  /* ---------- header ---------- */
+  header{position:sticky;top:0;z-index:50;background:rgba(20,27,51,.78);backdrop-filter:blur(12px) saturate(140%);-webkit-backdrop-filter:blur(12px) saturate(140%);border-bottom:2px solid transparent;transition:border-color .25s,background .25s}
+  header.stuck{border-bottom-color:var(--line)}
+  body.in-now header{background:rgba(11,12,16,.8)}
+  body.in-now header.stuck{border-bottom-color:var(--now-line)}
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+  .brand img{width:30px;height:30px}
+  .brand b{font-family:var(--display);font-weight:400;font-size:14px;line-height:1}
+  .brand small{display:block;font-family:var(--label);font-size:11px;color:var(--muted);margin-top:3px}
+  .nav{display:flex;align-items:center;gap:8px}
+  .nav a.era{text-decoration:none}
+  .btn-sm{display:inline-flex;align-items:center;gap:6px;background:var(--mint);color:#0B1220;text-decoration:none;font-family:var(--label);font-size:11px;padding:9px 12px;border:2px solid var(--mint-deep);box-shadow:3px 3px 0 var(--shadow)}
+  @media (max-width:560px){.nav .era{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:56px 0 24px;overflow:hidden}
+  #stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.9}
+  .hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+  @media (max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:36px}}
+  .hero .era{margin-bottom:22px}
+  .hero h1{margin:0 0 18px}
+  .cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px;margin-top:28px}
+  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--mint);color:#0B1220;text-decoration:none;font-family:var(--display);font-size:14px;line-height:1;padding:16px 20px;border:2px solid var(--mint-deep);box-shadow:5px 5px 0 var(--shadow);transition:transform .08s,box-shadow .08s}
+  .btn:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 var(--shadow)}
+  .btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--shadow)}
+  .btn:focus-visible,.btn-sm:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+  .btn svg{width:16px;height:16px}
+  .btn.gold{background:var(--gold);border-color:var(--gold-deep)}
+  .cta .label{line-height:1.7}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:34px;max-width:560px}
+  .fact{padding:12px 12px 10px;background:rgba(30,40,72,.7);border:2px solid var(--line)}
+  .fact .num{font-size:22px;color:var(--text);display:block;margin-bottom:6px}
+  .fact .label{font-size:11px}
+  @media (max-width:420px){.facts{grid-template-columns:1fr 1fr}.fact:last-child{grid-column:1/-1}}
+
+  /* 폰 — 곡면 없이 각진 픽셀 프레임 */
+  .phone{position:relative;width:min(300px,78vw);margin:0 auto;background:#0B1220;border:3px solid var(--line);padding:8px;box-shadow:10px 10px 0 var(--shadow)}
+  .phone img{width:100%;height:auto;border:2px solid var(--line)}
+  .phone::before{content:"";position:absolute;left:50%;top:0;transform:translateX(-50%);width:80px;height:6px;background:var(--line)}
+  .stage{position:relative;padding:20px 0}
+  .stage .glow{position:absolute;left:50%;top:50%;width:min(560px,120vw);aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(77,141,255,.28),rgba(94,234,212,.10) 40%,transparent 68%);pointer-events:none}
+
+  /* 종목 띠 — 앱 거래소 목록의 6종목 */
+  .ticker{border-top:2px solid var(--line);border-bottom:2px solid var(--line);background:rgba(11,18,32,.6);overflow:hidden;margin-top:36px}
+  .ticker-track{display:flex;gap:0;width:max-content;animation:slide 32s linear infinite}
+  @media (prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+  .ticker:hover .ticker-track{animation-play-state:paused}
+  .tk{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-right:2px solid var(--line);font-family:var(--label);font-size:11px;white-space:nowrap}
+  .tk .coin{width:18px;height:18px;display:grid;place-items:center;color:#0B1220;font-family:var(--label);font-size:11px;font-weight:700}
+  .tk .sym{color:var(--muted)}
+  .tk .up{color:var(--up)} .tk .dn{color:var(--down)}
+  @keyframes slide{to{transform:translateX(-50%)}}
+
+  /* ---------- sections ---------- */
+  section{position:relative;padding:88px 0}
+  @media (max-width:720px){section{padding:64px 0}}
+  .head{max-width:640px;margin-bottom:40px}
+  .head .era{margin-bottom:18px}
+  .head h2{margin-bottom:14px}
+  .head p{color:var(--muted);font-size:1.05rem}
+
+  /* 하루 — 4단계(순서가 곧 규칙이라 번호를 붙인다) */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media (max-width:980px){.steps{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:520px){.steps{grid-template-columns:1fr}}
+  .step{padding:14px;display:flex;flex-direction:column;gap:12px;min-height:100%}
+  .step .pic{position:relative;aspect-ratio:4/5;overflow:hidden;border:2px solid var(--line);background:#0B1220}
+  .step .pic img{width:100%;height:100%;object-fit:cover;object-position:top}
+  .step .pic.shot img{object-position:50% 9%}
+  .step .n{position:absolute;left:0;top:0;background:var(--gold);color:#0B1220;font-family:var(--label);font-size:11px;padding:6px 8px;line-height:1}
+  .step h3{font-size:14px;line-height:1.5}
+  .step p{color:var(--muted);font-size:.93rem}
+  .step .tag{margin-top:auto;font-family:var(--label);font-size:11px;color:var(--mint)}
+
+  /* 2026 — 화면이 먹색으로 바뀐다(앱의 시대 전환) */
+  .now{background:var(--now-bg);color:var(--now-text);border-top:2px solid var(--now-line);border-bottom:2px solid var(--now-line)}
+  .now .card{background:var(--now-surface);border-color:var(--now-line)}
+  .now .head p,.now .muted{color:var(--now-muted)}
+  .now .phone{border-color:var(--now-line);background:#000}
+  .now .phone img{border-color:var(--now-line)}
+  .now .phone::before{background:var(--now-line)}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  @media (max-width:860px){.split{grid-template-columns:1fr;gap:36px}}
+  .phones{display:flex;justify-content:center;gap:18px;align-items:flex-start}
+  .phones .phone{width:min(250px,42vw);margin:0}
+  .phones .phone:last-child{margin-top:48px}
+  .rules{display:flex;flex-direction:column;gap:0;border:2px solid var(--now-line)}
+  .rule{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:baseline;padding:16px 18px;border-bottom:2px dashed var(--now-line)}
+  .rule:last-child{border-bottom:0}
+  .rule .num{font-size:22px;color:var(--now-text);min-width:6ch}
+  .rule .t{font-weight:500}
+  .rule .s{display:block;color:var(--now-muted);font-size:.9rem;margin-top:2px}
+
+  /* 상점 — 물건 목록 */
+  .shop{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}
+  @media (max-width:860px){.shop{grid-template-columns:1fr}}
+  .items{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media (max-width:520px){.items{grid-template-columns:1fr}}
+  .item{padding:12px 14px;display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+  .item .nm{font-weight:500}
+  .item .nt{display:block;color:var(--muted);font-size:.85rem;margin-top:2px}
+  .item .pr{font-family:var(--display);font-size:14px;color:var(--gold);white-space:nowrap}
+  .item.rare{border-color:var(--gold-deep)}
+  .items-more{margin-top:12px;color:var(--muted);font-size:.93rem}
+
+  /* 분명히 해둘 것 */
+  .plain{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media (max-width:760px){.plain{grid-template-columns:1fr}}
+  .plain .card{padding:20px}
+  .plain h3{font-size:14px;line-height:1.5;margin-bottom:8px;color:var(--mint)}
+  .plain p{color:var(--muted);font-size:.95rem}
+
+  /* 마지막 CTA */
+  .final{text-align:center}
+  .final .art{width:min(1080px,100%);margin:0 auto 36px;opacity:.9;image-rendering:pixelated}
+  .final h2{margin-bottom:14px}
+  .final p{color:var(--muted);margin-bottom:28px}
+  .final .cta{justify-content:center}
+
+  footer{border-top:2px solid var(--line);padding:32px 0 56px;color:var(--muted);font-size:.88rem}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;align-items:center}
+  footer nav{display:flex;flex-wrap:wrap;gap:6px 20px}
+  footer a{text-decoration:none;border-bottom:1px solid var(--line)}
+  footer a:hover{color:var(--text)}
+
+  /* 등장 */
+  .rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .rv.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label="타임모의신 처음으로">
+      <img src="assets/icon.png" alt="" width="30" height="30">
+      <span><b>타임모의신</b><small>타임머신 타고 모의투자</small></span>
+    </a>
+    <nav class="nav" aria-label="시대">
+      <a class="era" id="chip" href="#day"><span class="sq" aria-hidden="true"></span><span id="chip-text">2126 미래</span></a>
+      <a class="btn-sm" href="https://apps.apple.com/kr/app/id6809161436" rel="noopener">App Store</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="h1">
+    <canvas id="stars" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div>
+        <span class="era"><span class="sq" aria-hidden="true"></span>2126 미래 · 모의거래 · 실제 아님</span>
+        <h1 id="h1"><span class="mint">진짜 시세,</span><br><span class="accent">가짜 돈.</span></h1>
+        <p class="lede">2126년에서 배급을 받아 2026년으로 보내고, 실제 시세로 코인을 사고팝니다. 불린 돈으로는 미래의 물건을 삽니다. 가상인 것은 돈뿐입니다.</p>
+        <div class="cta">
+          <a class="btn" href="https://apps.apple.com/kr/app/id6809161436" rel="noopener">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M11.7 8.5c0-1.6 1.3-2.4 1.4-2.4-.8-1.1-2-1.3-2.4-1.3-1-.1-2 .6-2.5.6s-1.3-.6-2.2-.6C4.9 4.8 3.8 5.5 3.2 6.5c-1.3 2.2-.3 5.5.9 7.3.6.9 1.3 1.9 2.3 1.8.9 0 1.3-.6 2.4-.6s1.4.6 2.4.6 1.6-.9 2.2-1.8c.7-1 1-2 1-2.1-.1 0-2.7-1-2.7-3.2zM10 3.8c.5-.6.8-1.4.7-2.2-.7 0-1.6.5-2.1 1.1-.5.5-.9 1.3-.8 2.1.8.1 1.6-.4 2.2-1z"/></svg>
+            App Store에서 받기
+          </a>
+          <span class="label">무료 · 계정 없음 · iOS 15 이상<br>지금은 한국 App Store에서만</span>
+        </div>
+        <div class="facts" role="list">
+          <div class="fact px" role="listitem"><span class="num">빗썸</span><span class="label">실시간 시세 그대로</span></div>
+          <div class="fact px" role="listitem"><span class="num">하루 10번</span><span class="label">광고 보면 배급 30만</span></div>
+          <div class="fact px" role="listitem"><span class="num">26종</span><span class="label">미래 상점 물건</span></div>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="phone px">
+          <img src="assets/shot-arrive.webp" alt="앱 첫 화면 — 2126년에 도착했다는 안내와 규칙 셋" width="603" height="1311" fetchpriority="high">
+        </div>
+      </div>
+    </div>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track" id="tape"></div>
+    </div>
+  </section>
+
+  <section id="day" aria-labelledby="h-day">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="era"><span class="sq" aria-hidden="true"></span>2126 미래</span>
+        <h2 id="h-day">하루는 이렇게 돌아갑니다</h2>
+        <p>얼음 한 컵이 1200만 원인 시대. 가진 것은 광고를 보면 나오는 배급뿐이라, 돈을 100년 전으로 보내 불려 옵니다.</p>
+      </div>
+      <div class="steps">
+        <article class="step card px rv">
+          <div class="pic"><img src="assets/art-ration.webp" alt="배급 상자에서 코인이 나오는 도트 그림" loading="lazy"><span class="n">1</span></div>
+          <h3>2126에서 배급을 받습니다</h3>
+          <p>광고 한 편에 30만. 시간당 3번, 하루 10번까지.</p>
+          <span class="tag">유산 1000만 원으로 시작</span>
+        </article>
+        <article class="step card px rv">
+          <div class="pic"><img src="assets/art-transfer.webp" alt="모래시계가 든 캡슐" loading="lazy"><span class="n">2</span></div>
+          <h3>2026으로 보냅니다</h3>
+          <p>100년 전 내 계좌로. 그때는 아직 코인 시장이 있고, 시세는 진짜가 흐릅니다.</p>
+          <span class="tag">과거로 보내기</span>
+        </article>
+        <article class="step card px rv">
+          <div class="pic shot"><img src="assets/shot-exchange.webp" alt="거래소 화면 — 비트코인·이더리움 등 6종목 시세" loading="lazy"><span class="n">3</span></div>
+          <h3>진짜 시세로 사고팝니다</h3>
+          <p>빗썸 실시간 가격. 수수료·최소 주문·평균 매입가도 실제 거래소 규칙 그대로.</p>
+          <span class="tag">6종목 · 3초 갱신</span>
+        </article>
+        <article class="step card px rv">
+          <div class="pic shot"><img src="assets/shot-shop.webp" alt="미래 상점 화면 — 씹는 산소 한 알 300만 등" loading="lazy"><span class="n">4</span></div>
+          <h3>불린 돈으로 미래 물건을 삽니다</h3>
+          <p>다시 2126으로 돌려보내면 그 시대 물가로 삽니다. 사 모은 물건은 선반에 쌓입니다.</p>
+          <span class="tag">얼음 한 컵 1200만</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="now" id="now" aria-labelledby="h-now">
+    <div class="wrap split">
+      <div>
+        <div class="head rv">
+          <span class="era now"><span class="sq" aria-hidden="true"></span>2026 현재</span>
+          <h2 id="h-now">시세만은 진짜입니다</h2>
+          <p>게임용 가짜 숫자가 아닙니다. 그래서 버는 감각도 잃는 감각도 실전과 같습니다.</p>
+        </div>
+        <div class="rules card px rv">
+          <div class="rule"><span class="num">빗썸</span><div><span class="t">실제 거래소의 실시간 시세</span><span class="s">거래소 앱에 뜨는 그 가격이 그대로 뜹니다</span></div></div>
+          <div class="rule"><span class="num">0.25%</span><div><span class="t">수수료도 실제 요율</span><span class="s">사고팔 때마다 빠집니다. 자주 사고팔면 그만큼 새어 나갑니다</span></div></div>
+          <div class="rule"><span class="num">5,000원</span><div><span class="t">최소 주문 금액</span><span class="s">평균 매입가 · 실현 손익 · 전일/1시간/1주 등락까지 같은 규칙</span></div></div>
+          <div class="rule"><span class="num">6종목</span><div><span class="t">비트코인 · 이더리움 · 리플 · 솔라나 · 도지코인 · 에이다</span><span class="s">차트는 최근 이틀 60분봉. 어떤 종목도 추천하지 않습니다</span></div></div>
+        </div>
+      </div>
+      <div class="phones rv">
+        <div class="phone px"><img src="assets/shot-exchange.webp" alt="거래소 화면" loading="lazy" width="603" height="1311"></div>
+        <div class="phone px"><img src="assets/shot-market.webp" alt="비트코인 종목 화면 — 차트·보유 수량·평가 손익" loading="lazy" width="603" height="1311"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="shop" aria-labelledby="h-shop">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="era"><span class="sq" aria-hidden="true"></span>2126 미래</span>
+        <h2 id="h-shop">미래의 나에겐 뭐가 필요할까</h2>
+        <p>상점에는 26종이 있습니다. 매일이면 닿는 것부터, 투자해야 닿는 것까지. 어떤 건 몇 개 안 남았습니다.</p>
+      </div>
+      <div class="shop">
+        <div class="rv">
+          <div class="items" role="list">
+            <div class="item card px" role="listitem"><div><span class="nm">씹는 산소 한 알</span><span class="nt">지하 구역 표준 배급품</span></div><span class="pr">300만</span></div>
+            <div class="item card px" role="listitem"><div><span class="nm">얼음 한 컵</span><span class="nt">자연 결빙은 관측되지 않습니다</span></div><span class="pr">1200만</span></div>
+            <div class="item card px" role="listitem"><div><span class="nm">합성 바나나향 우유</span><span class="nt">진짜 바나나는 2087년 멸종</span></div><span class="pr">1700만</span></div>
+            <div class="item card px" role="listitem"><div><span class="nm">오늘의 날씨(맑음)</span><span class="nt">기상권은 구역별로 판매됩니다</span></div><span class="pr">2000만</span></div>
+            <div class="item card px rare" role="listitem"><div><span class="nm">달걀 한 알</span><span class="nt">사육 시설이 3곳 남았습니다 · 10개 한정</span></div><span class="pr">500만</span></div>
+            <div class="item card px" role="listitem"><div><span class="nm">자연산 햇빛 1시간</span><span class="nt">지상 노출 허가 포함</span></div><span class="pr">8000만</span></div>
+            <div class="item card px" role="listitem"><div><span class="nm">벌 1마리</span><span class="nt">수분용 · 반납 의무 있음</span></div><span class="pr">2억</span></div>
+            <div class="item card px" role="listitem"><div><span class="nm">창문</span><span class="nt">설치 불가 · 감상용</span></div><span class="pr">30억</span></div>
+            <div class="item card px" role="listitem"><div><span class="nm">비 오는 날</span><span class="nt">구역 단위 신청</span></div><span class="pr">120억</span></div>
+            <div class="item card px" role="listitem"><div><span class="nm">진짜 고양이</span><span class="nt">사료 별도</span></div><span class="pr">200억</span></div>
+            <div class="item card px rare" role="listitem"><div><span class="nm">유선 이어폰</span><span class="nt">연결 단자 없음 · 10개 한정</span></div><span class="pr">8000만</span></div>
+            <div class="item card px" role="listitem"><div><span class="nm">바다가 보이는 집</span><span class="nt">창문 포함 · 해안 접근권 없음</span></div><span class="pr">1조</span></div>
+          </div>
+          <p class="items-more">…그리고 첫 매도를 마치면 받는 「첫 거래 기념 영수증」, 10연속 익절에 주는 트로피까지. 비매품은 돈으로 못 삽니다.</p>
+        </div>
+        <div class="phones rv">
+          <div class="phone px"><img src="assets/shot-shop.webp" alt="상점 화면" loading="lazy" width="603" height="1311"></div>
+          <div class="phone px"><img src="assets/shot-shelf.webp" alt="선반 화면 — 모은 물건 5/26" loading="lazy" width="603" height="1311"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="plain" aria-labelledby="h-plain">
+    <div class="wrap">
+      <div class="head rv">
+        <h2 id="h-plain">분명히 해둘 것</h2>
+      </div>
+      <div class="plain">
+        <div class="card px rv"><h3>모든 돈은 가상입니다</h3><p>현금 충전도, 현금 환급도 없습니다. 배급은 광고를 보면 나오고, 돈으로는 못 삽니다.</p></div>
+        <div class="card px rv"><h3>실제 매매가 아닙니다</h3><p>어떤 종목도 추천하지 않습니다. 시세는 실제지만 주문은 거래소로 가지 않습니다.</p></div>
+        <div class="card px rv"><h3>계정과 로그인이 없습니다</h3><p>기록은 기기 안에만 저장됩니다. 앱을 지우면 기록도 사라집니다.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" aria-labelledby="h-final">
+    <div class="wrap">
+      <img class="art rv" src="assets/art-city.webp" alt="" aria-hidden="true" loading="lazy">
+      <div class="rv">
+        <h2 id="h-final">100년 뒤에 도착했습니다</h2>
+        <p>잃어도 되는 돈으로, 진짜 시세에서 감각부터 길러보세요.</p>
+        <div class="cta">
+          <a class="btn gold" href="https://apps.apple.com/kr/app/id6809161436" rel="noopener">App Store에서 받기</a>
+          <span class="label">무료 · 한국 App Store</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 Younghwa Kim · 시세 출처: 빗썸 · 가상의 돈으로 하는 모의거래이며 실제 매매가 아닙니다</div>
+    <nav aria-label="문서">
+      <a href="privacy.html">개인정보처리방침</a>
+      <a href="mailto:younghwa.labs@gmail.com">문의</a>
+      <a href="https://apps.apple.com/kr/app/id6809161436" rel="noopener">App Store</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 헤더: 스크롤하면 밑줄, 2026 구역에 들어가면 칩이 「2026 현재」로 바뀐다(앱의 시대 전환)
+  var header = document.querySelector('header'), chip = document.getElementById('chip'), chipText = document.getElementById('chip-text');
+  addEventListener('scroll', function(){ header.classList.toggle('stuck', scrollY > 8); }, {passive:true});
+  var now = document.getElementById('now');
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        var on = e.isIntersecting;
+        document.body.classList.toggle('in-now', on);
+        chip.classList.toggle('now', on);
+        chipText.textContent = on ? '2026 현재' : '2126 미래';
+        chip.setAttribute('href', on ? '#shop' : '#day');
+      });
+    }, {rootMargin:'-45% 0px -45% 0px'}).observe(now);
+
+    var ro = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
+    }, {rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.rv').forEach(function(el){ ro.observe(el); });
+  } else {
+    document.querySelectorAll('.rv').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  // 종목 띠 — 숫자는 장식이다. 실제 시세를 부르지 않는다(거래소 요청은 앱만 보낸다)
+  var coins = [
+    ['B','비트코인','BTC','#FF9F43'], ['E','이더리움','ETH','#A78BFA'], ['X','리플','XRP','#7FC5F0'],
+    ['S','솔라나','SOL','#5EEAD4'], ['D','도지코인','DOGE','#FFC94A'], ['A','에이다','ADA','#4D8DFF']
+  ];
+  var tape = document.getElementById('tape'), html = '';
+  for (var r = 0; r < 2; r++) coins.forEach(function(c, i){
+    var up = (i % 2 === 0);
+    html += '<span class="tk"><span class="coin" style="background:' + c[3] + '">' + c[0] + '</span>' + c[1] +
+            ' <span class="sym">' + c[2] + '</span><span class="' + (up ? 'up' : 'dn') + '">' + (up ? '▲' : '▼') + '</span></span>';
+  });
+  tape.innerHTML = html;
+
+  // 히어로 별 — 픽셀 점이 천천히 깜빡인다
+  var cv = document.getElementById('stars'), ctx = cv.getContext('2d'), stars = [], W, H, dpr;
+  function size(){
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    stars = []; var n = Math.floor(W * H / 9000);
+    for (var i = 0; i < n; i++) stars.push({x: Math.random()*W, y: Math.random()*H, s: Math.random() < .15 ? 3 : 2, p: Math.random()*6.28, v: .4 + Math.random()*.8, c: Math.random() < .12 ? '#5EEAD4' : (Math.random() < .5 ? '#E9EEFA' : '#8E9CC4')});
+    draw(0);
+  }
+  function draw(t){
+    ctx.clearRect(0,0,W,H);
+    for (var i = 0; i < stars.length; i++) {
+      var s = stars[i], a = reduce ? .5 : .25 + .45 * (0.5 + 0.5 * Math.sin(s.p + t/1000 * s.v));
+      ctx.globalAlpha = a; ctx.fillStyle = s.c; ctx.fillRect(Math.round(s.x), Math.round(s.y), s.s, s.s);
+    }
+    ctx.globalAlpha = 1;
+  }
+  size(); addEventListener('resize', size);
+  if (!reduce) (function loop(t){ draw(t); requestAnimationFrame(loop); })(0);
+})();
+</script>
+</body>
+</html>
