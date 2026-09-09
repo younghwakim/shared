@@ -30,7 +30,7 @@
     --band:#0F6E5C; --band-deep:#0A5648;
     --shadow:0 26px 60px -26px rgba(26,29,38,.3), 0 8px 20px -12px rgba(26,29,38,.16);
     --r:16px; --maxw:1080px;
-    --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Segoe UI",sans-serif;
+    --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Hiragino Sans","Noto Sans KR","Noto Sans JP","Segoe UI",sans-serif;
     color-scheme:light;
   }
   @media (prefers-color-scheme:dark){
@@ -58,8 +58,7 @@
 
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
-  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--font); font-size:16px; line-height:1.65;
-    letter-spacing:-.01em; word-break:keep-all; overflow-wrap:anywhere; overflow-x:hidden}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--font); font-size:16px; line-height:1.65; letter-spacing:-.01em; word-break:keep-all; overflow-wrap:anywhere; overflow-x:hidden}
   img{max-width:100%; display:block}
   a{color:inherit}
   h1,h2,h3{text-wrap:balance; margin:0}
@@ -68,41 +67,38 @@
   .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
   .num{font-variant-numeric:tabular-nums}
 
-  header{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--bg) 84%, transparent);
-    -webkit-backdrop-filter:saturate(1.3) blur(14px); backdrop-filter:saturate(1.3) blur(14px); border-bottom:1px solid transparent; transition:border-color .2s}
+  header{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--bg) 84%, transparent); -webkit-backdrop-filter:saturate(1.3) blur(14px); backdrop-filter:saturate(1.3) blur(14px); border-bottom:1px solid transparent; transition:border-color .2s}
   header.stuck{border-bottom-color:var(--line)}
-  .bar{display:flex; align-items:center; justify-content:space-between; gap:16px; height:64px}
+  .bar{display:flex; align-items:center; justify-content:space-between; gap:12px; height:64px}
   .brand{display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:800; font-size:1.08rem; letter-spacing:-.02em}
   .brand img{width:30px; height:30px; border-radius:8px}
-  .brand .glyph{width:22px; height:14px}
-  nav.top{display:none; gap:26px}
+  nav.top{display:none; gap:24px}
   nav.top a{text-decoration:none; color:var(--ink-2); font-size:.93rem; font-weight:600}
   nav.top a:hover{color:var(--ink)}
-  @media(min-width:820px){nav.top{display:flex}}
+  @media(min-width:900px){nav.top{display:flex}}
+  .right{display:flex; align-items:center; gap:10px}
   .btn{display:inline-flex; align-items:center; justify-content:center; gap:9px; text-decoration:none; cursor:pointer; font:inherit; font-weight:700; font-size:.96rem;
     letter-spacing:-.01em; line-height:1; padding:13px 20px; border-radius:999px; border:1.5px solid transparent; transition:transform .15s, background .15s, border-color .15s; white-space:nowrap}
   .btn.primary{background:var(--green); color:#fff}
   .btn.primary:hover{background:var(--green-deep); transform:translateY(-1px)}
   .btn.ghost{background:transparent; color:var(--ink); border-color:var(--line-2)}
   .btn.ghost:hover{border-color:var(--ink-3); transform:translateY(-1px)}
-  .btn.sm{padding:10px 16px; font-size:.9rem}
+  .btn.sm{padding:10px 14px; font-size:.88rem}
 
-  /* ── 히어로 ── */
   .hero{padding:52px 0 0; overflow:hidden}
   .hero-grid{display:grid; gap:40px; align-items:end}
   @media(min-width:900px){.hero{padding:68px 0 0} .hero-grid{grid-template-columns:1.1fr .9fr; gap:48px}}
   .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:.86rem; font-weight:700; color:var(--green-ink); background:var(--green-soft); padding:7px 12px 7px 10px; border-radius:999px; margin-bottom:22px}
   .eyebrow svg{width:16px; height:16px}
-  h1{font-size:clamp(2.3rem,6.4vw,3.7rem); line-height:1.14; letter-spacing:-.04em; font-weight:800}
+  h1{font-size:clamp(2.1rem,6.2vw,3.6rem); line-height:1.14; letter-spacing:-.04em; font-weight:800}
   h1 .accent{color:var(--green)}
-  .lede{font-size:clamp(1.05rem,2.3vw,1.22rem); color:var(--ink-2); margin:22px 0 28px; max-width:36ch; line-height:1.7}
+  .lede{font-size:clamp(1.05rem,2.3vw,1.22rem); color:var(--ink-2); margin:22px 0 28px; max-width:38ch; line-height:1.7}
   .cta-row{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
   .cta-note{display:flex; flex-wrap:wrap; gap:6px 14px; font-size:.86rem; color:var(--ink-3); margin-top:16px}
   .cta-note span{display:inline-flex; align-items:center; gap:6px}
   .cta-note svg{width:14px; height:14px; color:var(--green)}
   .hero .copy{padding-bottom:48px}
 
-  /* 한 획 — 이 앱의 핵심 사물. 현위치에서 목적지까지 끊기지 않는 선 */
   .stroke{margin:34px 0 0; max-width:560px}
   .stroke svg{width:100%; height:auto; display:block; overflow:visible}
   .stroke .walk{stroke:var(--ink-3); stroke-width:3; stroke-dasharray:2 8; stroke-linecap:round; fill:none}
@@ -121,40 +117,30 @@
   .js .pop.p1{animation-delay:1.9s}.js .pop.p2{animation-delay:2.05s}
   @keyframes pop{to{opacity:1}}
 
-  /* 폰 — 스토어 화면은 아래가 잘려 있어(원본이 그렇다) 폰이 섹션 바닥으로 흘러 나가게 둔다 */
-  .phone{position:relative; width:100%; max-width:300px; border-radius:44px 44px 0 0; background:#0E1117; padding:9px 9px 0;
-    box-shadow:var(--shadow), inset 0 0 0 1.5px #3A4150; overflow:hidden}
+  .phone{position:relative; width:100%; max-width:300px; border-radius:44px 44px 0 0; background:#0E1117; padding:9px 9px 0; box-shadow:var(--shadow), inset 0 0 0 1.5px #3A4150; overflow:hidden}
   .phone img{width:100%; height:auto; border-radius:36px 36px 0 0; background:var(--bg)}
-  .phone.full{border-radius:44px; padding:9px; aspect-ratio:640/1221}
-  .phone.full img{height:100%; object-fit:cover; object-position:top; border-radius:36px}
   .stage{display:flex; justify-content:center; align-items:flex-end; min-height:100%}
   .hero .stage .phone{max-height:560px}
   @media(min-width:900px){.hero .stage .phone{max-width:320px; max-height:620px}}
 
-  /* ── 공통 ── */
   section{padding:72px 0}
   @media(min-width:900px){section{padding:96px 0}}
   .kicker{font-size:.8rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--green-ink); margin:0 0 14px}
-  h2{font-size:clamp(1.65rem,4.2vw,2.5rem); line-height:1.2; letter-spacing:-.035em; font-weight:800; max-width:22ch}
-  .body{color:var(--ink-2); font-size:1.05rem; max-width:48ch; margin-top:16px; line-height:1.72}
+  h2{font-size:clamp(1.65rem,4.2vw,2.5rem); line-height:1.2; letter-spacing:-.035em; font-weight:800; max-width:24ch}
+  .body{color:var(--ink-2); font-size:1.05rem; max-width:50ch; margin-top:16px; line-height:1.72}
   .body b{color:var(--ink); font-weight:700}
   .r{opacity:1; transform:none}
   .js .r{opacity:0; transform:translateY(18px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
   .js .r.in{opacity:1; transform:none}
   .js .r[data-delay="1"]{transition-delay:.1s}.js .r[data-delay="2"]{transition-delay:.2s}.js .r[data-delay="3"]{transition-delay:.3s}
 
-  /* ── 첫 화면이 답하는 숫자 ── */
   .answer{background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
-  .answer-grid{display:grid; gap:36px; align-items:center}
-  @media(min-width:900px){.answer-grid{grid-template-columns:1.05fr .95fr; gap:64px}}
   .stat{border-left:3px solid var(--green); padding:6px 0 6px 22px; margin-top:26px}
   .stat .from{font-size:1.05rem; color:var(--ink-2); font-weight:600}
   .stat .big{font-size:clamp(2rem,6vw,3.6rem); font-weight:800; letter-spacing:-.04em; line-height:1.2; margin-top:4px}
   .stat .big em{font-style:normal; color:var(--green)}
   .stat .sub{color:var(--ink-3); font-size:.92rem; margin-top:8px}
-  .answer .stage .phone{max-width:280px}
 
-  /* ── 3단 ── */
   .steps{display:grid; gap:56px; margin-top:44px}
   .step{display:grid; gap:28px; align-items:center}
   @media(min-width:820px){.step{grid-template-columns:1fr 1fr; gap:56px} .step.rev .copy{order:2} .step.rev .shot{order:1} .steps{gap:84px}}
@@ -172,7 +158,6 @@
   .card-time b{font-size:1.6rem; font-weight:800; letter-spacing:-.03em; line-height:1}
   .card-time span{font-size:.86rem; color:var(--ink-2)}
 
-  /* ── 빼기 밴드 (스토어 화면과 같은 초록) ── */
   .band{background:linear-gradient(180deg,var(--band) 0%,var(--band-deep) 100%); color:#F1F7F4}
   .band .kicker{color:#9FDCC9}
   .band h2{color:#fff}
@@ -191,7 +176,6 @@
   .under{position:relative; display:inline-block}
   .under::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:4px; border-radius:2px; background:var(--orange)}
 
-  /* ── 시간 계산 ── */
   .calc{margin-top:36px; background:var(--surface); border:1px solid var(--line); border-radius:22px; padding:26px 22px; box-shadow:var(--shadow)}
   .calc .stroke{margin:0}
   .calc .legend{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:16px; font-size:.86rem; color:var(--ink-2)}
@@ -202,7 +186,6 @@
   .note{display:flex; gap:12px; align-items:flex-start; color:var(--ink-2); font-size:.95rem; margin-top:22px; max-width:62ch; line-height:1.65}
   .note svg{width:20px; height:20px; flex:none; color:var(--ink-3); margin-top:2px}
 
-  /* ── 업종 4 ── */
   .kinds{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:32px}
   @media(min-width:720px){.kinds{grid-template-columns:repeat(4,1fr); gap:14px}}
   .kind{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:20px 18px; display:grid; gap:12px}
@@ -211,7 +194,6 @@
   .kind h3{font-size:1.05rem; letter-spacing:-.02em; font-weight:700}
   .kind p{font-size:.88rem; color:var(--ink-2); line-height:1.5; margin-top:2px}
 
-  /* ── 지키는 것 ── */
   .rules{list-style:none; padding:0; margin:36px 0 0; display:grid; border-top:1px solid var(--line)}
   @media(min-width:720px){.rules{grid-template-columns:repeat(3,1fr); column-gap:40px}}
   .rules li{padding:22px 0; border-bottom:1px solid var(--line); display:grid; gap:12px}
@@ -220,7 +202,6 @@
   .rules h3{font-size:1.05rem; letter-spacing:-.02em; font-weight:700}
   .rules p{color:var(--ink-2); font-size:.94rem; line-height:1.6; margin-top:2px}
 
-  /* ── FAQ ── */
   .faq{margin-top:28px; border-top:1px solid var(--line); max-width:760px}
   .faq details{border-bottom:1px solid var(--line)}
   .faq summary{cursor:pointer; list-style:none; padding:20px 0; font-weight:700; font-size:1.05rem; display:flex; justify-content:space-between; gap:16px; align-items:center}
@@ -240,11 +221,7 @@
   .foot nav a:hover{color:var(--ink)}
   .copy-line{margin-top:22px; display:flex; flex-wrap:wrap; gap:6px 18px; font-size:.84rem}
   [hidden]{display:none !important}
-  @media(prefers-reduced-motion:reduce){
-    .js .draw,.js .pop{animation:none; stroke-dashoffset:0; opacity:1}
-    .js .r{opacity:1; transform:none; transition:none}
-    html{scroll-behavior:auto}
-  }
+  @media(prefers-reduced-motion:reduce){.js .draw,.js .pop{animation:none; stroke-dashoffset:0; opacity:1} .js .r{opacity:1; transform:none; transition:none} html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -253,13 +230,15 @@
   <div class="wrap bar">
     <a class="brand" href="./"><img src="assets/icon.png" alt="" width="30" height="30"><span>뚜벅맵</span></a>
     <nav class="top" aria-label="본문 이동">
-      <a href="#how">어떻게</a>
-      <a href="#malgo">빼기</a>
-      <a href="#time">시간 계산</a>
-      <a href="#kinds">업종</a>
-      <a href="#faq">자주 묻는 질문</a>
+      <a href="#how" data-i="navHow">어떻게</a>
+      <a href="#malgo" data-i="navMalgo">빼기</a>
+      <a href="#time" data-i="navTime">시간 계산</a>
+      <a href="#kinds" data-i="navKinds">업종</a>
+      <a href="#faq" data-i="navFaq">자주 묻는 질문</a>
     </nav>
-    <a class="btn primary sm" href="https://apps.apple.com/kr/app/id6794741156">App Store</a>
+    <div class="right">
+      <a class="btn primary sm" href="https://apps.apple.com/kr/app/id6794741156">App Store</a>
+    </div>
   </div>
 </header>
 
@@ -269,18 +248,18 @@
     <div class="copy">
       <p class="eyebrow">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="3" width="14" height="15" rx="4" stroke="currentColor" stroke-width="2"/><path d="M8 21l1.5-3M16 21l-1.5-3M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="15" r="1.2" fill="currentColor"/><circle cx="15" cy="15" r="1.2" fill="currentColor"/></svg>
-        서울·수도권 지하철 649개 역
+        <span data-i="eyebrow">서울·수도권 지하철 649개 역</span>
       </p>
-      <h1 id="h1">환승 없이 갈 수 있는,<br><span class="accent">아직 안 가본 곳.</span></h1>
-      <p class="lede">출발지만 정하면, 지하철 한 번으로 닿는 역과 그 근처 카페·밥집·명소·전시가 지도에 한 번에 보입니다. 늘 가던 동네는 빼고요.</p>
+      <h1 id="h1"><span data-i="h1a">환승 없이 갈 수 있는,</span><br><span class="accent" data-i="h1b">아직 안 가본 곳.</span></h1>
+      <p class="lede" data-i="lede">출발지만 정하면, 지하철 한 번으로 닿는 역과 그 근처 카페·밥집·명소·전시가 지도에 한 번에 보입니다. 늘 가던 동네는 빼고요.</p>
       <div class="cta-row">
-        <a class="btn primary" href="https://apps.apple.com/kr/app/id6794741156">App Store에서 받기</a>
-        <a class="btn ghost" href="#how">어떻게 되는지 보기</a>
+        <a class="btn primary" href="https://apps.apple.com/kr/app/id6794741156" data-i="cta">App Store에서 받기</a>
+        <a class="btn ghost" href="#how" data-i="how">어떻게 되는지 보기</a>
       </div>
       <p class="cta-note">
-        <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>무료</span>
-        <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>로그인·계정 없음</span>
-        <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>iPhone</span>
+        <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i="n1">무료</span></span>
+        <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i="n2">로그인·계정 없음</span></span>
+        <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i="n3">iPhone</span></span>
       </p>
 
       <div class="stroke" role="img" aria-label="현위치에서 걸어서 7분, 지하철 환승 없이 18분, 걸어서 4분 — 29분 뒤 아직 안 가본 곳">
@@ -294,13 +273,13 @@
           <circle class="stop" cx="320" cy="70" r="5"/>
           <circle class="stop" cx="420" cy="70" r="8"/>
           <g class="pop p1"><circle class="new" cx="520" cy="70" r="11"/><circle cx="520" cy="70" r="4" fill="#fff"/></g>
-          <text x="20" y="42" text-anchor="middle">현위치</text>
-          <text x="70" y="104" text-anchor="middle" class="tiny">걸어서 7분</text>
-          <text x="120" y="42" text-anchor="middle">역삼</text>
-          <text x="270" y="104" text-anchor="middle" class="tiny">지하철 18분 · 환승 없이</text>
-          <text x="420" y="42" text-anchor="middle">성수</text>
-          <text x="470" y="104" text-anchor="middle" class="tiny">걸어서 4분</text>
-          <g class="pop p2"><text x="520" y="42" text-anchor="middle">안 가본 곳</text><text x="520" y="134" text-anchor="middle" class="big">29분</text></g>
+          <text x="20" y="42" text-anchor="middle" data-i="me">현위치</text>
+          <text x="70" y="104" text-anchor="middle" class="tiny" data-i="walk7">걸어서 7분</text>
+          <text x="120" y="42" text-anchor="middle" data-i="st1">역삼</text>
+          <text x="270" y="104" text-anchor="middle" class="tiny" data-i="ride18">지하철 18분 · 환승 없이</text>
+          <text x="420" y="42" text-anchor="middle" data-i="st2">성수</text>
+          <text x="470" y="104" text-anchor="middle" class="tiny" data-i="walk4">걸어서 4분</text>
+          <g class="pop p2"><text x="520" y="42" text-anchor="middle" data-i="newSpot">안 가본 곳</text><text x="520" y="134" text-anchor="middle" class="big" data-i="total29">29분</text></g>
         </svg>
       </div>
     </div>
@@ -312,47 +291,47 @@
 
 <section class="answer" aria-labelledby="h-ans">
   <div class="wrap">
-    <p class="kicker r">첫 화면이 답합니다</p>
-    <h2 id="h-ans" class="r" data-delay="1">어디까지 갈 수 있는지, 숫자로.</h2>
-    <p class="body r" data-delay="2">출발지를 정하면 첫 줄에 결과부터 나옵니다. 생각보다 멀리 갑니다.</p>
+    <p class="kicker r" data-i="ansK">첫 화면이 답합니다</p>
+    <h2 id="h-ans" class="r" data-delay="1" data-i="ansH">어디까지 갈 수 있는지, 숫자로.</h2>
+    <p class="body r" data-delay="2" data-i="ansP">출발지를 정하면 첫 줄에 결과부터 나옵니다. 생각보다 멀리 갑니다.</p>
     <div class="stat r" data-delay="2">
-      <div class="from">대치동에서 환승 없이 40분</div>
-      <div class="big num">동네 <em>14</em>곳 · 카페 <em>905</em>곳</div>
-      <div class="sub">실제 화면의 숫자입니다. 출발지와 조건에 따라 달라집니다.</div>
+      <div class="from" data-i="statFrom">대치동에서 환승 없이 40분</div>
+      <div class="big num"><span data-i="statA">동네 </span><em>14</em><span data-i="statB">곳 · 카페 </span><em>905</em><span data-i="statC">곳</span></div>
+      <div class="sub" data-i="statSub">실제 화면의 숫자입니다. 출발지와 조건에 따라 달라집니다.</div>
     </div>
   </div>
 </section>
 
 <section id="how" aria-labelledby="h-how">
   <div class="wrap">
-    <p class="kicker r">어떻게 되나</p>
-    <h2 id="h-how" class="r" data-delay="1">정하고, 보고, 고릅니다.</h2>
+    <p class="kicker r" data-i="howK">어떻게 되나</p>
+    <h2 id="h-how" class="r" data-delay="1" data-i="howH">정하고, 보고, 고릅니다.</h2>
     <div class="steps">
       <div class="step">
         <div class="copy">
-          <div class="n r">출발지와 조건</div>
-          <h3 class="r" data-delay="1">현위치, 또는 지도에서 직접.</h3>
-          <p class="r" data-delay="2">업종 하나, 이동 방법 하나, 시간 상한 하나. 세 가지만 고르면 됩니다. 위치 권한을 주지 않아도 지도에서 출발지를 찍으면 됩니다.</p>
-          <div class="chips r" data-delay="3"><span class="chip dark">카페</span><span class="chip on">환승 없이</span><span class="chip">걸어서</span><span class="chip">50분 이내</span></div>
+          <div class="n r" data-i="s1n">출발지와 조건</div>
+          <h3 class="r" data-delay="1" data-i="s1h">현위치, 또는 지도에서 직접.</h3>
+          <p class="r" data-delay="2" data-i="s1p">업종 하나, 이동 방법 하나, 시간 상한 하나. 세 가지만 고르면 됩니다. 위치 권한을 주지 않아도 지도에서 출발지를 찍으면 됩니다.</p>
+          <div class="chips r" data-delay="3"><span class="chip dark" data-i="c1">카페</span><span class="chip on" data-i="c2">환승 없이</span><span class="chip" data-i="c3">걸어서</span><span class="chip" data-i="c4">50분 이내</span></div>
         </div>
         <div class="shot r" data-delay="1"><div class="phone"><img src="assets/shots/01.webp" loading="lazy" width="640" height="1221" alt="홈 화면 — 출발지와 업종·이동 방법·시간 조건"></div></div>
       </div>
       <div class="step rev">
         <div class="copy">
-          <div class="n r">도달권 지도</div>
-          <h3 class="r" data-delay="1">닿는 동네가 한 번에 보입니다.</h3>
-          <p class="r" data-delay="2">환승 없이 갈 수 있는 역과 그 근처 장소가 지도에 그려집니다. 마커의 숫자는 그 동네에 있는 곳의 수. 처음 보는 동네일수록 숫자가 눈에 걸립니다.</p>
+          <div class="n r" data-i="s2n">도달권 지도</div>
+          <h3 class="r" data-delay="1" data-i="s2h">닿는 동네가 한 번에 보입니다.</h3>
+          <p class="r" data-delay="2" data-i="s2p">환승 없이 갈 수 있는 역과 그 근처 장소가 지도에 그려집니다. 마커의 숫자는 그 동네에 있는 곳의 수. 처음 보는 동네일수록 숫자가 눈에 걸립니다.</p>
         </div>
         <div class="shot r" data-delay="1"><div class="phone"><img src="assets/shots/02.webp" loading="lazy" width="640" height="1221" alt="도달권 지도 화면"></div></div>
       </div>
       <div class="step">
         <div class="copy">
-          <div class="n r">카드로 하나씩</div>
-          <h3 class="r" data-delay="1">고민은 짧게, 한 장씩 넘기며.</h3>
-          <p class="r" data-delay="2">후보를 카드로 한 곳씩 봅니다. 카드에는 집 앞에서 가게 앞까지 걸리는 시간이 항상 적혀 있고, 사진과 후기는 앱 안에서 바로 확인합니다. 마음에 들면 「가볼 곳」에 담아 둡니다.</p>
-          <div class="card-time r" data-delay="3"><b class="num">8분</b><span>도보 1분 + 2호선 · 선릉에서 내려요</span></div>
+          <div class="n r" data-i="s3n">카드로 하나씩</div>
+          <h3 class="r" data-delay="1" data-i="s3h">고민은 짧게, 한 장씩 넘기며.</h3>
+          <p class="r" data-delay="2" data-i="s3p">후보를 카드로 한 곳씩 봅니다. 카드에는 집 앞에서 가게 앞까지 걸리는 시간이 항상 적혀 있고, 사진과 후기는 앱 안에서 바로 확인합니다. 마음에 들면 「가볼 곳」에 담아 둡니다.</p>
+          <div class="card-time r" data-delay="3"><b class="num" data-i="cardMin">8분</b><span data-i="cardSub">도보 1분 + 2호선 · 선릉에서 내려요</span></div>
         </div>
-        <div class="shot r" data-delay="1"><div class="phone"><img src="assets/shots/04.webp" loading="lazy" width="640" height="1221" alt="후보를 카드로 한 곳씩 보는 화면 — 집 앞에서 가게 앞까지 8분"></div></div>
+        <div class="shot r" data-delay="1"><div class="phone"><img src="assets/shots/04.webp" loading="lazy" width="640" height="1221" alt="후보를 카드로 한 곳씩 보는 화면"></div></div>
       </div>
     </div>
   </div>
@@ -360,26 +339,23 @@
 
 <section id="malgo" class="band" aria-labelledby="h-malgo">
   <div class="wrap">
-    <p class="kicker r">늘 가던 동네는 빼고</p>
-    <h2 id="h-malgo" class="r" data-delay="1">가본 곳은 빼고, 별로면 <span class="under">다시는 안 나와요.</span></h2>
-    <p class="body r" data-delay="2">추천은 늘 아는 동네부터 채웁니다. 뚜벅맵은 <b>빼는 쪽</b>으로 만들어졌습니다. 뺀 만큼 낯선 곳이 남습니다.</p>
+    <p class="kicker r" data-i="malgoK">늘 가던 동네는 빼고</p>
+    <h2 id="h-malgo" class="r" data-delay="1"><span data-i="malgoH1">가본 곳은 빼고, 별로면 </span><span class="under" data-i="malgoH2">다시는 안 나와요.</span></h2>
+    <p class="body r" data-delay="2"><span data-i="malgoP1">추천은 늘 아는 동네부터 채웁니다. 뚜벅맵은 </span><b data-i="malgoP2">빼는 쪽</b><span data-i="malgoP3">으로 만들어졌습니다. 뺀 만큼 낯선 곳이 남습니다.</span></p>
     <div class="pair">
       <div class="feat r" data-delay="1">
-        <div class="shot"><div class="phone"><img src="assets/shots/03.webp" loading="lazy" width="640" height="1221" alt="가까운 곳 빼기 화면 — 내 동네 반경을 정해 지도에서 뺀다"></div></div>
-        <div>
-          <h3>가까운 곳 빼기</h3>
-          <p>자주 가는 내 동네는 반경을 정해 지도에서 뺍니다. 늘 가던 카페가 결과에서 사라지고, 한 정거장 너머부터 보입니다.</p>
-        </div>
+        <div class="shot"><div class="phone"><img src="assets/shots/03.webp" loading="lazy" width="640" height="1221" alt="가까운 곳 빼기 화면"></div></div>
+        <div><h3 data-i="m1h">가까운 곳 빼기</h3><p data-i="m1p">자주 가는 내 동네는 반경을 정해 지도에서 뺍니다. 늘 가던 카페가 결과에서 사라지고, 한 정거장 너머부터 보입니다.</p></div>
       </div>
       <div class="feat r" data-delay="2">
         <div class="shot"><div class="phone"><img src="assets/shots/06.webp" loading="lazy" width="640" height="1221" alt="안 갈래요 — 이유를 골라 표시하면 다음부터 안 보인다"></div></div>
         <div>
-          <h3>안 갈래요, 한 번이면 끝</h3>
-          <p>별로인 곳은 이유 하나 골라 표시합니다. 다음부터 그 곳은 나오지 않습니다. 이유를 묻지 않고 바로 넘기도록 바꿀 수도 있습니다.</p>
+          <h3 data-i="m2h">안 갈래요, 한 번이면 끝</h3>
+          <p data-i="m2p">별로인 곳은 이유 하나 골라 표시합니다. 다음부터 그 곳은 나오지 않습니다. 이유를 묻지 않고 바로 넘기도록 바꿀 수도 있습니다.</p>
           <ul class="reasons">
-            <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>가봤어요 — 이미 다녀왔어요</li>
-            <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>별로였어요 — 다시 보여드리지 않을게요</li>
-            <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v8M12 17v.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>관심 없어요 — 취향이 아니라 갈 일이 없어요</li>
+            <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i="re1">가봤어요 — 이미 다녀왔어요</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><span data-i="re2">별로였어요 — 다시 보여드리지 않을게요</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v8M12 17v.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><span data-i="re3">관심 없어요 — 취향이 아니라 갈 일이 없어요</span></li>
           </ul>
         </div>
       </div>
@@ -389,9 +365,9 @@
 
 <section id="time" aria-labelledby="h-time">
   <div class="wrap">
-    <p class="kicker r">시간 계산</p>
-    <h2 id="h-time" class="r" data-delay="1">집 앞에서 가게 앞까지.</h2>
-    <p class="body r" data-delay="2">역에서 역까지가 아닙니다. 걷는 시간, 기다리는 시간, 타고 가는 시간을 전부 더해서 한 숫자로 보여줍니다.</p>
+    <p class="kicker r" data-i="timeK">시간 계산</p>
+    <h2 id="h-time" class="r" data-delay="1" data-i="timeH">집 앞에서 가게 앞까지.</h2>
+    <p class="body r" data-delay="2" data-i="timeP">역에서 역까지가 아닙니다. 걷는 시간, 기다리는 시간, 타고 가는 시간을 전부 더해서 한 숫자로 보여줍니다.</p>
     <div class="calc r" data-delay="2">
       <div class="stroke" role="img" aria-label="걸어서 7분, 기다림 3분, 지하철 18분, 걸어서 4분 — 합쳐서 32분">
         <svg viewBox="0 0 560 120" aria-hidden="true">
@@ -402,99 +378,60 @@
           <circle class="stop" cx="110" cy="56" r="8"/>
           <circle class="stop" cx="440" cy="56" r="8"/>
           <circle class="new" cx="520" cy="56" r="11"/><circle cx="520" cy="56" r="4" fill="#fff"/>
-          <text x="65" y="92" text-anchor="middle" class="tiny">걸어서 7분</text>
-          <text x="150" y="30" text-anchor="middle" class="tiny">기다림 3분</text>
-          <text x="275" y="92" text-anchor="middle" class="tiny">지하철 18분</text>
-          <text x="480" y="92" text-anchor="middle" class="tiny">걸어서 4분</text>
-          <text x="520" y="30" text-anchor="middle" class="big">32분</text>
+          <text x="65" y="92" text-anchor="middle" class="tiny" data-i="walk7">걸어서 7분</text>
+          <text x="150" y="30" text-anchor="middle" class="tiny" data-i="wait3">기다림 3분</text>
+          <text x="275" y="92" text-anchor="middle" class="tiny" data-i="ride18b">지하철 18분</text>
+          <text x="480" y="92" text-anchor="middle" class="tiny" data-i="walk4">걸어서 4분</text>
+          <text x="520" y="30" text-anchor="middle" class="big" data-i="total32">32분</text>
         </svg>
       </div>
       <div class="legend">
-        <span><i></i>걷기</span><span><i class="solid"></i>지하철 · 환승 없이</span><span><i class="dot"></i>아직 안 가본 곳</span>
+        <span><i></i><span data-i="lgWalk">걷기</span></span><span><i class="solid"></i><span data-i="lgRide">지하철 · 환승 없이</span></span><span><i class="dot"></i><span data-i="lgNew">아직 안 가본 곳</span></span>
       </div>
     </div>
     <p class="note r">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="2"/><path d="M12 11v5M12 7.5v.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      <span>열차 시각표가 아니라 역 사이 거리로 계산한 추정치라 실제와 몇 분 차이가 날 수 있습니다. 버스는 아직 포함되지 않았습니다.</span>
+      <span data-i="note">열차 시각표가 아니라 역 사이 거리로 계산한 추정치라 실제와 몇 분 차이가 날 수 있습니다. 버스는 아직 포함되지 않았습니다.</span>
     </p>
   </div>
 </section>
 
 <section id="kinds" aria-labelledby="h-kinds">
   <div class="wrap">
-    <p class="kicker r">네 가지 업종</p>
-    <h2 id="h-kinds" class="r" data-delay="1">카페만 있는 지도가 아닙니다.</h2>
+    <p class="kicker r" data-i="kindsK">네 가지 업종</p>
+    <h2 id="h-kinds" class="r" data-delay="1" data-i="kindsH">카페만 있는 지도가 아닙니다.</h2>
     <div class="kinds">
-      <div class="kind r">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 8h11v6a5 5 0 01-5 5H10a5 5 0 01-5-5V8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 10h1.5a2.5 2.5 0 010 5H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8 4.5v1.5M11 4.5v1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-        <div><h3>카페</h3><p>걸어서 20분, 환승 없이 40분 안</p></div>
-      </div>
-      <div class="kind r" data-delay="1">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3v7a2 2 0 002 2v9M5 3v4a2 2 0 002 2M9 3v4a2 2 0 01-2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 3c-2 1-3 3.5-3 6v3h3v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div><h3>밥집</h3><p>점심·저녁, 사진과 후기까지</p></div>
-      </div>
-      <div class="kind r" data-delay="2">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 21V4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6 5h11l-2.5 3.5L17 12H6" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
-        <div><h3>명소</h3><p>공원·전망대·둘레길</p></div>
-      </div>
-      <div class="kind r" data-delay="3">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8a2 2 0 012-2h12a2 2 0 012 2v1.5a2.5 2.5 0 000 5V16a2 2 0 01-2 2H6a2 2 0 01-2-2v-1.5a2.5 2.5 0 000-5V8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 6v12" stroke="currentColor" stroke-width="2" stroke-dasharray="2 3" stroke-linecap="round"/></svg></div>
-        <div><h3>문화</h3><p>전시·공연·영화</p></div>
-      </div>
+      <div class="kind r"><div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 8h11v6a5 5 0 01-5 5H10a5 5 0 01-5-5V8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 10h1.5a2.5 2.5 0 010 5H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8 4.5v1.5M11 4.5v1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div><h3 data-i="k1h">카페</h3><p data-i="k1p">걸어서 20분, 환승 없이 40분 안</p></div></div>
+      <div class="kind r" data-delay="1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3v7a2 2 0 002 2v9M5 3v4a2 2 0 002 2M9 3v4a2 2 0 01-2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 3c-2 1-3 3.5-3 6v3h3v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h3 data-i="k2h">밥집</h3><p data-i="k2p">점심·저녁, 사진과 후기까지</p></div></div>
+      <div class="kind r" data-delay="2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 21V4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6 5h11l-2.5 3.5L17 12H6" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div><div><h3 data-i="k3h">명소</h3><p data-i="k3p">공원·전망대·둘레길</p></div></div>
+      <div class="kind r" data-delay="3"><div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8a2 2 0 012-2h12a2 2 0 012 2v1.5a2.5 2.5 0 000 5V16a2 2 0 01-2 2H6a2 2 0 01-2-2v-1.5a2.5 2.5 0 000-5V8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 6v12" stroke="currentColor" stroke-width="2" stroke-dasharray="2 3" stroke-linecap="round"/></svg></div><div><h3 data-i="k4h">문화</h3><p data-i="k4p">전시·공연·영화</p></div></div>
     </div>
   </div>
 </section>
 
 <section id="privacy" aria-labelledby="h-priv">
   <div class="wrap">
-    <p class="kicker r">지키는 것</p>
-    <h2 id="h-priv" class="r" data-delay="1">기록은 휴대폰 안에만 있습니다.</h2>
+    <p class="kicker r" data-i="privK">지키는 것</p>
+    <h2 id="h-priv" class="r" data-delay="1" data-i="privH">기록은 휴대폰 안에만 있습니다.</h2>
     <ul class="rules">
-      <li class="r">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="9" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20a8 8 0 0116 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M3 3l18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-        <div><h3>로그인도 계정도 없습니다</h3><p>열면 바로 지도입니다. 가입할 것도, 로그인할 것도 없습니다.</p></div>
-      </li>
-      <li class="r" data-delay="1">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M10 17h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9 9l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div><h3>말고·가볼 곳은 기기에만</h3><p>뺀 곳과 담아 둔 곳은 전부 휴대폰 안에 저장되고, 어디에도 전송되지 않습니다.</p></div>
-      </li>
-      <li class="r" data-delay="2">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6-5.2-6-10a6 6 0 0112 0c0 4.8-6 10-6 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="11" r="2" stroke="currentColor" stroke-width="2"/></svg></div>
-        <div><h3>위치 권한 없이도 됩니다</h3><p>허용하지 않으면 지도에서 출발지를 직접 찍어 씁니다. 결과는 같습니다.</p></div>
-      </li>
+      <li class="r"><div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="9" r="4" stroke="currentColor" stroke-width="2"/><path d="M4 20a8 8 0 0116 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M3 3l18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div><h3 data-i="p1h">로그인도 계정도 없습니다</h3><p data-i="p1p">열면 바로 지도입니다. 가입할 것도, 로그인할 것도 없습니다.</p></div></li>
+      <li class="r" data-delay="1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M10 17h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9 9l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h3 data-i="p2h">말고·가볼 곳은 기기에만</h3><p data-i="p2p">뺀 곳과 담아 둔 곳은 전부 휴대폰 안에 저장되고, 어디에도 전송되지 않습니다.</p></div></li>
+      <li class="r" data-delay="2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6-5.2-6-10a6 6 0 0112 0c0 4.8-6 10-6 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="11" r="2" stroke="currentColor" stroke-width="2"/></svg></div><div><h3 data-i="p3h">위치 권한 없이도 됩니다</h3><p data-i="p3p">허용하지 않으면 지도에서 출발지를 직접 찍어 씁니다. 결과는 같습니다.</p></div></li>
     </ul>
   </div>
 </section>
 
 <section id="faq" aria-labelledby="h-faq">
   <div class="wrap">
-    <p class="kicker r">자주 묻는 질문</p>
-    <h2 id="h-faq" class="r" data-delay="1">궁금한 것</h2>
+    <p class="kicker r" data-i="faqK">자주 묻는 질문</p>
+    <h2 id="h-faq" class="r" data-delay="1" data-i="faqH">궁금한 것</h2>
     <div class="faq r" data-delay="2">
-      <details>
-        <summary>버스도 되나요?</summary>
-        <p class="a">아직 지하철만입니다. 서울·수도권 지하철 전 노선 649개 역 기준이고, 버스는 준비 중입니다.</p>
-      </details>
-      <details>
-        <summary>어느 지역에서 쓸 수 있나요?</summary>
-        <p class="a">서울과 수도권입니다. 수도권 밖에서는 「걸어서」 조건으로만 쓸 수 있습니다.</p>
-      </details>
-      <details>
-        <summary>소요 시간은 얼마나 정확한가요?</summary>
-        <p class="a">걷기·기다림·탑승을 합친 추정치입니다. 열차 시각표가 아니라 역 사이 거리로 계산해서 실제와 몇 분 차이가 날 수 있습니다.</p>
-      </details>
-      <details>
-        <summary>위치 권한을 꼭 줘야 하나요?</summary>
-        <p class="a">아니요. 허용하지 않으면 지도에서 출발지를 직접 지정해 쓸 수 있습니다.</p>
-      </details>
-      <details>
-        <summary>무료인가요?</summary>
-        <p class="a">네. 지금은 전부 무료이고, 배너 광고도 없습니다.</p>
-      </details>
-      <details>
-        <summary>Android는요?</summary>
-        <p class="a">지금은 iPhone만 있습니다. Android는 반응을 보고 결정합니다.</p>
-      </details>
+      <details><summary data-i="f1q">버스도 되나요?</summary><p class="a" data-i="f1a">아직 지하철만입니다. 서울·수도권 지하철 전 노선 649개 역 기준이고, 버스는 준비 중입니다.</p></details>
+      <details><summary data-i="f2q">어느 지역에서 쓸 수 있나요?</summary><p class="a" data-i="f2a">서울과 수도권입니다. 수도권 밖에서는 「걸어서」 조건으로만 쓸 수 있습니다.</p></details>
+      <details><summary data-i="f3q">소요 시간은 얼마나 정확한가요?</summary><p class="a" data-i="f3a">걷기·기다림·탑승을 합친 추정치입니다. 열차 시각표가 아니라 역 사이 거리로 계산해서 실제와 몇 분 차이가 날 수 있습니다.</p></details>
+      <details><summary data-i="f4q">위치 권한을 꼭 줘야 하나요?</summary><p class="a" data-i="f4a">아니요. 허용하지 않으면 지도에서 출발지를 직접 지정해 쓸 수 있습니다.</p></details>
+      <details><summary data-i="f5q">무료인가요?</summary><p class="a" data-i="f5a">네. 지금은 전부 무료이고, 배너 광고도 없습니다.</p></details>
+      <details><summary data-i="f6q">Android는요?</summary><p class="a" data-i="f6a">지금은 iPhone만 있습니다. Android는 반응을 보고 결정합니다.</p></details>
     </div>
   </div>
 </section>
@@ -504,10 +441,8 @@
     <div class="stroke r" aria-hidden="true">
       <svg viewBox="0 0 360 40"><line class="walk" x1="10" y1="20" x2="70" y2="20"/><line class="ride" x1="70" y1="20" x2="290" y2="20"/><line class="walk" x1="290" y1="20" x2="340" y2="20"/><circle class="me" cx="10" cy="20" r="8"/><circle class="stop" cx="70" cy="20" r="7"/><circle class="stop" cx="290" cy="20" r="7"/><circle class="new" cx="340" cy="20" r="10"/><circle cx="340" cy="20" r="3.5" fill="#fff"/></svg>
     </div>
-    <h2 id="h-end" class="r" data-delay="1">이번 주말은 한 정거장 너머로.</h2>
-    <div class="cta-row r" data-delay="2">
-      <a class="btn primary" href="https://apps.apple.com/kr/app/id6794741156">App Store에서 받기</a>
-    </div>
+    <h2 id="h-end" class="r" data-delay="1" data-i="endH">이번 주말은 한 정거장 너머로.</h2>
+    <div class="cta-row r" data-delay="2"><a class="btn primary" href="https://apps.apple.com/kr/app/id6794741156" data-i="cta">App Store에서 받기</a></div>
   </div>
 </section>
 </main>
@@ -516,33 +451,25 @@
   <div class="wrap">
     <div class="foot">
       <a class="brand" href="#top"><img src="assets/icon.png" alt="" width="30" height="30"><span>뚜벅맵</span></a>
-      <nav aria-label="관련 링크">
+      <nav aria-label="Links">
         <a href="https://apps.apple.com/kr/app/id6794741156">App Store</a>
-        <a href="privacy.html">개인정보처리방침</a>
-        <a href="support.html">지원</a>
-        <a href="https://younghwakim.github.io/">다른 앱 보기</a>
+        <a href="privacy.html" data-i="fPrivacy">개인정보처리방침</a>
+        <a href="support.html" data-i="fSupport">지원</a>
+        <a href="https://younghwakim.github.io/" data-i="fMore">다른 앱 보기</a>
       </nav>
     </div>
-    <p class="copy-line"><span>© 2026 Younghwa Kim</span><span>지도 데이터 © OpenStreetMap 기여자 · 장소 정보는 카카오 로컬</span></p>
+    <p class="copy-line"><span>© 2026 Younghwa Kim</span><span data-i="fData">지도 데이터 © OpenStreetMap 기여자 · 장소 정보는 카카오 로컬</span></p>
   </div>
 </footer>
 
 <script>
 (function(){
+
   document.documentElement.classList.add('js');
-  var header = document.querySelector('header');
-  function stuck(){ header.classList.toggle('stuck', (window.scrollY||0) > 8); }
-  stuck(); window.addEventListener('scroll', stuck, {passive:true});
+  var header = document.querySelector('header'); function stuck(){ header.classList.toggle('stuck', (window.scrollY||0) > 8); } stuck(); window.addEventListener('scroll', stuck, {passive:true});
   var els = document.querySelectorAll('.r');
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, {rootMargin:'0px 0px -8% 0px', threshold:.08});
-    els.forEach(function(el){ io.observe(el); });
-    requestAnimationFrame(function(){
-      els.forEach(function(el){ if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in'); });
-    });
-  } else { els.forEach(function(el){ el.classList.add('in'); }); }
+  if ('IntersectionObserver' in window) { var io = new IntersectionObserver(function(en){ en.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, {rootMargin:'0px 0px -8% 0px', threshold:.08}); els.forEach(function(el){ io.observe(el); }); requestAnimationFrame(function(){ els.forEach(function(el){ if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in'); }); }); }
+  else els.forEach(function(el){ el.classList.add('in'); });
 })();
 </script>
 </body>
