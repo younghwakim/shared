@@ -30,7 +30,7 @@
     --plate-border:#1A1E26; --plate-bg:#FFFFFF; --plate-ink:#14181F;
     --ok:#1F9D55; --shadow:0 24px 60px -24px rgba(25,31,40,.28), 0 8px 20px -12px rgba(25,31,40,.16);
     --r:16px; --r-lg:24px; --maxw:1080px;
-    --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Segoe UI",sans-serif;
+    --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Hiragino Sans","Noto Sans KR","Noto Sans JP","Segoe UI",sans-serif;
     color-scheme:light;
   }
   @media (prefers-color-scheme:dark){
@@ -56,11 +56,7 @@
 
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
-  body{
-    margin:0; background:var(--bg); color:var(--ink);
-    font-family:var(--font); font-size:16px; line-height:1.65; letter-spacing:-.01em;
-    word-break:keep-all; overflow-wrap:anywhere; overflow-x:hidden;
-  }
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--font); font-size:16px; line-height:1.65; letter-spacing:-.01em; word-break:keep-all; overflow-wrap:anywhere; overflow-x:hidden}
   img{max-width:100%; display:block}
   a{color:inherit}
   h1,h2,h3{text-wrap:balance; margin:0}
@@ -68,130 +64,94 @@
   :focus-visible{outline:3px solid var(--blue); outline-offset:3px; border-radius:6px}
   .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
 
-  /* ── 헤더 ── */
   header{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--bg) 82%, transparent);
-    -webkit-backdrop-filter:saturate(1.4) blur(14px); backdrop-filter:saturate(1.4) blur(14px);
-    border-bottom:1px solid transparent; transition:border-color .2s}
+    -webkit-backdrop-filter:saturate(1.4) blur(14px); backdrop-filter:saturate(1.4) blur(14px); border-bottom:1px solid transparent; transition:border-color .2s}
   header.stuck{border-bottom-color:var(--line)}
-  .bar{display:flex; align-items:center; justify-content:space-between; gap:16px; height:64px}
+  .bar{display:flex; align-items:center; justify-content:space-between; gap:12px; height:64px}
   .brand{display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:800; font-size:1.08rem; letter-spacing:-.02em}
   .brand img{width:30px; height:30px; border-radius:8px}
   nav.top{display:none; gap:26px}
   nav.top a{text-decoration:none; color:var(--ink-2); font-size:.93rem; font-weight:600}
   nav.top a:hover{color:var(--ink)}
-  @media(min-width:820px){nav.top{display:flex}}
-  .btn{
-    display:inline-flex; align-items:center; justify-content:center; gap:9px; text-decoration:none; cursor:pointer;
-    font:inherit; font-weight:700; font-size:.96rem; letter-spacing:-.01em; line-height:1;
-    padding:13px 20px; border-radius:999px; border:1.5px solid transparent; transition:transform .15s, background .15s, border-color .15s;
-    white-space:nowrap;
-  }
+  @media(min-width:900px){nav.top{display:flex}}
+  .right{display:flex; align-items:center; gap:10px}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:9px; text-decoration:none; cursor:pointer; font:inherit; font-weight:700; font-size:.96rem; letter-spacing:-.01em; line-height:1;
+    padding:13px 20px; border-radius:999px; border:1.5px solid transparent; transition:transform .15s, background .15s, border-color .15s; white-space:nowrap}
   .btn.primary{background:var(--blue); color:#fff}
   .btn.primary:hover{background:var(--blue-deep); transform:translateY(-1px)}
   .btn.ghost{background:transparent; color:var(--ink); border-color:var(--line-2)}
   .btn.ghost:hover{border-color:var(--ink-3); transform:translateY(-1px)}
-  .btn.sm{padding:10px 16px; font-size:.9rem}
+  .btn.sm{padding:10px 14px; font-size:.88rem}
   .btn svg{width:18px; height:18px; flex:none}
 
-  /* ── 히어로 ── */
   .hero{padding:56px 0 40px; position:relative}
   .hero-grid{display:grid; gap:44px; align-items:center}
   @media(min-width:900px){.hero{padding:72px 0 64px} .hero-grid{grid-template-columns:1.05fr .95fr; gap:40px}}
-  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:.86rem; font-weight:700; color:var(--blue-ink);
-    background:var(--blue-soft); padding:7px 12px 7px 9px; border-radius:999px; margin-bottom:22px}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:.86rem; font-weight:700; color:var(--blue-ink); background:var(--blue-soft); padding:7px 12px 7px 9px; border-radius:999px; margin-bottom:22px}
   .eyebrow svg{width:16px; height:16px}
-  h1{font-size:clamp(2.25rem,6.4vw,3.6rem); line-height:1.16; letter-spacing:-.04em; font-weight:800}
+  h1{font-size:clamp(2.1rem,6.2vw,3.5rem); line-height:1.16; letter-spacing:-.04em; font-weight:800}
   h1 .accent{color:var(--blue)}
-  .lede{font-size:clamp(1.05rem,2.3vw,1.22rem); color:var(--ink-2); margin:22px 0 30px; max-width:34ch; line-height:1.7}
+  .lede{font-size:clamp(1.05rem,2.3vw,1.22rem); color:var(--ink-2); margin:22px 0 30px; max-width:36ch; line-height:1.7}
   .cta-row{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
   .cta-note{display:flex; flex-wrap:wrap; gap:6px 14px; font-size:.86rem; color:var(--ink-3); margin-top:16px}
   .cta-note span{display:inline-flex; align-items:center; gap:6px}
   .cta-note svg{width:14px; height:14px; color:var(--ok)}
 
-  /* 폰 목업 — 실제 iPhone 캡처(1320×2868)를 그대로 넣는다 */
-  .phone{position:relative; width:100%; max-width:300px; aspect-ratio:1320/2868; border-radius:44px;
-    background:#0E1117; padding:9px; box-shadow:var(--shadow), inset 0 0 0 1.5px #3A4150}
+  .phone{position:relative; width:100%; max-width:300px; aspect-ratio:1320/2868; border-radius:44px; background:#0E1117; padding:9px; box-shadow:var(--shadow), inset 0 0 0 1.5px #3A4150}
   .phone::before{content:""; position:absolute; inset:0; border-radius:inherit; box-shadow:inset 0 0 0 9px #0E1117; pointer-events:none; z-index:2}
   .phone img{width:100%; height:100%; object-fit:cover; border-radius:36px; background:var(--bg)}
   .stage{position:relative; display:flex; justify-content:center; padding:24px 0 12px}
   .stage .phone{max-width:280px}
   @media(min-width:900px){.stage .phone{max-width:300px}}
 
-  /* 히어로의 논지: 보낸 사람 화면(폰) 위로 받은 사람의 알림이 내려오고, 답이 돌아온다 */
-  .notif{
-    position:absolute; z-index:3; left:50%; top:-2%; transform:translateX(-50%);
-    width:min(340px, 92%); background:color-mix(in srgb, var(--surface) 92%, transparent);
-    -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px);
-    border:1px solid var(--line); border-radius:20px; padding:12px 14px 13px;
-    box-shadow:0 18px 40px -16px rgba(25,31,40,.35);
-    display:grid; grid-template-columns:40px 1fr auto; gap:11px; align-items:start;
-    animation:drop .9s cubic-bezier(.2,.8,.2,1) .35s both;
-  }
+  .notif{position:absolute; z-index:3; left:50%; top:-2%; transform:translateX(-50%); width:min(340px, 92%); background:color-mix(in srgb, var(--surface) 92%, transparent);
+    -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px); border:1px solid var(--line); border-radius:20px; padding:12px 14px 13px; box-shadow:0 18px 40px -16px rgba(25,31,40,.35);
+    display:grid; grid-template-columns:40px 1fr auto; gap:11px; align-items:start; animation:drop .9s cubic-bezier(.2,.8,.2,1) .35s both}
   .notif .ic{width:40px; height:40px; border-radius:11px; overflow:hidden}
   .notif .ic img{width:100%; height:100%; border-radius:0}
   .notif b{display:block; font-size:.92rem; letter-spacing:-.01em}
   .notif p{font-size:.86rem; color:var(--ink-2); line-height:1.4; margin-top:1px}
   .notif small{font-size:.74rem; color:var(--ink-3); white-space:nowrap; padding-top:2px}
   .notif .app{font-size:.72rem; font-weight:700; color:var(--ink-3); letter-spacing:.02em; text-transform:uppercase; margin-bottom:2px}
-  .reply{
-    position:absolute; z-index:3; right:-6px; bottom:25%;
-    background:var(--blue); color:#fff; font-weight:700; font-size:.9rem; letter-spacing:-.01em;
-    padding:11px 15px 11px 13px; border-radius:16px 16px 4px 16px;
-    box-shadow:0 14px 30px -12px rgba(49,130,246,.6);
-    display:inline-flex; align-items:center; gap:8px;
-    animation:pop .6s cubic-bezier(.2,.9,.3,1.3) 1.6s both;
-  }
+  .reply{position:absolute; z-index:3; right:-6px; bottom:25%; background:var(--blue); color:#fff; font-weight:700; font-size:.9rem; letter-spacing:-.01em; padding:11px 15px 11px 13px; border-radius:16px 16px 4px 16px;
+    box-shadow:0 14px 30px -12px rgba(49,130,246,.6); display:inline-flex; align-items:center; gap:8px; animation:pop .6s cubic-bezier(.2,.9,.3,1.3) 1.6s both}
   .reply svg{width:16px; height:16px}
-  .reply::after{content:"답변 · 차주"; position:absolute; right:2px; top:-19px; font-size:.7rem; font-weight:600; color:var(--ink-3); letter-spacing:.01em}
+  .reply .lab{position:absolute; right:2px; top:-19px; font-size:.7rem; font-weight:600; color:var(--ink-3); letter-spacing:.01em; white-space:nowrap}
   @media(min-width:900px){.reply{right:-30px}}
   @keyframes drop{from{opacity:0; transform:translate(-50%,-22px)} to{opacity:1; transform:translate(-50%,0)}}
   @keyframes pop{from{opacity:0; transform:scale(.7) translateY(8px)} to{opacity:1; transform:none}}
 
-  /* 번호판 — 이 앱의 가장 구체적인 사물. 한국 번호판의 흰 판·검정 굵은 글자를 그대로 */
-  .plate{
-    display:inline-flex; align-items:center; justify-content:center;
-    background:var(--plate-bg); color:var(--plate-ink); border:3px solid var(--plate-border); border-radius:10px;
-    font-weight:800; font-variant-numeric:tabular-nums; letter-spacing:.14em; line-height:1;
-    padding:.42em .7em .4em .8em; font-size:1.6rem;
-    box-shadow:0 2px 0 var(--plate-border), inset 0 0 0 2px #fff;
-  }
+  .plate{display:inline-flex; align-items:center; justify-content:center; background:var(--plate-bg); color:var(--plate-ink); border:3px solid var(--plate-border); border-radius:10px;
+    font-weight:800; font-variant-numeric:tabular-nums; letter-spacing:.14em; line-height:1; padding:.42em .7em .4em .8em; font-size:1.6rem; box-shadow:0 2px 0 var(--plate-border), inset 0 0 0 2px #fff}
 
-  /* ── 공통 섹션 ── */
   section{padding:72px 0}
   @media(min-width:900px){section{padding:96px 0}}
   .kicker{font-size:.8rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--blue-ink); margin:0 0 14px}
-  h2{font-size:clamp(1.65rem,4.2vw,2.5rem); line-height:1.2; letter-spacing:-.035em; font-weight:800; max-width:20ch}
-  .body{color:var(--ink-2); font-size:1.05rem; max-width:46ch; margin-top:16px; line-height:1.72}
+  h2{font-size:clamp(1.65rem,4.2vw,2.5rem); line-height:1.2; letter-spacing:-.035em; font-weight:800; max-width:22ch}
+  .body{color:var(--ink-2); font-size:1.05rem; max-width:48ch; margin-top:16px; line-height:1.72}
   .body b{color:var(--ink); font-weight:700}
   .r{opacity:1; transform:none}
   .js .r{opacity:0; transform:translateY(18px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
   .js .r.in{opacity:1; transform:none}
   .js .r[data-delay="1"]{transition-delay:.1s}.js .r[data-delay="2"]{transition-delay:.2s}.js .r[data-delay="3"]{transition-delay:.3s}
 
-  /* ── 상황 6가지 ── */
   .grid6{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:36px}
   @media(min-width:720px){.grid6{grid-template-columns:repeat(3,1fr); gap:14px}}
-  .tpl{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:22px 20px 20px; display:flex; flex-direction:column; gap:14px; min-height:150px}
+  .tpl{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:22px 20px 20px; display:flex; flex-direction:column; gap:14px; min-height:150px; --c-soft:color-mix(in srgb, var(--c) 13%, var(--surface))}
   .tpl .dot{width:46px; height:46px; border-radius:50%; display:grid; place-items:center; background:var(--c-soft); color:var(--c)}
   .tpl .dot svg{width:24px; height:24px}
   .tpl h3{font-size:1.05rem; letter-spacing:-.02em; font-weight:700}
   .tpl p{font-size:.9rem; color:var(--ink-2); margin-top:4px; line-height:1.5}
   .tpl.hot{border-color:var(--blue); box-shadow:0 0 0 1px var(--blue)}
   .tpl.hot h3{color:var(--blue-ink)}
-  .tpl{--c-soft:color-mix(in srgb, var(--c) 13%, var(--surface))}
   .c-blue{--c:#3182F6} .c-amber{--c:#D98A1C} .c-violet{--c:#7C5CF0} .c-rose{--c:#DB3E7A} .c-slate{--c:#5B6B7E} .c-red{--c:#D93025}
   .fixed-note{margin-top:22px; display:flex; gap:12px; align-items:flex-start; color:var(--ink-2); font-size:.95rem; max-width:60ch}
   .fixed-note svg{width:20px; height:20px; flex:none; color:var(--blue); margin-top:2px}
 
-  /* ── 흐름 3단 ── */
   .steps{display:grid; gap:56px; margin-top:44px}
   .step{display:grid; gap:28px; align-items:center}
-  @media(min-width:820px){
-    .step{grid-template-columns:1fr 1fr; gap:56px}
-    .step.rev .copy{order:2} .step.rev .shot{order:1}
-    .steps{gap:80px}
-  }
-  .step .shot{display:flex; justify-content:center}
+  @media(min-width:820px){.step{grid-template-columns:1fr 1fr; gap:56px} .step.rev .copy{order:2} .step.rev .shot{order:1} .steps{gap:80px}}
+  .step .shot{display:flex; justify-content:center; align-items:flex-start}
   .step .phone{max-width:260px}
   .step .num{font-size:.8rem; font-weight:800; letter-spacing:.12em; color:var(--ink-3); margin-bottom:12px; display:flex; align-items:center; gap:10px}
   .step .num::before{content:""; width:22px; height:1.5px; background:var(--ink-3)}
@@ -201,7 +161,6 @@
   .chip{font-size:.88rem; font-weight:600; padding:8px 13px; border-radius:999px; background:var(--surface); border:1px solid var(--line-2); color:var(--ink)}
   .chip.on{background:var(--blue-soft); border-color:var(--blue); color:var(--blue-ink)}
 
-  /* ── QR 카드 밴드 (남색: 앱 아이콘·스플래시 계열색) ── */
   .band{background:var(--navy-ink); color:#F3F5FA; position:relative; overflow:hidden}
   .band .kicker{color:#9DBBF5}
   .band h2{color:#fff}
@@ -209,15 +168,11 @@
   .band .body b{color:#fff}
   .band-grid{display:grid; gap:40px; align-items:center}
   @media(min-width:900px){.band-grid{grid-template-columns:1.1fr .9fr; gap:56px}}
-  .card{
-    width:100%; max-width:440px; aspect-ratio:1.48; border-radius:22px; padding:clamp(18px,4vw,26px);
-    background:linear-gradient(165deg,#2F72E5 0%,#1B4FB3 100%);
-    color:#fff; display:grid; grid-template-rows:auto 1fr auto; box-shadow:0 30px 60px -20px rgba(0,0,0,.6);
-    transform:rotate(-2deg); margin:10px 0 26px;
-  }
+  .card{width:100%; max-width:440px; aspect-ratio:1.48; border-radius:22px; padding:clamp(18px,4vw,26px); background:linear-gradient(165deg,#2F72E5 0%,#1B4FB3 100%); color:#fff;
+    display:grid; grid-template-rows:auto 1fr auto; box-shadow:0 30px 60px -20px rgba(0,0,0,.6); transform:rotate(-2deg); margin:10px 0 26px}
   .card .tag{display:flex; align-items:center; gap:7px; font-size:.78rem; font-weight:700; opacity:.9}
   .card .tag svg{width:20px; height:14px}
-  .card .big{font-size:clamp(1.5rem,4.4vw,2.05rem); font-weight:900; line-height:1.22; letter-spacing:-.03em; align-self:center}
+  .card .big{font-size:clamp(1.4rem,4.2vw,2rem); font-weight:900; line-height:1.22; letter-spacing:-.03em; align-self:center}
   .card .foot{display:flex; justify-content:space-between; align-items:flex-end; gap:12px}
   .card .foot p{font-size:.86rem; font-weight:700; line-height:1.4}
   .card .foot small{display:block; font-weight:500; opacity:.75; font-size:.78rem; margin-top:4px}
@@ -230,13 +185,12 @@
   .band .phone{max-width:280px; box-shadow:0 40px 80px -30px rgba(0,0,0,.8), inset 0 0 0 1.5px #3A4150}
   .band .stage{padding:0}
 
-  /* ── 말로 보내기 ── */
   .voice-grid{display:grid; gap:36px; align-items:start; margin-top:8px}
   @media(min-width:900px){.voice-grid{grid-template-columns:.9fr 1.1fr; gap:64px}}
   .demo{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); padding:22px; display:grid; gap:18px; box-shadow:var(--shadow)}
   .demo .lab{font-size:.78rem; font-weight:700; color:var(--ink-3); letter-spacing:.02em; margin-bottom:8px; display:flex; align-items:center; gap:8px}
   .demo .lab svg{width:15px; height:15px}
-  .said{background:var(--surface-2); border-radius:14px 14px 14px 4px; padding:14px 16px; font-size:1rem; color:var(--ink-2); line-height:1.55; font-style:normal}
+  .said{background:var(--surface-2); border-radius:14px 14px 14px 4px; padding:14px 16px; font-size:1rem; color:var(--ink-2); line-height:1.55}
   .arrow{display:flex; align-items:center; gap:10px; color:var(--ink-3); font-size:.82rem; font-weight:600}
   .arrow::before,.arrow::after{content:""; flex:1; height:1px; background:var(--line)}
   .out{border:1.5px solid var(--blue); border-radius:14px; padding:14px 16px; display:grid; gap:10px; background:var(--blue-soft)}
@@ -250,9 +204,9 @@
   .voice-pts{list-style:none; padding:0; margin:22px 0 0; display:grid; gap:14px; max-width:46ch}
   .voice-pts li{display:flex; gap:12px; color:var(--ink-2); line-height:1.6; font-size:.98rem}
   .voice-pts li svg{width:20px; height:20px; flex:none; color:var(--blue); margin-top:3px}
+  .voice-pts b{color:var(--ink)}
   .beta{display:inline-block; font-size:.7rem; font-weight:800; letter-spacing:.08em; padding:3px 7px; border-radius:6px; background:var(--surface-2); color:var(--ink-2); vertical-align:middle; margin-left:8px}
 
-  /* ── 원칙 ── */
   .rules{list-style:none; padding:0; margin:36px 0 0; display:grid; border-top:1px solid var(--line)}
   @media(min-width:720px){.rules{grid-template-columns:1fr 1fr; column-gap:48px}}
   .rules li{padding:24px 0; border-bottom:1px solid var(--line); display:grid; grid-template-columns:44px 1fr; gap:14px; align-items:start}
@@ -261,7 +215,6 @@
   .rules h3{font-size:1.08rem; letter-spacing:-.02em; font-weight:700}
   .rules p{color:var(--ink-2); font-size:.95rem; margin-top:5px; line-height:1.6}
 
-  /* ── FAQ ── */
   .faq{margin-top:28px; border-top:1px solid var(--line); max-width:760px}
   .faq details{border-bottom:1px solid var(--line)}
   .faq summary{cursor:pointer; list-style:none; padding:20px 0; font-weight:700; font-size:1.05rem; display:flex; justify-content:space-between; gap:16px; align-items:center}
@@ -270,26 +223,18 @@
   .faq details[open] summary::after{transform:rotate(45deg)}
   .faq .a{color:var(--ink-2); padding:0 0 22px; max-width:60ch; line-height:1.7}
 
-  /* ── 마지막 ── */
   .end{background:var(--surface); border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
   .end .inner{display:grid; gap:24px; align-items:center; text-align:center; justify-items:center}
   .end .plate{font-size:clamp(1.6rem,5vw,2.4rem)}
-  .end h2{max-width:24ch}
+  .end h2{max-width:26ch}
   footer{padding:36px 0 48px; color:var(--ink-3); font-size:.9rem}
   .foot{display:flex; flex-wrap:wrap; justify-content:space-between; gap:18px; align-items:center}
   .foot nav{display:flex; flex-wrap:wrap; gap:6px 20px}
   .foot nav a{text-decoration:none; color:var(--ink-2)}
   .foot nav a:hover{color:var(--ink)}
-  .foot .brand{font-size:1rem}
   .copy-line{margin-top:22px; display:flex; flex-wrap:wrap; gap:6px 18px; font-size:.84rem}
-  .copy-line a{color:var(--ink-3)}
   [hidden]{display:none !important}
-
-  @media(prefers-reduced-motion:reduce){
-    .notif,.reply{animation:none}
-    .js .r{opacity:1; transform:none; transition:none}
-    html{scroll-behavior:auto}
-  }
+  @media(prefers-reduced-motion:reduce){.notif,.reply{animation:none} .js .r{opacity:1; transform:none; transition:none} html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -298,13 +243,15 @@
   <div class="wrap bar">
     <a class="brand" href="./"><img src="assets/icon.png" alt="" width="30" height="30"><span>부루다</span></a>
     <nav class="top" aria-label="본문 이동">
-      <a href="#when">이럴 때</a>
-      <a href="#how">어떻게</a>
-      <a href="#qr">QR 카드</a>
-      <a href="#voice">말로 보내기</a>
-      <a href="#faq">자주 묻는 질문</a>
+      <a href="#when" data-i="navWhen">이럴 때</a>
+      <a href="#how" data-i="navHow">어떻게</a>
+      <a href="#qr" data-i="navQr">QR 카드</a>
+      <a href="#voice" data-i="navVoice">말로 보내기</a>
+      <a href="#faq" data-i="navFaq">자주 묻는 질문</a>
     </nav>
-    <a class="btn primary sm" href="https://play.google.com/store/apps/details?id=com.buruda.app" data-store="play">Google Play</a>
+    <div class="right">
+      <a class="btn primary sm" href="https://play.google.com/store/apps/details?id=com.buruda.app" data-i="playShort">Google Play</a>
+    </div>
   </div>
 </header>
 
@@ -314,39 +261,39 @@
     <div>
       <p class="eyebrow">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="7" width="18" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M7 12h2m3 0h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        번호판으로 차주에게 연락
+        <span data-i="eyebrow">번호판으로 차주에게 연락</span>
       </p>
-      <h1 id="h1">차 빼달라는 말,<br><span class="accent">번호 노출 없이.</span></h1>
-      <p class="lede">앞차 때문에 못 나갈 때, 번호판만 알면 연락됩니다. 보내는 사람도 받는 사람도 전화번호를 주고받지 않습니다.</p>
+      <h1 id="h1"><span data-i="h1a">차 빼달라는 말,</span><br><span class="accent" data-i="h1b">번호 노출 없이.</span></h1>
+      <p class="lede" data-i="lede">앞차 때문에 못 나갈 때, 번호판만 알면 연락됩니다. 보내는 사람도 받는 사람도 전화번호를 주고받지 않습니다.</p>
       <div class="cta-row">
-        <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.buruda.app" data-store="play">
+        <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.buruda.app">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v13m0 0l-4-4m4 4l4-4M5 21h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Google Play에서 받기
+          <span data-i="play">Google Play에서 받기</span>
         </a>
-        <a class="btn ghost" href="#" data-store="ios" hidden>App Store에서 받기</a>
-        <span class="chip" data-ios-pending>iPhone 버전은 App Store 심사 중</span>
+        <a class="btn ghost" href="#" data-store="ios" hidden data-i="ios">App Store에서 받기</a>
+        <span class="chip" data-ios-pending data-i="pending">iPhone 버전은 App Store 심사 중</span>
       </div>
       <p class="cta-note">
-        <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>무료</span>
-        <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>로그인 없이 보낼 수 있음</span>
-        <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>전화번호 묻지 않음</span>
+        <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i="n1">무료</span></span>
+        <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i="n2">로그인 없이 보낼 수 있음</span></span>
+        <span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i="n3">전화번호 묻지 않음</span></span>
       </p>
     </div>
-
-    <div class="stage" aria-label="보내는 화면과, 차주에게 도착한 알림">
+    <div class="stage">
       <div class="phone"><img src="assets/shots/01.webp" width="660" height="1434" alt="부루다 보내기 화면 — 번호판 12가3456 입력, 「차를 빼주세요」 선택됨" fetchpriority="high"></div>
-      <div class="notif" role="img" aria-label="차주 잠금화면에 도착한 알림: 차를 빼주세요 — 차량이 출입을 막고 있어요">
+      <div class="notif" role="img" aria-label="차주 잠금화면에 도착한 알림">
         <div class="ic"><img src="assets/icon.png" alt="" width="40" height="40"></div>
         <div>
-          <div class="app">부루다</div>
-          <b>차를 빼주세요</b>
-          <p>차량이 출입을 막고 있어요. 꾹 눌러서 답할 수 있어요.</p>
+          <div class="app" data-i="notifApp">부루다</div>
+          <b data-i="notifTitle">차를 빼주세요</b>
+          <p data-i="notifBody">차량이 출입을 막고 있어요. 꾹 눌러서 답할 수 있어요.</p>
         </div>
-        <small>지금</small>
+        <small data-i="notifTime">지금</small>
       </div>
-      <div class="reply" role="img" aria-label="차주의 답변: 바로 나갈게요">
+      <div class="reply" role="img" aria-label="차주의 답변">
+        <span class="lab" data-i="replyLab">답변 · 차주</span>
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        바로 나갈게요
+        <span data-i="reply">바로 나갈게요</span>
       </div>
     </div>
   </div>
@@ -354,70 +301,52 @@
 
 <section id="when" aria-labelledby="h-when">
   <div class="wrap">
-    <p class="kicker r">이럴 때 씁니다</p>
-    <h2 id="h-when" class="r" data-delay="1">보낼 수 있는 말은 여섯 가지입니다.</h2>
-    <p class="body r" data-delay="2">번호판을 입력하고 상황 하나를 고르면 끝입니다. <b>자유롭게 쓰는 칸이 없어서</b> 욕설이나 시비가 오갈 수 없습니다. 받는 쪽도 안심하고 열어봅니다.</p>
+    <p class="kicker r" data-i="whenK">이럴 때 씁니다</p>
+    <h2 id="h-when" class="r" data-delay="1" data-i="whenH">보낼 수 있는 말은 여섯 가지입니다.</h2>
+    <p class="body r" data-delay="2"><span data-i="whenP1">번호판을 입력하고 상황 하나를 고르면 끝입니다. </span><b data-i="whenP2">자유롭게 쓰는 칸이 없어서</b><span data-i="whenP3"> 욕설이나 시비가 오갈 수 없습니다. 받는 쪽도 안심하고 열어봅니다.</span></p>
     <div class="grid6">
-      <div class="tpl hot c-blue r">
-        <div class="dot"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 13l1.6-4.2A2 2 0 017.5 7.5h6a2 2 0 011.9 1.3L17 13" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="3" y="13" width="14" height="5" rx="1.5" stroke="currentColor" stroke-width="2"/><circle cx="6.5" cy="15.5" r="1" fill="currentColor"/><circle cx="13.5" cy="15.5" r="1" fill="currentColor"/><path d="M18 11h3m0 0l-2-2m2 2l-2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div><h3>차를 빼주세요</h3><p>앞차·이중주차 때문에 나갈 수 없을 때</p></div>
-      </div>
-      <div class="tpl c-amber r" data-delay="1">
-        <div class="dot"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 14l1.5-4A2 2 0 018.4 8.6h7.2a2 2 0 011.9 1.4L19 14" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="4" y="14" width="16" height="5" rx="1.5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M7.5 3.5l1.2 2.2M16.5 3.5l-1.2 2.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-        <div><h3>비상등이 켜져 있어요</h3><p>배터리가 닳기 전에</p></div>
-      </div>
-      <div class="tpl c-violet r" data-delay="2">
-        <div class="dot"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 18V9.5A1.5 1.5 0 015.5 8h9.2a2 2 0 011.6.8L20 13v5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8 8v5h8.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M11 4.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="1.5 2"/></svg></div>
-        <div><h3>창문이 열려 있어요</h3><p>비가 오거나, 두고 내린 게 보일 때</p></div>
-      </div>
-      <div class="tpl c-rose r">
-        <div class="dot"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 15l1.5-4.5A2 2 0 018.4 9h7.2a2 2 0 011.9 1.5L19 15" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="4" y="15" width="16" height="4" rx="1.5" stroke="currentColor" stroke-width="2"/><path d="M8 9L6 4h12l-2 5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
-        <div><h3>트렁크가 열려 있어요</h3><p>짐이 그대로 보일 때</p></div>
-      </div>
-      <div class="tpl c-slate r" data-delay="1">
-        <div class="dot"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-        <div><h3>타이어에 이상이 있어요</h3><p>바람이 빠졌거나 못이 박혔을 때</p></div>
-      </div>
-      <div class="tpl c-red r" data-delay="2">
-        <div class="dot"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4l9 15.5H3L12 4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 10v4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.1" fill="currentColor"/></svg></div>
-        <div><h3>주변에 위험한 게 있어요</h3><p>낙하물·공사·물이 차오를 때</p></div>
-      </div>
+      <div class="tpl hot c-blue r"><div class="dot"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 13l1.6-4.2A2 2 0 017.5 7.5h6a2 2 0 011.9 1.3L17 13" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="3" y="13" width="14" height="5" rx="1.5" stroke="currentColor" stroke-width="2"/><circle cx="6.5" cy="15.5" r="1" fill="currentColor"/><circle cx="13.5" cy="15.5" r="1" fill="currentColor"/><path d="M18 11h3m0 0l-2-2m2 2l-2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h3 data-i="t1h">차를 빼주세요</h3><p data-i="t1p">앞차·이중주차 때문에 나갈 수 없을 때</p></div></div>
+      <div class="tpl c-amber r" data-delay="1"><div class="dot"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 14l1.5-4A2 2 0 018.4 8.6h7.2a2 2 0 011.9 1.4L19 14" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="4" y="14" width="16" height="5" rx="1.5" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M7.5 3.5l1.2 2.2M16.5 3.5l-1.2 2.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div><h3 data-i="t2h">비상등이 켜져 있어요</h3><p data-i="t2p">배터리가 닳기 전에</p></div></div>
+      <div class="tpl c-violet r" data-delay="2"><div class="dot"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 18V9.5A1.5 1.5 0 015.5 8h9.2a2 2 0 011.6.8L20 13v5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8 8v5h8.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M11 4.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="1.5 2"/></svg></div><div><h3 data-i="t3h">창문이 열려 있어요</h3><p data-i="t3p">비가 오거나, 두고 내린 게 보일 때</p></div></div>
+      <div class="tpl c-rose r"><div class="dot"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 15l1.5-4.5A2 2 0 018.4 9h7.2a2 2 0 011.9 1.5L19 15" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="4" y="15" width="16" height="4" rx="1.5" stroke="currentColor" stroke-width="2"/><path d="M8 9L6 4h12l-2 5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div><div><h3 data-i="t4h">트렁크가 열려 있어요</h3><p data-i="t4p">짐이 그대로 보일 때</p></div></div>
+      <div class="tpl c-slate r" data-delay="1"><div class="dot"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div><h3 data-i="t5h">타이어에 이상이 있어요</h3><p data-i="t5p">바람이 빠졌거나 못이 박혔을 때</p></div></div>
+      <div class="tpl c-red r" data-delay="2"><div class="dot"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4l9 15.5H3L12 4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 10v4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.1" fill="currentColor"/></svg></div><div><h3 data-i="t6h">주변에 위험한 게 있어요</h3><p data-i="t6p">낙하물·공사·물이 차오를 때</p></div></div>
     </div>
     <p class="fixed-note r">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V6l7-3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span>내 상황이 여섯 가지에 없다면, <a href="#voice">말로 보내기</a>가 있습니다. 말한 내용을 정중한 문장으로 다듬어 보여드리고, 보내기 전에 확인받습니다.</span>
+      <span><span data-i="fixed1">내 상황이 여섯 가지에 없다면, </span><a href="#voice" data-i="fixedLink">말로 보내기</a><span data-i="fixed2">가 있습니다. 말한 내용을 정중한 문장으로 다듬어 보여드리고, 보내기 전에 확인받습니다.</span></span>
     </p>
   </div>
 </section>
 
 <section id="how" aria-labelledby="h-how">
   <div class="wrap">
-    <p class="kicker r">어떻게 되나</p>
-    <h2 id="h-how" class="r" data-delay="1">보내고, 답을 받고, 남습니다.</h2>
+    <p class="kicker r" data-i="howK">어떻게 되나</p>
+    <h2 id="h-how" class="r" data-delay="1" data-i="howH">보내고, 답을 받고, 남습니다.</h2>
     <div class="steps">
       <div class="step">
         <div class="copy">
-          <div class="num r">보내기</div>
-          <h3 class="r" data-delay="1">번호판 입력, 상황 선택. 그게 전부입니다.</h3>
-          <p class="r" data-delay="2">로그인 없이 하루 3건, 로그인하면 5건까지 보낼 수 있습니다. 상대 차가 등록돼 있으면 그 자리에서 알림이 갑니다.</p>
-          <div class="chips r" data-delay="3"><span class="plate" style="font-size:1.15rem">12가3456</span><span class="chip on">차를 빼주세요</span></div>
+          <div class="num r" data-i="s1n">보내기</div>
+          <h3 class="r" data-delay="1" data-i="s1h">번호판 입력, 상황 선택. 그게 전부입니다.</h3>
+          <p class="r" data-delay="2" data-i="s1p">로그인 없이 하루 3건, 로그인하면 5건까지 보낼 수 있습니다. 상대 차가 등록돼 있으면 그 자리에서 알림이 갑니다.</p>
+          <div class="chips r" data-delay="3"><span class="plate" style="font-size:1.15rem">12가3456</span><span class="chip on" data-i="s1chip">차를 빼주세요</span></div>
         </div>
-        <div class="shot r" data-delay="1"><div class="phone"><img src="assets/shots/01.webp" loading="lazy" width="660" height="1434" alt="보내기 화면 — 번호판 입력과 상황 선택"></div></div>
+        <div class="shot r" data-delay="1"><div class="phone"><img src="assets/shots/01.webp" loading="lazy" width="660" height="1434" alt="보내기 화면"></div></div>
       </div>
       <div class="step rev">
         <div class="copy">
-          <div class="num r">차주가 답합니다</div>
-          <h3 class="r" data-delay="1">알림을 꾹 누르면 답 버튼이 나옵니다.</h3>
-          <p class="r" data-delay="2">앱을 열 필요도 없습니다. 답이 오면 보낸 사람에게도 알림이 갑니다.</p>
-          <div class="chips r" data-delay="3"><span class="chip on">바로 나갈게요</span><span class="chip">5분쯤 걸려요</span><span class="chip">10분쯤 걸려요</span><span class="chip">지금은 어려워요</span></div>
+          <div class="num r" data-i="s2n">차주가 답합니다</div>
+          <h3 class="r" data-delay="1" data-i="s2h">알림을 꾹 누르면 답 버튼이 나옵니다.</h3>
+          <p class="r" data-delay="2" data-i="s2p">앱을 열 필요도 없습니다. 답이 오면 보낸 사람에게도 알림이 갑니다.</p>
+          <div class="chips r" data-delay="3"><span class="chip on" data-i="r1">바로 나갈게요</span><span class="chip" data-i="r2">5분쯤 걸려요</span><span class="chip" data-i="r3">10분쯤 걸려요</span><span class="chip" data-i="r4">지금은 어려워요</span></div>
         </div>
-        <div class="shot r" data-delay="1"><div class="phone"><img src="assets/shots/03.webp" loading="lazy" width="660" height="1434" alt="차주의 답변 화면 — 바로 나갈게요, 5분쯤 걸려요, 10분쯤 걸려요, 지금은 어려워요"></div></div>
+        <div class="shot r" data-delay="1"><div class="phone"><img src="assets/shots/03.webp" loading="lazy" width="660" height="1434" alt="차주의 답변 화면"></div></div>
       </div>
       <div class="step">
         <div class="copy">
-          <div class="num r">주고받은 내역</div>
-          <h3 class="r" data-delay="1">보낸 것과 받은 것이 한 곳에 남습니다.</h3>
-          <p class="r" data-delay="2">답변이 왔는지 한눈에 봅니다. 원치 않는 상대는 차단하고, 이상한 건 신고할 수 있습니다.</p>
+          <div class="num r" data-i="s3n">주고받은 내역</div>
+          <h3 class="r" data-delay="1" data-i="s3h">보낸 것과 받은 것이 한 곳에 남습니다.</h3>
+          <p class="r" data-delay="2" data-i="s3p">답변이 왔는지 한눈에 봅니다. 원치 않는 상대는 차단하고, 이상한 건 신고할 수 있습니다.</p>
         </div>
         <div class="shot r" data-delay="1"><div class="phone"><img src="assets/shots/02.webp" loading="lazy" width="660" height="1434" alt="주고받은 내역 화면"></div></div>
       </div>
@@ -428,21 +357,21 @@
 <section id="qr" class="band" aria-labelledby="h-qr">
   <div class="wrap band-grid">
     <div>
-      <p class="kicker r">QR 대시보드 카드 · 무료</p>
-      <h2 id="h-qr" class="r" data-delay="1">상대가 앱이 없어도 됩니다.</h2>
-      <p class="body r" data-delay="2">앱에서 만든 카드를 인쇄해 대시보드 위에 두세요. 상대는 카메라로 QR을 찍어 <b>그 자리에서</b> 보냅니다. 번호판을 칠 필요도, 앱을 깔 필요도 없습니다.</p>
-      <div class="card r" data-delay="2" role="img" aria-label="부루다 QR 대시보드 카드 — 차주에게 바로 연락됩니다. 카메라로 QR을 찍으면 알림을 보낼 수 있습니다. 전화번호는 몰라도 됩니다.">
-        <div class="tag"><svg viewBox="0 0 28 18" fill="none" aria-hidden="true"><rect x="6" y="3" width="21" height="12" rx="3" stroke="currentColor" stroke-width="2"/><path d="M3 6a5 5 0 000 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>부루다 등록 차량</div>
-        <div class="big">차주에게<br>바로 연락됩니다</div>
+      <p class="kicker r" data-i="qrK">QR 대시보드 카드 · 무료</p>
+      <h2 id="h-qr" class="r" data-delay="1" data-i="qrH">상대가 앱이 없어도 됩니다.</h2>
+      <p class="body r" data-delay="2"><span data-i="qrP1">앱에서 만든 카드를 인쇄해 대시보드 위에 두세요. 상대는 카메라로 QR을 찍어 </span><b data-i="qrP2">그 자리에서</b><span data-i="qrP3"> 보냅니다. 번호판을 칠 필요도, 앱을 깔 필요도 없습니다.</span></p>
+      <div class="card r" data-delay="2" role="img" aria-label="부루다 QR 대시보드 카드">
+        <div class="tag"><svg viewBox="0 0 28 18" fill="none" aria-hidden="true"><rect x="6" y="3" width="21" height="12" rx="3" stroke="currentColor" stroke-width="2"/><path d="M3 6a5 5 0 000 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-i="cardTag">부루다 등록 차량</span></div>
+        <div class="big"><span data-i="cardBig1">차주에게</span><br><span data-i="cardBig2">바로 연락됩니다</span></div>
         <div class="foot">
-          <p>카메라로 QR을 찍으면<br>알림을 보낼 수 있습니다<small>전화번호는 몰라도 됩니다</small></p>
-          <div class="qr"><svg viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="부루다 소개 페이지로 연결되는 QR"><path fill="currentColor" d="M0 0h7v1h-7zM9 0h1v1h-1zM11 0h3v1h-3zM17 0h4v1h-4zM23 0h1v1h-1zM26 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM10 1h2v1h-2zM13 1h5v1h-5zM20 1h1v1h-1zM22 1h1v1h-1zM26 1h1v1h-1zM32 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h1v1h-1zM10 2h1v1h-1zM13 2h1v1h-1zM16 2h5v1h-5zM23 2h1v1h-1zM26 2h1v1h-1zM28 2h3v1h-3zM32 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h2v1h-2zM14 3h1v1h-1zM16 3h1v1h-1zM20 3h3v1h-3zM24 3h1v1h-1zM26 3h1v1h-1zM28 3h3v1h-3zM32 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h3v1h-3zM13 4h1v1h-1zM15 4h1v1h-1zM17 4h2v1h-2zM24 4h1v1h-1zM26 4h1v1h-1zM28 4h3v1h-3zM32 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h9v1h-9zM18 5h1v1h-1zM20 5h2v1h-2zM26 5h1v1h-1zM32 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h7v1h-7zM8 7h3v1h-3zM14 7h2v1h-2zM21 7h1v1h-1zM23 7h1v1h-1zM0 8h1v1h-1zM2 8h5v1h-5zM9 8h7v1h-7zM17 8h1v1h-1zM22 8h3v1h-3zM26 8h5v1h-5zM0 9h2v1h-2zM4 9h2v1h-2zM9 9h1v1h-1zM11 9h2v1h-2zM14 9h1v1h-1zM16 9h1v1h-1zM19 9h5v1h-5zM26 9h2v1h-2zM29 9h4v1h-4zM0 10h1v1h-1zM2 10h2v1h-2zM5 10h3v1h-3zM9 10h2v1h-2zM15 10h2v1h-2zM18 10h1v1h-1zM21 10h1v1h-1zM24 10h2v1h-2zM28 10h1v1h-1zM30 10h2v1h-2zM0 11h4v1h-4zM5 11h1v1h-1zM7 11h6v1h-6zM14 11h2v1h-2zM19 11h5v1h-5zM25 11h1v1h-1zM28 11h4v1h-4zM0 12h1v1h-1zM6 12h2v1h-2zM10 12h2v1h-2zM18 12h2v1h-2zM21 12h1v1h-1zM23 12h3v1h-3zM28 12h2v1h-2zM0 13h2v1h-2zM8 13h5v1h-5zM14 13h3v1h-3zM20 13h7v1h-7zM30 13h3v1h-3zM0 14h3v1h-3zM4 14h4v1h-4zM10 14h2v1h-2zM14 14h1v1h-1zM19 14h1v1h-1zM22 14h1v1h-1zM25 14h4v1h-4zM31 14h1v1h-1zM0 15h2v1h-2zM4 15h1v1h-1zM8 15h2v1h-2zM11 15h4v1h-4zM16 15h1v1h-1zM18 15h5v1h-5zM24 15h4v1h-4zM29 15h2v1h-2zM3 16h1v1h-1zM5 16h2v1h-2zM9 16h2v1h-2zM12 16h1v1h-1zM17 16h1v1h-1zM19 16h1v1h-1zM22 16h1v1h-1zM24 16h2v1h-2zM27 16h2v1h-2zM32 16h1v1h-1zM2 17h2v1h-2zM5 17h1v1h-1zM7 17h2v1h-2zM10 17h1v1h-1zM13 17h2v1h-2zM16 17h4v1h-4zM23 17h1v1h-1zM25 17h3v1h-3zM29 17h2v1h-2zM32 17h1v1h-1zM0 18h3v1h-3zM4 18h3v1h-3zM9 18h1v1h-1zM13 18h3v1h-3zM17 18h1v1h-1zM20 18h1v1h-1zM22 18h1v1h-1zM27 18h2v1h-2zM30 18h2v1h-2zM0 19h2v1h-2zM5 19h1v1h-1zM7 19h1v1h-1zM14 19h1v1h-1zM16 19h3v1h-3zM20 19h1v1h-1zM26 19h5v1h-5zM0 20h2v1h-2zM3 20h1v1h-1zM5 20h2v1h-2zM8 20h2v1h-2zM12 20h1v1h-1zM16 20h1v1h-1zM19 20h4v1h-4zM24 20h2v1h-2zM27 20h3v1h-3zM32 20h1v1h-1zM0 21h1v1h-1zM2 21h1v1h-1zM4 21h2v1h-2zM7 21h1v1h-1zM9 21h2v1h-2zM12 21h1v1h-1zM14 21h2v1h-2zM17 21h2v1h-2zM21 21h1v1h-1zM23 21h1v1h-1zM25 21h2v1h-2zM29 21h2v1h-2zM32 21h1v1h-1zM0 22h1v1h-1zM3 22h6v1h-6zM12 22h1v1h-1zM15 22h2v1h-2zM18 22h1v1h-1zM20 22h2v1h-2zM24 22h1v1h-1zM26 22h1v1h-1zM28 22h4v1h-4zM0 23h1v1h-1zM2 23h1v1h-1zM4 23h1v1h-1zM7 23h9v1h-9zM18 23h1v1h-1zM21 23h2v1h-2zM25 23h1v1h-1zM28 23h3v1h-3zM0 24h1v1h-1zM2 24h7v1h-7zM11 24h2v1h-2zM15 24h1v1h-1zM17 24h1v1h-1zM22 24h1v1h-1zM24 24h5v1h-5zM31 24h2v1h-2zM8 25h4v1h-4zM19 25h3v1h-3zM23 25h2v1h-2zM28 25h1v1h-1zM30 25h1v1h-1zM32 25h1v1h-1zM0 26h7v1h-7zM9 26h3v1h-3zM13 26h1v1h-1zM15 26h1v1h-1zM18 26h1v1h-1zM20 26h2v1h-2zM23 26h2v1h-2zM26 26h1v1h-1zM28 26h1v1h-1zM30 26h2v1h-2zM0 27h1v1h-1zM6 27h1v1h-1zM8 27h1v1h-1zM10 27h3v1h-3zM21 27h4v1h-4zM28 27h5v1h-5zM0 28h1v1h-1zM2 28h3v1h-3zM6 28h1v1h-1zM8 28h1v1h-1zM11 28h1v1h-1zM15 28h1v1h-1zM18 28h2v1h-2zM21 28h1v1h-1zM24 28h6v1h-6zM0 29h1v1h-1zM2 29h3v1h-3zM6 29h1v1h-1zM8 29h4v1h-4zM15 29h2v1h-2zM20 29h1v1h-1zM22 29h2v1h-2zM25 29h1v1h-1zM28 29h3v1h-3zM32 29h1v1h-1zM0 30h1v1h-1zM2 30h3v1h-3zM6 30h1v1h-1zM8 30h2v1h-2zM11 30h2v1h-2zM14 30h1v1h-1zM19 30h1v1h-1zM23 30h1v1h-1zM26 30h2v1h-2zM30 30h1v1h-1zM0 31h1v1h-1zM6 31h1v1h-1zM11 31h2v1h-2zM16 31h1v1h-1zM19 31h4v1h-4zM25 31h1v1h-1zM28 31h1v1h-1zM30 31h1v1h-1zM0 32h7v1h-7zM8 32h1v1h-1zM12 32h3v1h-3zM17 32h1v1h-1zM19 32h1v1h-1zM22 32h4v1h-4zM27 32h1v1h-1zM31 32h1v1h-1z"/></svg><span>스캔해서 알림 보내기</span></div>
+          <p><span data-i="cardFoot1">카메라로 QR을 찍으면</span><br><span data-i="cardFoot2">알림을 보낼 수 있습니다</span><small data-i="cardSmall">전화번호는 몰라도 됩니다</small></p>
+          <div class="qr"><svg viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="부루다 소개 페이지로 연결되는 QR"><path fill="currentColor" d="M0 0h7v1h-7zM9 0h1v1h-1zM11 0h3v1h-3zM17 0h4v1h-4zM23 0h1v1h-1zM26 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM10 1h2v1h-2zM13 1h5v1h-5zM20 1h1v1h-1zM22 1h1v1h-1zM26 1h1v1h-1zM32 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h1v1h-1zM10 2h1v1h-1zM13 2h1v1h-1zM16 2h5v1h-5zM23 2h1v1h-1zM26 2h1v1h-1zM28 2h3v1h-3zM32 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h2v1h-2zM14 3h1v1h-1zM16 3h1v1h-1zM20 3h3v1h-3zM24 3h1v1h-1zM26 3h1v1h-1zM28 3h3v1h-3zM32 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h3v1h-3zM13 4h1v1h-1zM15 4h1v1h-1zM17 4h2v1h-2zM24 4h1v1h-1zM26 4h1v1h-1zM28 4h3v1h-3zM32 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h9v1h-9zM18 5h1v1h-1zM20 5h2v1h-2zM26 5h1v1h-1zM32 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h7v1h-7zM8 7h3v1h-3zM14 7h2v1h-2zM21 7h1v1h-1zM23 7h1v1h-1zM0 8h1v1h-1zM2 8h5v1h-5zM9 8h7v1h-7zM17 8h1v1h-1zM22 8h3v1h-3zM26 8h5v1h-5zM0 9h2v1h-2zM4 9h2v1h-2zM9 9h1v1h-1zM11 9h2v1h-2zM14 9h1v1h-1zM16 9h1v1h-1zM19 9h5v1h-5zM26 9h2v1h-2zM29 9h4v1h-4zM0 10h1v1h-1zM2 10h2v1h-2zM5 10h3v1h-3zM9 10h2v1h-2zM15 10h2v1h-2zM18 10h1v1h-1zM21 10h1v1h-1zM24 10h2v1h-2zM28 10h1v1h-1zM30 10h2v1h-2zM0 11h4v1h-4zM5 11h1v1h-1zM7 11h6v1h-6zM14 11h2v1h-2zM19 11h5v1h-5zM25 11h1v1h-1zM28 11h4v1h-4zM0 12h1v1h-1zM6 12h2v1h-2zM10 12h2v1h-2zM18 12h2v1h-2zM21 12h1v1h-1zM23 12h3v1h-3zM28 12h2v1h-2zM0 13h2v1h-2zM8 13h5v1h-5zM14 13h3v1h-3zM20 13h7v1h-7zM30 13h3v1h-3zM0 14h3v1h-3zM4 14h4v1h-4zM10 14h2v1h-2zM14 14h1v1h-1zM19 14h1v1h-1zM22 14h1v1h-1zM25 14h4v1h-4zM31 14h1v1h-1zM0 15h2v1h-2zM4 15h1v1h-1zM8 15h2v1h-2zM11 15h4v1h-4zM16 15h1v1h-1zM18 15h5v1h-5zM24 15h4v1h-4zM29 15h2v1h-2zM3 16h1v1h-1zM5 16h2v1h-2zM9 16h2v1h-2zM12 16h1v1h-1zM17 16h1v1h-1zM19 16h1v1h-1zM22 16h1v1h-1zM24 16h2v1h-2zM27 16h2v1h-2zM32 16h1v1h-1zM2 17h2v1h-2zM5 17h1v1h-1zM7 17h2v1h-2zM10 17h1v1h-1zM13 17h2v1h-2zM16 17h4v1h-4zM23 17h1v1h-1zM25 17h3v1h-3zM29 17h2v1h-2zM32 17h1v1h-1zM0 18h3v1h-3zM4 18h3v1h-3zM9 18h1v1h-1zM13 18h3v1h-3zM17 18h1v1h-1zM20 18h1v1h-1zM22 18h1v1h-1zM27 18h2v1h-2zM30 18h2v1h-2zM0 19h2v1h-2zM5 19h1v1h-1zM7 19h1v1h-1zM14 19h1v1h-1zM16 19h3v1h-3zM20 19h1v1h-1zM26 19h5v1h-5zM0 20h2v1h-2zM3 20h1v1h-1zM5 20h2v1h-2zM8 20h2v1h-2zM12 20h1v1h-1zM16 20h1v1h-1zM19 20h4v1h-4zM24 20h2v1h-2zM27 20h3v1h-3zM32 20h1v1h-1zM0 21h1v1h-1zM2 21h1v1h-1zM4 21h2v1h-2zM7 21h1v1h-1zM9 21h2v1h-2zM12 21h1v1h-1zM14 21h2v1h-2zM17 21h2v1h-2zM21 21h1v1h-1zM23 21h1v1h-1zM25 21h2v1h-2zM29 21h2v1h-2zM32 21h1v1h-1zM0 22h1v1h-1zM3 22h6v1h-6zM12 22h1v1h-1zM15 22h2v1h-2zM18 22h1v1h-1zM20 22h2v1h-2zM24 22h1v1h-1zM26 22h1v1h-1zM28 22h4v1h-4zM0 23h1v1h-1zM2 23h1v1h-1zM4 23h1v1h-1zM7 23h9v1h-9zM18 23h1v1h-1zM21 23h2v1h-2zM25 23h1v1h-1zM28 23h3v1h-3zM0 24h1v1h-1zM2 24h7v1h-7zM11 24h2v1h-2zM15 24h1v1h-1zM17 24h1v1h-1zM22 24h1v1h-1zM24 24h5v1h-5zM31 24h2v1h-2zM8 25h4v1h-4zM19 25h3v1h-3zM23 25h2v1h-2zM28 25h1v1h-1zM30 25h1v1h-1zM32 25h1v1h-1zM0 26h7v1h-7zM9 26h3v1h-3zM13 26h1v1h-1zM15 26h1v1h-1zM18 26h1v1h-1zM20 26h2v1h-2zM23 26h2v1h-2zM26 26h1v1h-1zM28 26h1v1h-1zM30 26h2v1h-2zM0 27h1v1h-1zM6 27h1v1h-1zM8 27h1v1h-1zM10 27h3v1h-3zM21 27h4v1h-4zM28 27h5v1h-5zM0 28h1v1h-1zM2 28h3v1h-3zM6 28h1v1h-1zM8 28h1v1h-1zM11 28h1v1h-1zM15 28h1v1h-1zM18 28h2v1h-2zM21 28h1v1h-1zM24 28h6v1h-6zM0 29h1v1h-1zM2 29h3v1h-3zM6 29h1v1h-1zM8 29h4v1h-4zM15 29h2v1h-2zM20 29h1v1h-1zM22 29h2v1h-2zM25 29h1v1h-1zM28 29h3v1h-3zM32 29h1v1h-1zM0 30h1v1h-1zM2 30h3v1h-3zM6 30h1v1h-1zM8 30h2v1h-2zM11 30h2v1h-2zM14 30h1v1h-1zM19 30h1v1h-1zM23 30h1v1h-1zM26 30h2v1h-2zM30 30h1v1h-1zM0 31h1v1h-1zM6 31h1v1h-1zM11 31h2v1h-2zM16 31h1v1h-1zM19 31h4v1h-4zM25 31h1v1h-1zM28 31h1v1h-1zM30 31h1v1h-1zM0 32h7v1h-7zM8 32h1v1h-1zM12 32h3v1h-3zM17 32h1v1h-1zM19 32h1v1h-1zM22 32h4v1h-4zM27 32h1v1h-1zM31 32h1v1h-1z"/></svg><span data-i="cardScan">스캔해서 알림 보내기</span></div>
         </div>
       </div>
       <ul>
-        <li class="r"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>사진첩에 저장해 A6(엽서) 크기로 인쇄하면 됩니다. 카드 값은 없습니다.</span></li>
-        <li class="r" data-delay="1"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>카드에 넣는 한 줄 문구는 내 폰과 카드 이미지에만 남고, 서버로 가지 않습니다.</span></li>
-        <li class="r" data-delay="2"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>QR은 그 차 전용입니다. 차량을 삭제하면 QR도 같이 무효가 됩니다.</span></li>
+        <li class="r"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i="q1">사진첩에 저장해 A6(엽서) 크기로 인쇄하면 됩니다. 카드 값은 없습니다.</span></li>
+        <li class="r" data-delay="1"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i="q2">카드에 넣는 한 줄 문구는 내 폰과 카드 이미지에만 남고, 서버로 가지 않습니다.</span></li>
+        <li class="r" data-delay="2"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i="q3">QR은 그 차 전용입니다. 차량을 삭제하면 QR도 같이 무효가 됩니다.</span></li>
       </ul>
     </div>
     <div class="stage r" data-delay="1"><div class="phone"><img src="assets/shots/05.webp" loading="lazy" width="660" height="1434" alt="대시보드 카드 만들기 화면"></div></div>
@@ -451,28 +380,28 @@
 
 <section id="voice" aria-labelledby="h-voice">
   <div class="wrap">
-    <p class="kicker r">말로 보내기<span class="beta">베타</span></p>
-    <h2 id="h-voice" class="r" data-delay="1">운전 중이면 말하세요.</h2>
+    <p class="kicker r"><span data-i="voiceK">말로 보내기</span><span class="beta" data-i="beta">베타</span></p>
+    <h2 id="h-voice" class="r" data-delay="1" data-i="voiceH">운전 중이면 말하세요.</h2>
     <div class="voice-grid">
       <div>
-        <p class="body r" data-delay="2">차 번호와 상황을 말하면, <b>정중한 문장으로 다듬어</b> 보여드리고 읽어드립니다. 사실은 남기고 짜증만 걷어냅니다.</p>
+        <p class="body r" data-delay="2"><span data-i="voiceP1">차 번호와 상황을 말하면, </span><b data-i="voiceP2">정중한 문장으로 다듬어</b><span data-i="voiceP3"> 보여드리고 읽어드립니다. 사실은 남기고 짜증만 걷어냅니다.</span></p>
         <ul class="voice-pts">
-          <li class="r"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="2"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>보내기 전에 문장을 보여드립니다.</b> 「보내줘」 뒤 5초 동안 「취소」라고 하면 나가지 않습니다.</span></li>
-          <li class="r" data-delay="1"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M8 10V7.5a4 4 0 018 0V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>음성은 기기 안에서 글자로 바뀝니다. 녹음 파일은 저장하지 않습니다.</span></li>
-          <li class="r" data-delay="2"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="2"/><path d="M6.5 6.5l11 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>욕설·협박은 다듬지 않고 거절합니다. 정중하게 바꿔도 협박은 협박이라서요.</span></li>
+          <li class="r"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="2"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b data-i="v1b">보내기 전에 문장을 보여드립니다.</b><span data-i="v1"> 「보내줘」 뒤 5초 동안 「취소」라고 하면 나가지 않습니다.</span></span></li>
+          <li class="r" data-delay="1"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M8 10V7.5a4 4 0 018 0V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-i="v2">음성은 기기 안에서 글자로 바뀝니다. 녹음 파일은 저장하지 않습니다.</span></li>
+          <li class="r" data-delay="2"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="2"/><path d="M6.5 6.5l11 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-i="v3">욕설·협박은 다듬지 않고 거절합니다. 정중하게 바꿔도 협박은 협박이라서요.</span></li>
         </ul>
       </div>
-      <div class="demo r" data-delay="1" aria-label="말로 보내기 예시">
+      <div class="demo r" data-delay="1">
         <div>
-          <div class="lab"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" stroke-width="2"/><path d="M6 11a6 6 0 0012 0M12 17v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>말한 그대로</div>
-          <p class="said">아 진짜 12가3456 20분째 기다리는데 빨리 좀 빼요</p>
+          <div class="lab"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" stroke-width="2"/><path d="M6 11a6 6 0 0012 0M12 17v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-i="said">말한 그대로</span></div>
+          <p class="said" data-i="saidTxt">아 진짜 12가3456 20분째 기다리는데 빨리 좀 빼요</p>
         </div>
-        <div class="arrow">다듬어서 보여드립니다</div>
+        <div class="arrow" data-i="arrow">다듬어서 보여드립니다</div>
         <div class="out">
           <span class="plate">12가3456</span>
-          <span class="tplchip"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 13l1.6-4.2A2 2 0 017.5 7.5h6a2 2 0 011.9 1.3L17 13" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="3" y="13" width="14" height="5" rx="1.5" stroke="currentColor" stroke-width="2"/><path d="M18 11h3m0 0l-2-2m2 2l-2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>차를 빼주세요</span>
-          <p class="msg">20분째 기다리고 있어요. 차를 빼주실 수 있을까요?</p>
-          <div class="acts"><span>보내기</span><span class="g">고쳐 쓰기</span></div>
+          <span class="tplchip"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 13l1.6-4.2A2 2 0 017.5 7.5h6a2 2 0 011.9 1.3L17 13" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="3" y="13" width="14" height="5" rx="1.5" stroke="currentColor" stroke-width="2"/><path d="M18 11h3m0 0l-2-2m2 2l-2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i="outTpl">차를 빼주세요</span></span>
+          <p class="msg" data-i="outMsg">20분째 기다리고 있어요. 차를 빼주실 수 있을까요?</p>
+          <div class="acts"><span data-i="send">보내기</span><span class="g" data-i="rewrite">고쳐 쓰기</span></div>
         </div>
       </div>
     </div>
@@ -481,59 +410,28 @@
 
 <section id="privacy" aria-labelledby="h-priv">
   <div class="wrap">
-    <p class="kicker r">지키는 것</p>
-    <h2 id="h-priv" class="r" data-delay="1">번호는 끝까지 드러나지 않습니다.</h2>
+    <p class="kicker r" data-i="privK">지키는 것</p>
+    <h2 id="h-priv" class="r" data-delay="1" data-i="privH">번호는 끝까지 드러나지 않습니다.</h2>
     <ul class="rules">
-      <li class="r">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h10a1 1 0 011 1v16a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="2"/><path d="M4 4l16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-        <div><h3>전화번호를 묻지 않습니다</h3><p>가입에도, 보내기에도 번호가 필요 없습니다. 앱과 서버 어디에도 없습니다.</p></div>
-      </li>
-      <li class="r" data-delay="1">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="15" r="1.4" fill="currentColor"/></svg></div>
-        <div><h3>차량 번호는 암호화된 형태로만 대조합니다</h3><p>번호 원문은 저장하지 않습니다. 등록 여부를 맞춰 보는 데만 씁니다.</p></div>
-      </li>
-      <li class="r" data-delay="2">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="3" stroke="currentColor" stroke-width="2"/><path d="M8 10h8M8 14h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-        <div><h3>잠금화면에 상대 번호판이 뜨지 않습니다</h3><p>알림에는 상황만 담깁니다. 옆 사람이 봐도 누구 차인지 모릅니다.</p></div>
-      </li>
-      <li class="r" data-delay="3">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12a8 8 0 0116 0v1a4 4 0 01-4 4h-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 12v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M5 19l14-14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
-        <div><h3>홍보를 끼워 넣지 않습니다</h3><p>상대에게 가는 메시지에 앱 이름이나 링크를 붙이지 않습니다. 부탁은 부탁으로만 갑니다.</p></div>
-      </li>
+      <li class="r"><div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h10a1 1 0 011 1v16a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" stroke-width="2"/><path d="M4 4l16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div><h3 data-i="p1h">전화번호를 묻지 않습니다</h3><p data-i="p1p">가입에도, 보내기에도 번호가 필요 없습니다. 앱과 서버 어디에도 없습니다.</p></div></li>
+      <li class="r" data-delay="1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="15" r="1.4" fill="currentColor"/></svg></div><div><h3 data-i="p2h">차량 번호는 암호화된 형태로만 대조합니다</h3><p data-i="p2p">번호 원문은 저장하지 않습니다. 등록 여부를 맞춰 보는 데만 씁니다.</p></div></li>
+      <li class="r" data-delay="2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="3" stroke="currentColor" stroke-width="2"/><path d="M8 10h8M8 14h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div><h3 data-i="p3h">잠금화면에 상대 번호판이 뜨지 않습니다</h3><p data-i="p3p">알림에는 상황만 담깁니다. 옆 사람이 봐도 누구 차인지 모릅니다.</p></div></li>
+      <li class="r" data-delay="3"><div class="ic"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12a8 8 0 0116 0v1a4 4 0 01-4 4h-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 12v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M5 19l14-14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div><h3 data-i="p4h">홍보를 끼워 넣지 않습니다</h3><p data-i="p4p">상대에게 가는 메시지에 앱 이름이나 링크를 붙이지 않습니다. 부탁은 부탁으로만 갑니다.</p></div></li>
     </ul>
   </div>
 </section>
 
 <section id="faq" aria-labelledby="h-faq">
   <div class="wrap">
-    <p class="kicker r">자주 묻는 질문</p>
-    <h2 id="h-faq" class="r" data-delay="1">궁금한 것</h2>
+    <p class="kicker r" data-i="faqK">자주 묻는 질문</p>
+    <h2 id="h-faq" class="r" data-delay="1" data-i="faqH">궁금한 것</h2>
     <div class="faq r" data-delay="2">
-      <details>
-        <summary>상대 차가 등록돼 있지 않으면요?</summary>
-        <p class="a">알림이 가지 않습니다. 차에 전화번호가 적혀 있으면 문자 작성을 도와드립니다. 그 번호는 저장하지 않습니다.</p>
-      </details>
-      <details>
-        <summary>하루에 몇 번 보낼 수 있나요?</summary>
-        <p class="a">로그인 없이 3건, 로그인하면 5건입니다. QR 카드로는 차량 한 대가 하루 10건까지 받습니다. 장난이나 반복 호출을 막기 위한 한도입니다.</p>
-      </details>
-      <details>
-        <summary>로그인이 꼭 필요한가요?</summary>
-        <p class="a">보내기는 로그인 없이 됩니다. 내 차를 등록해 알림을 받거나, 상대의 답변을 받으려면 로그인이 필요합니다. Apple·카카오·구글·이메일 중 고를 수 있습니다.</p>
-      </details>
-      <details>
-        <summary>iPhone에서도 쓸 수 있나요?</summary>
-        <p class="a" data-ios-answer="pending">iPhone 버전은 지금 App Store 심사 중입니다. 통과되면 이 페이지에 App Store 버튼이 생깁니다.</p>
-        <p class="a" data-ios-answer="live" hidden>네. App Store에서 받을 수 있습니다. Android는 Google Play에 있습니다.</p>
-      </details>
-      <details>
-        <summary>무료인가요?</summary>
-        <p class="a">네. 보내기, 내 차 등록, QR 카드 모두 무료입니다.</p>
-      </details>
-      <details>
-        <summary>문의는 어디로 하나요?</summary>
-        <p class="a">앱 안 「마이페이지 → 자주 묻는 질문 → 1:1 문의하기」로 보내주세요. <a href="support.html">지원 페이지</a>에도 연락처가 있습니다.</p>
-      </details>
+      <details><summary data-i="f1q">상대 차가 등록돼 있지 않으면요?</summary><p class="a" data-i="f1a">알림이 가지 않습니다. 차에 전화번호가 적혀 있으면 문자 작성을 도와드립니다. 그 번호는 저장하지 않습니다.</p></details>
+      <details><summary data-i="f2q">하루에 몇 번 보낼 수 있나요?</summary><p class="a" data-i="f2a">로그인 없이 3건, 로그인하면 5건입니다. QR 카드로는 차량 한 대가 하루 10건까지 받습니다. 장난이나 반복 호출을 막기 위한 한도입니다.</p></details>
+      <details><summary data-i="f3q">로그인이 꼭 필요한가요?</summary><p class="a" data-i="f3a">보내기는 로그인 없이 됩니다. 내 차를 등록해 알림을 받거나, 상대의 답변을 받으려면 로그인이 필요합니다. Apple·카카오·구글·이메일 중 고를 수 있습니다.</p></details>
+      <details><summary data-i="f4q">iPhone에서도 쓸 수 있나요?</summary><p class="a" data-ios-answer="pending" data-i="f4aPending">iPhone 버전은 지금 App Store 심사 중입니다. 통과되면 이 페이지에 App Store 버튼이 생깁니다.</p><p class="a" data-ios-answer="live" hidden data-i="f4aLive">네. App Store에서 받을 수 있습니다. Android는 Google Play에 있습니다.</p></details>
+      <details><summary data-i="f5q">무료인가요?</summary><p class="a" data-i="f5a">네. 보내기, 내 차 등록, QR 카드 모두 무료입니다.</p></details>
+      <details><summary data-i="f6q">문의는 어디로 하나요?</summary><p class="a"><span data-i="f6a1">앱 안 「마이페이지 → 자주 묻는 질문 → 1:1 문의하기」로 보내주세요. </span><a href="support.html" data-i="f6link">지원 페이지</a><span data-i="f6a2">에도 연락처가 있습니다.</span></p></details>
     </div>
   </div>
 </section>
@@ -541,10 +439,10 @@
 <section class="end" aria-labelledby="h-end">
   <div class="wrap inner">
     <span class="plate r" aria-hidden="true">12가3456</span>
-    <h2 id="h-end" class="r" data-delay="1">앞차 때문에 못 나갈 때, 한 번이면 됩니다.</h2>
+    <h2 id="h-end" class="r" data-delay="1" data-i="endH">앞차 때문에 못 나갈 때, 한 번이면 됩니다.</h2>
     <div class="cta-row r" data-delay="2">
-      <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.buruda.app" data-store="play">Google Play에서 받기</a>
-      <a class="btn ghost" href="#" data-store="ios" hidden>App Store에서 받기</a>
+      <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.buruda.app" data-i="play">Google Play에서 받기</a>
+      <a class="btn ghost" href="#" data-store="ios" hidden data-i="ios">App Store에서 받기</a>
     </div>
   </div>
 </section>
@@ -554,15 +452,15 @@
   <div class="wrap">
     <div class="foot">
       <a class="brand" href="#top"><img src="assets/icon.png" alt="" width="30" height="30"><span>부루다</span></a>
-      <nav aria-label="관련 링크">
-        <a href="https://play.google.com/store/apps/details?id=com.buruda.app" data-store="play">Google Play</a>
+      <nav aria-label="Links">
+        <a href="https://play.google.com/store/apps/details?id=com.buruda.app">Google Play</a>
         <a href="#" data-store="ios" hidden>App Store</a>
-        <a href="privacy.html">개인정보처리방침</a>
-        <a href="support.html">지원</a>
-        <a href="https://younghwakim.github.io/">다른 앱 보기</a>
+        <a href="privacy.html" data-i="fPrivacy">개인정보처리방침</a>
+        <a href="support.html" data-i="fSupport">지원</a>
+        <a href="https://younghwakim.github.io/" data-i="fMore">다른 앱 보기</a>
       </nav>
     </div>
-    <p class="copy-line"><span>© 2026 Younghwa Kim</span><span>대한민국 차량 번호판 기준으로 동작합니다.</span></p>
+    <p class="copy-line"><span>© 2026 Younghwa Kim</span><span data-i="fNote">대한민국 차량 번호판 기준으로 동작합니다.</span></p>
   </div>
 </footer>
 
@@ -571,35 +469,16 @@
   // iOS 출시 뒤 이 한 줄만 바꾸면 된다: App Store 버튼이 나오고 「심사 중」 표시가 사라진다.
   // 'https://apps.apple.com/kr/app/id6809695439'
   var IOS_URL = null;
+  var ios = document.querySelectorAll('[data-store="ios"]'), pend = document.querySelectorAll('[data-ios-pending]');
+  var ansP = document.querySelector('[data-ios-answer="pending"]'), ansL = document.querySelector('[data-ios-answer="live"]');
+  if (IOS_URL) { ios.forEach(function(a){ a.href = IOS_URL; a.hidden = false; }); pend.forEach(function(el){ el.hidden = true; }); if (ansP) ansP.hidden = true; if (ansL) ansL.hidden = false; }
 
-  var ios = document.querySelectorAll('[data-store="ios"]');
-  var pend = document.querySelectorAll('[data-ios-pending]');
-  var ansP = document.querySelector('[data-ios-answer="pending"]');
-  var ansL = document.querySelector('[data-ios-answer="live"]');
-  if (IOS_URL) {
-    ios.forEach(function(a){ a.href = IOS_URL; a.hidden = false; });
-    pend.forEach(function(el){ el.hidden = true; });
-    if (ansP) ansP.hidden = true; if (ansL) ansL.hidden = false;
-  }
 
   document.documentElement.classList.add('js');
-  var header = document.querySelector('header');
-  function stuck(){ header.classList.toggle('stuck', (window.scrollY||0) > 8); }
-  stuck(); window.addEventListener('scroll', stuck, {passive:true});
-
+  var header = document.querySelector('header'); function stuck(){ header.classList.toggle('stuck', (window.scrollY||0) > 8); } stuck(); window.addEventListener('scroll', stuck, {passive:true});
   var els = document.querySelectorAll('.r');
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, {rootMargin:'0px 0px -8% 0px', threshold:.08});
-    els.forEach(function(el){ io.observe(el); });
-    // 첫 화면 안의 요소는 관찰자 초기 교차와 무관하게 바로 드러낸다
-    requestAnimationFrame(function(){
-      els.forEach(function(el){ var r = el.getBoundingClientRect(); if (r.top < window.innerHeight) el.classList.add('in'); });
-    });
-  } else {
-    els.forEach(function(el){ el.classList.add('in'); });
-  }
+  if ('IntersectionObserver' in window) { var io = new IntersectionObserver(function(en){ en.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, {rootMargin:'0px 0px -8% 0px', threshold:.08}); els.forEach(function(el){ io.observe(el); }); requestAnimationFrame(function(){ els.forEach(function(el){ if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in'); }); }); }
+  else els.forEach(function(el){ el.classList.add('in'); });
 })();
 </script>
 </body>
