@@ -29,6 +29,12 @@
   .langs { display:flex; gap:6px; }
   .langs button { background:transparent; border:1px solid var(--line); border-radius:999px; padding:7px 12px; font:inherit; font-size:13px; cursor:pointer; color:var(--ink); }
   .langs button.on { background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  /* 모바일: 헤더 요소는 한 줄 고정, 좁으면 언어 버튼을 줄이고 브랜드 글자는 숨긴다 */
+  header .wrap { gap:10px; min-width:0; }
+  .brand, .langs { flex:none; white-space:nowrap; }
+  .langs button { white-space:nowrap; }
+  @media (max-width:520px) { .langs { gap:4px; } .langs button { padding:6px 9px; font-size:12px; } }
+  @media (max-width:400px) { .brand span { display:none; } }
   .cta { display:inline-flex; align-items:center; gap:10px; background:var(--ink); color:var(--paper); text-decoration:none; padding:15px 24px; border-radius:999px; font-weight:700; font-size:16px; transition:transform .15s; }
   .cta:hover { transform:translateY(-1px); }
   .cta.lime { background:var(--lime); color:var(--ink); border:2px solid var(--ink); }
