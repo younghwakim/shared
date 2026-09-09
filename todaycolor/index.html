@@ -51,7 +51,7 @@
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
-  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--font); font-size:16px; line-height:1.65; letter-spacing:-.01em; word-break:keep-all; overflow-wrap:anywhere; overflow-x:hidden}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--font); font-size:16px; line-height:1.65; letter-spacing:-.01em; word-break:keep-all; overflow-wrap:break-word; overflow-x:hidden}
   html[lang="ja"] body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif}
   img{max-width:100%; display:block}
   a{color:inherit}
@@ -225,6 +225,16 @@
   .copy-line{margin-top:22px; display:flex; flex-wrap:wrap; gap:6px 18px; font-size:.84rem}
   [hidden]{display:none !important}
   @media(prefers-reduced-motion:reduce){.js .r{opacity:1; transform:none; transition:none} html{scroll-behavior:auto}}
+
+  /* 모바일: 단어 중간에서 꺾이지 않게 — 헤더·버튼·칩은 한 줄 고정 */
+  .brand,.wordmark,.langs,.langs button,.btn,.chip,.pill,.lnk,.social a,.eyebrow{white-space:nowrap}
+  .brand,.wordmark,.langs,.right{flex:none}
+  .bar{min-width:0}
+  @media(max-width:640px){
+    .langs button{padding:6px 8px; font-size:.74rem}
+    .bar{gap:8px}
+  }
+  @media(max-width:420px){ .btn.sm{padding:9px 11px; font-size:.82rem} }
 </style>
 </head>
 <body>
