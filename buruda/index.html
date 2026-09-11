@@ -478,7 +478,7 @@
 (function(){
   // iOS 출시 뒤 이 한 줄만 바꾸면 된다: App Store 버튼이 나오고 「심사 중」 표시가 사라진다.
   // 'https://apps.apple.com/kr/app/id6809695439'
-  var IOS_URL = null;
+  var IOS_URL = 'https://apps.apple.com/kr/app/id6809695439';
   var ios = document.querySelectorAll('[data-store="ios"]'), pend = document.querySelectorAll('[data-ios-pending]');
   var ansP = document.querySelector('[data-ios-answer="pending"]'), ansL = document.querySelector('[data-ios-answer="live"]');
   if (IOS_URL) { ios.forEach(function(a){ a.href = IOS_URL; a.hidden = false; }); pend.forEach(function(el){ el.hidden = true; }); if (ansP) ansP.hidden = true; if (ansL) ansL.hidden = false; }
