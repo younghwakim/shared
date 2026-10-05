@@ -245,6 +245,12 @@
     .bar{gap:8px}
   }
   @media(max-width:420px){ .btn.sm{padding:9px 11px; font-size:.82rem} }
+
+  /* 영어·번체: 한국어 전용 구역은 숨기고, 번체는 글꼴과 줄바꿈을 따로 둔다 */
+  html[lang="zh-Hant"]{--font:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei","Segoe UI",sans-serif}
+  html[lang="zh-Hant"] body{word-break:normal; line-break:strict}
+  html[lang="en"] body{word-break:normal}
+  html:not([lang="ko"]) .plate{letter-spacing:.08em}
 </style>
 </head>
 <body>
@@ -252,7 +258,7 @@
 <header id="top">
   <div class="wrap bar">
     <a class="brand" href="./"><img src="assets/icon.png" alt="" width="30" height="30"><span>부루다</span></a>
-    <nav class="top" aria-label="본문 이동">
+    <nav class="top" aria-label="본문 이동" data-i-aria="aNav">
       <a href="#when" data-i="navWhen">이럴 때</a>
       <a href="#how" data-i="navHow">어떻게</a>
       <a href="#qr" data-i="navQr">QR 카드</a>
@@ -290,8 +296,8 @@
       </p>
     </div>
     <div class="stage">
-      <div class="phone"><img src="assets/shots/01.webp" width="660" height="1434" alt="부루다 보내기 화면 — 번호판 12가3456 입력, 「차를 빼주세요」 선택됨" fetchpriority="high"></div>
-      <div class="notif" role="img" aria-label="차주 잠금화면에 도착한 알림">
+      <div class="phone"><img src="assets/shots/01.webp" width="660" height="1434" alt="부루다 보내기 화면 — 번호판 12가3456 입력, 「차를 빼주세요」 선택됨" data-i-alt="altHero" fetchpriority="high"></div>
+      <div class="notif" role="img" aria-label="차주 잠금화면에 도착한 알림" data-i-aria="aNotif">
         <div class="ic"><img src="assets/icon.png" alt="" width="40" height="40"></div>
         <div>
           <div class="app" data-i="notifApp">부루다</div>
@@ -300,7 +306,7 @@
         </div>
         <small data-i="notifTime">지금</small>
       </div>
-      <div class="reply" role="img" aria-label="차주의 답변">
+      <div class="reply" role="img" aria-label="차주의 답변" data-i-aria="aReply">
         <span class="lab" data-i="replyLab">답변 · 차주</span>
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span data-i="reply">바로 나갈게요</span>
@@ -341,7 +347,7 @@
           <p class="r" data-delay="2" data-i="s1p">로그인 없이 하루 3건, 로그인하면 5건까지 보낼 수 있습니다. 상대 차가 등록돼 있으면 그 자리에서 알림이 갑니다.</p>
           <div class="chips r" data-delay="3"><span class="plate" style="font-size:1.15rem">12가3456</span><span class="chip on" data-i="s1chip">차를 빼주세요</span></div>
         </div>
-        <div class="shot r" data-delay="1"><div class="phone"><img src="assets/shots/01.webp" loading="lazy" width="660" height="1434" alt="보내기 화면"></div></div>
+        <div class="shot r" data-delay="1"><div class="phone"><img src="assets/shots/01.webp" loading="lazy" width="660" height="1434" alt="보내기 화면" data-i-alt="altSend"></div></div>
       </div>
       <div class="step rev">
         <div class="copy">
@@ -350,7 +356,7 @@
           <p class="r" data-delay="2" data-i="s2p">앱을 열 필요도 없습니다. 답이 오면 보낸 사람에게도 알림이 갑니다.</p>
           <div class="chips r" data-delay="3"><span class="chip on" data-i="r1">바로 나갈게요</span><span class="chip" data-i="r2">5분쯤 걸려요</span><span class="chip" data-i="r3">10분쯤 걸려요</span><span class="chip" data-i="r4">지금은 어려워요</span></div>
         </div>
-        <div class="shot r" data-delay="1"><div class="phone"><img src="assets/shots/03.webp" loading="lazy" width="660" height="1434" alt="차주의 답변 화면"></div></div>
+        <div class="shot r" data-delay="1"><div class="phone"><img src="assets/shots/03.webp" loading="lazy" width="660" height="1434" alt="차주의 답변 화면" data-i-alt="altReply"></div></div>
       </div>
       <div class="step">
         <div class="copy">
@@ -358,7 +364,7 @@
           <h3 class="r" data-delay="1" data-i="s3h">보낸 것과 받은 것이 한 곳에 남습니다.</h3>
           <p class="r" data-delay="2" data-i="s3p">답변이 왔는지 한눈에 봅니다. 원치 않는 상대는 차단하고, 이상한 건 신고할 수 있습니다.</p>
         </div>
-        <div class="shot r" data-delay="1"><div class="phone"><img src="assets/shots/02.webp" loading="lazy" width="660" height="1434" alt="주고받은 내역 화면"></div></div>
+        <div class="shot r" data-delay="1"><div class="phone"><img src="assets/shots/02.webp" loading="lazy" width="660" height="1434" alt="주고받은 내역 화면" data-i-alt="altHistory"></div></div>
       </div>
     </div>
   </div>
@@ -370,12 +376,12 @@
       <p class="kicker r" data-i="qrK">QR 대시보드 카드 · 무료</p>
       <h2 id="h-qr" class="r" data-delay="1" data-i="qrH">상대가 앱이 없어도 됩니다.</h2>
       <p class="body r" data-delay="2"><span data-i="qrP1">앱에서 만든 카드를 인쇄해 대시보드 위에 두세요. 상대는 카메라로 QR을 찍어 </span><b data-i="qrP2">그 자리에서</b><span data-i="qrP3"> 보냅니다. 번호판을 칠 필요도, 앱을 깔 필요도 없습니다.</span></p>
-      <div class="card r" data-delay="2" role="img" aria-label="부루다 QR 대시보드 카드">
+      <div class="card r" data-delay="2" role="img" aria-label="부루다 QR 대시보드 카드" data-i-aria="aCard">
         <div class="tag"><svg viewBox="0 0 28 18" fill="none" aria-hidden="true"><rect x="6" y="3" width="21" height="12" rx="3" stroke="currentColor" stroke-width="2"/><path d="M3 6a5 5 0 000 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span data-i="cardTag">부루다 등록 차량</span></div>
         <div class="big"><span data-i="cardBig1">차주에게</span><br><span data-i="cardBig2">바로 연락됩니다</span></div>
         <div class="foot">
           <p><span data-i="cardFoot1">카메라로 QR을 찍으면</span><br><span data-i="cardFoot2">알림을 보낼 수 있습니다</span><small data-i="cardSmall">전화번호는 몰라도 됩니다</small></p>
-          <div class="qr"><svg viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="부루다 소개 페이지로 연결되는 QR"><path fill="currentColor" d="M0 0h7v1h-7zM9 0h1v1h-1zM11 0h3v1h-3zM17 0h4v1h-4zM23 0h1v1h-1zM26 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM10 1h2v1h-2zM13 1h5v1h-5zM20 1h1v1h-1zM22 1h1v1h-1zM26 1h1v1h-1zM32 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h1v1h-1zM10 2h1v1h-1zM13 2h1v1h-1zM16 2h5v1h-5zM23 2h1v1h-1zM26 2h1v1h-1zM28 2h3v1h-3zM32 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h2v1h-2zM14 3h1v1h-1zM16 3h1v1h-1zM20 3h3v1h-3zM24 3h1v1h-1zM26 3h1v1h-1zM28 3h3v1h-3zM32 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h3v1h-3zM13 4h1v1h-1zM15 4h1v1h-1zM17 4h2v1h-2zM24 4h1v1h-1zM26 4h1v1h-1zM28 4h3v1h-3zM32 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h9v1h-9zM18 5h1v1h-1zM20 5h2v1h-2zM26 5h1v1h-1zM32 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h7v1h-7zM8 7h3v1h-3zM14 7h2v1h-2zM21 7h1v1h-1zM23 7h1v1h-1zM0 8h1v1h-1zM2 8h5v1h-5zM9 8h7v1h-7zM17 8h1v1h-1zM22 8h3v1h-3zM26 8h5v1h-5zM0 9h2v1h-2zM4 9h2v1h-2zM9 9h1v1h-1zM11 9h2v1h-2zM14 9h1v1h-1zM16 9h1v1h-1zM19 9h5v1h-5zM26 9h2v1h-2zM29 9h4v1h-4zM0 10h1v1h-1zM2 10h2v1h-2zM5 10h3v1h-3zM9 10h2v1h-2zM15 10h2v1h-2zM18 10h1v1h-1zM21 10h1v1h-1zM24 10h2v1h-2zM28 10h1v1h-1zM30 10h2v1h-2zM0 11h4v1h-4zM5 11h1v1h-1zM7 11h6v1h-6zM14 11h2v1h-2zM19 11h5v1h-5zM25 11h1v1h-1zM28 11h4v1h-4zM0 12h1v1h-1zM6 12h2v1h-2zM10 12h2v1h-2zM18 12h2v1h-2zM21 12h1v1h-1zM23 12h3v1h-3zM28 12h2v1h-2zM0 13h2v1h-2zM8 13h5v1h-5zM14 13h3v1h-3zM20 13h7v1h-7zM30 13h3v1h-3zM0 14h3v1h-3zM4 14h4v1h-4zM10 14h2v1h-2zM14 14h1v1h-1zM19 14h1v1h-1zM22 14h1v1h-1zM25 14h4v1h-4zM31 14h1v1h-1zM0 15h2v1h-2zM4 15h1v1h-1zM8 15h2v1h-2zM11 15h4v1h-4zM16 15h1v1h-1zM18 15h5v1h-5zM24 15h4v1h-4zM29 15h2v1h-2zM3 16h1v1h-1zM5 16h2v1h-2zM9 16h2v1h-2zM12 16h1v1h-1zM17 16h1v1h-1zM19 16h1v1h-1zM22 16h1v1h-1zM24 16h2v1h-2zM27 16h2v1h-2zM32 16h1v1h-1zM2 17h2v1h-2zM5 17h1v1h-1zM7 17h2v1h-2zM10 17h1v1h-1zM13 17h2v1h-2zM16 17h4v1h-4zM23 17h1v1h-1zM25 17h3v1h-3zM29 17h2v1h-2zM32 17h1v1h-1zM0 18h3v1h-3zM4 18h3v1h-3zM9 18h1v1h-1zM13 18h3v1h-3zM17 18h1v1h-1zM20 18h1v1h-1zM22 18h1v1h-1zM27 18h2v1h-2zM30 18h2v1h-2zM0 19h2v1h-2zM5 19h1v1h-1zM7 19h1v1h-1zM14 19h1v1h-1zM16 19h3v1h-3zM20 19h1v1h-1zM26 19h5v1h-5zM0 20h2v1h-2zM3 20h1v1h-1zM5 20h2v1h-2zM8 20h2v1h-2zM12 20h1v1h-1zM16 20h1v1h-1zM19 20h4v1h-4zM24 20h2v1h-2zM27 20h3v1h-3zM32 20h1v1h-1zM0 21h1v1h-1zM2 21h1v1h-1zM4 21h2v1h-2zM7 21h1v1h-1zM9 21h2v1h-2zM12 21h1v1h-1zM14 21h2v1h-2zM17 21h2v1h-2zM21 21h1v1h-1zM23 21h1v1h-1zM25 21h2v1h-2zM29 21h2v1h-2zM32 21h1v1h-1zM0 22h1v1h-1zM3 22h6v1h-6zM12 22h1v1h-1zM15 22h2v1h-2zM18 22h1v1h-1zM20 22h2v1h-2zM24 22h1v1h-1zM26 22h1v1h-1zM28 22h4v1h-4zM0 23h1v1h-1zM2 23h1v1h-1zM4 23h1v1h-1zM7 23h9v1h-9zM18 23h1v1h-1zM21 23h2v1h-2zM25 23h1v1h-1zM28 23h3v1h-3zM0 24h1v1h-1zM2 24h7v1h-7zM11 24h2v1h-2zM15 24h1v1h-1zM17 24h1v1h-1zM22 24h1v1h-1zM24 24h5v1h-5zM31 24h2v1h-2zM8 25h4v1h-4zM19 25h3v1h-3zM23 25h2v1h-2zM28 25h1v1h-1zM30 25h1v1h-1zM32 25h1v1h-1zM0 26h7v1h-7zM9 26h3v1h-3zM13 26h1v1h-1zM15 26h1v1h-1zM18 26h1v1h-1zM20 26h2v1h-2zM23 26h2v1h-2zM26 26h1v1h-1zM28 26h1v1h-1zM30 26h2v1h-2zM0 27h1v1h-1zM6 27h1v1h-1zM8 27h1v1h-1zM10 27h3v1h-3zM21 27h4v1h-4zM28 27h5v1h-5zM0 28h1v1h-1zM2 28h3v1h-3zM6 28h1v1h-1zM8 28h1v1h-1zM11 28h1v1h-1zM15 28h1v1h-1zM18 28h2v1h-2zM21 28h1v1h-1zM24 28h6v1h-6zM0 29h1v1h-1zM2 29h3v1h-3zM6 29h1v1h-1zM8 29h4v1h-4zM15 29h2v1h-2zM20 29h1v1h-1zM22 29h2v1h-2zM25 29h1v1h-1zM28 29h3v1h-3zM32 29h1v1h-1zM0 30h1v1h-1zM2 30h3v1h-3zM6 30h1v1h-1zM8 30h2v1h-2zM11 30h2v1h-2zM14 30h1v1h-1zM19 30h1v1h-1zM23 30h1v1h-1zM26 30h2v1h-2zM30 30h1v1h-1zM0 31h1v1h-1zM6 31h1v1h-1zM11 31h2v1h-2zM16 31h1v1h-1zM19 31h4v1h-4zM25 31h1v1h-1zM28 31h1v1h-1zM30 31h1v1h-1zM0 32h7v1h-7zM8 32h1v1h-1zM12 32h3v1h-3zM17 32h1v1h-1zM19 32h1v1h-1zM22 32h4v1h-4zM27 32h1v1h-1zM31 32h1v1h-1z"/></svg><span data-i="cardScan">스캔해서 알림 보내기</span></div>
+          <div class="qr"><svg viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="부루다 소개 페이지로 연결되는 QR" data-i-aria="aQr"><path fill="currentColor" d="M0 0h7v1h-7zM9 0h1v1h-1zM11 0h3v1h-3zM17 0h4v1h-4zM23 0h1v1h-1zM26 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM10 1h2v1h-2zM13 1h5v1h-5zM20 1h1v1h-1zM22 1h1v1h-1zM26 1h1v1h-1zM32 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h1v1h-1zM10 2h1v1h-1zM13 2h1v1h-1zM16 2h5v1h-5zM23 2h1v1h-1zM26 2h1v1h-1zM28 2h3v1h-3zM32 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM8 3h1v1h-1zM11 3h2v1h-2zM14 3h1v1h-1zM16 3h1v1h-1zM20 3h3v1h-3zM24 3h1v1h-1zM26 3h1v1h-1zM28 3h3v1h-3zM32 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h3v1h-3zM13 4h1v1h-1zM15 4h1v1h-1zM17 4h2v1h-2zM24 4h1v1h-1zM26 4h1v1h-1zM28 4h3v1h-3zM32 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h9v1h-9zM18 5h1v1h-1zM20 5h2v1h-2zM26 5h1v1h-1zM32 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h7v1h-7zM8 7h3v1h-3zM14 7h2v1h-2zM21 7h1v1h-1zM23 7h1v1h-1zM0 8h1v1h-1zM2 8h5v1h-5zM9 8h7v1h-7zM17 8h1v1h-1zM22 8h3v1h-3zM26 8h5v1h-5zM0 9h2v1h-2zM4 9h2v1h-2zM9 9h1v1h-1zM11 9h2v1h-2zM14 9h1v1h-1zM16 9h1v1h-1zM19 9h5v1h-5zM26 9h2v1h-2zM29 9h4v1h-4zM0 10h1v1h-1zM2 10h2v1h-2zM5 10h3v1h-3zM9 10h2v1h-2zM15 10h2v1h-2zM18 10h1v1h-1zM21 10h1v1h-1zM24 10h2v1h-2zM28 10h1v1h-1zM30 10h2v1h-2zM0 11h4v1h-4zM5 11h1v1h-1zM7 11h6v1h-6zM14 11h2v1h-2zM19 11h5v1h-5zM25 11h1v1h-1zM28 11h4v1h-4zM0 12h1v1h-1zM6 12h2v1h-2zM10 12h2v1h-2zM18 12h2v1h-2zM21 12h1v1h-1zM23 12h3v1h-3zM28 12h2v1h-2zM0 13h2v1h-2zM8 13h5v1h-5zM14 13h3v1h-3zM20 13h7v1h-7zM30 13h3v1h-3zM0 14h3v1h-3zM4 14h4v1h-4zM10 14h2v1h-2zM14 14h1v1h-1zM19 14h1v1h-1zM22 14h1v1h-1zM25 14h4v1h-4zM31 14h1v1h-1zM0 15h2v1h-2zM4 15h1v1h-1zM8 15h2v1h-2zM11 15h4v1h-4zM16 15h1v1h-1zM18 15h5v1h-5zM24 15h4v1h-4zM29 15h2v1h-2zM3 16h1v1h-1zM5 16h2v1h-2zM9 16h2v1h-2zM12 16h1v1h-1zM17 16h1v1h-1zM19 16h1v1h-1zM22 16h1v1h-1zM24 16h2v1h-2zM27 16h2v1h-2zM32 16h1v1h-1zM2 17h2v1h-2zM5 17h1v1h-1zM7 17h2v1h-2zM10 17h1v1h-1zM13 17h2v1h-2zM16 17h4v1h-4zM23 17h1v1h-1zM25 17h3v1h-3zM29 17h2v1h-2zM32 17h1v1h-1zM0 18h3v1h-3zM4 18h3v1h-3zM9 18h1v1h-1zM13 18h3v1h-3zM17 18h1v1h-1zM20 18h1v1h-1zM22 18h1v1h-1zM27 18h2v1h-2zM30 18h2v1h-2zM0 19h2v1h-2zM5 19h1v1h-1zM7 19h1v1h-1zM14 19h1v1h-1zM16 19h3v1h-3zM20 19h1v1h-1zM26 19h5v1h-5zM0 20h2v1h-2zM3 20h1v1h-1zM5 20h2v1h-2zM8 20h2v1h-2zM12 20h1v1h-1zM16 20h1v1h-1zM19 20h4v1h-4zM24 20h2v1h-2zM27 20h3v1h-3zM32 20h1v1h-1zM0 21h1v1h-1zM2 21h1v1h-1zM4 21h2v1h-2zM7 21h1v1h-1zM9 21h2v1h-2zM12 21h1v1h-1zM14 21h2v1h-2zM17 21h2v1h-2zM21 21h1v1h-1zM23 21h1v1h-1zM25 21h2v1h-2zM29 21h2v1h-2zM32 21h1v1h-1zM0 22h1v1h-1zM3 22h6v1h-6zM12 22h1v1h-1zM15 22h2v1h-2zM18 22h1v1h-1zM20 22h2v1h-2zM24 22h1v1h-1zM26 22h1v1h-1zM28 22h4v1h-4zM0 23h1v1h-1zM2 23h1v1h-1zM4 23h1v1h-1zM7 23h9v1h-9zM18 23h1v1h-1zM21 23h2v1h-2zM25 23h1v1h-1zM28 23h3v1h-3zM0 24h1v1h-1zM2 24h7v1h-7zM11 24h2v1h-2zM15 24h1v1h-1zM17 24h1v1h-1zM22 24h1v1h-1zM24 24h5v1h-5zM31 24h2v1h-2zM8 25h4v1h-4zM19 25h3v1h-3zM23 25h2v1h-2zM28 25h1v1h-1zM30 25h1v1h-1zM32 25h1v1h-1zM0 26h7v1h-7zM9 26h3v1h-3zM13 26h1v1h-1zM15 26h1v1h-1zM18 26h1v1h-1zM20 26h2v1h-2zM23 26h2v1h-2zM26 26h1v1h-1zM28 26h1v1h-1zM30 26h2v1h-2zM0 27h1v1h-1zM6 27h1v1h-1zM8 27h1v1h-1zM10 27h3v1h-3zM21 27h4v1h-4zM28 27h5v1h-5zM0 28h1v1h-1zM2 28h3v1h-3zM6 28h1v1h-1zM8 28h1v1h-1zM11 28h1v1h-1zM15 28h1v1h-1zM18 28h2v1h-2zM21 28h1v1h-1zM24 28h6v1h-6zM0 29h1v1h-1zM2 29h3v1h-3zM6 29h1v1h-1zM8 29h4v1h-4zM15 29h2v1h-2zM20 29h1v1h-1zM22 29h2v1h-2zM25 29h1v1h-1zM28 29h3v1h-3zM32 29h1v1h-1zM0 30h1v1h-1zM2 30h3v1h-3zM6 30h1v1h-1zM8 30h2v1h-2zM11 30h2v1h-2zM14 30h1v1h-1zM19 30h1v1h-1zM23 30h1v1h-1zM26 30h2v1h-2zM30 30h1v1h-1zM0 31h1v1h-1zM6 31h1v1h-1zM11 31h2v1h-2zM16 31h1v1h-1zM19 31h4v1h-4zM25 31h1v1h-1zM28 31h1v1h-1zM30 31h1v1h-1zM0 32h7v1h-7zM8 32h1v1h-1zM12 32h3v1h-3zM17 32h1v1h-1zM19 32h1v1h-1zM22 32h4v1h-4zM27 32h1v1h-1zM31 32h1v1h-1z"/></svg><span data-i="cardScan">스캔해서 알림 보내기</span></div>
         </div>
       </div>
       <ul>
@@ -384,7 +390,7 @@
         <li class="r" data-delay="2"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i="q3">QR은 그 차 전용입니다. 차량을 삭제하면 QR도 같이 무효가 됩니다.</span></li>
       </ul>
     </div>
-    <div class="stage r" data-delay="1"><div class="phone"><img src="assets/shots/05.webp" loading="lazy" width="660" height="1434" alt="대시보드 카드 만들기 화면"></div></div>
+    <div class="stage r" data-delay="1"><div class="phone"><img src="assets/shots/05.webp" loading="lazy" width="660" height="1434" alt="대시보드 카드 만들기 화면" data-i-alt="altCard"></div></div>
   </div>
 </section>
 
@@ -475,10 +481,356 @@
 </footer>
 
 <script>
+// ── 언어: 브라우저가 선호하는 순서대로 보며 우리가 가진 첫 언어를 고른다 (n/index.html 과 같은 방식) ──
+// 시험용: ?lang=ko|en|zh 로 덮어쓸 수 있다.
+var BURUDA_LANG = (function () {
+  var q = /[?&]lang=(ko|en|zh)(?:&|#|$)/.exec(location.search || '');
+  if (q) return q[1];
+  var list = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || 'en'];
+  for (var i = 0; i < list.length; i++) {
+    var l = String(list[i]).toLowerCase();
+    if (l.indexOf('ko') === 0) return 'ko';
+    if (l.indexOf('zh') === 0) return 'zh';
+    if (l.indexOf('en') === 0) return 'en';
+  }
+  return 'en';
+})();
+document.documentElement.lang = BURUDA_LANG === 'zh' ? 'zh-Hant' : BURUDA_LANG;
+
+// 한국어는 마크업이 원본이다 — 아래 사전은 영어·번체에서만 덮어쓴다.
+// 앱 화면을 인용하는 말(유형 제목·답변 버튼·카드 문구·메뉴 이름)은 buruda-app/src/i18n/messages 와 같은 말이다.
+var BURUDA_TEXT = {
+"en": {
+ "navWhen": "When to use",
+ "navHow": "How it works",
+ "navQr": "QR card",
+ "navVoice": "Send by voice",
+ "navFaq": "FAQ",
+ "playShort": "Google Play",
+ "eyebrow": "Contact a car's owner by plate",
+ "h1a": "Ask a driver to move their car,",
+ "h1b": "no phone numbers shared.",
+ "lede": "When a car is blocking you in, the plate number is all you need. Neither the sender nor the owner shares a phone number.",
+ "play": "Get it on Google Play",
+ "ios": "Download on the App Store",
+ "pending": "iPhone version is in App Store review",
+ "n1": "Free",
+ "n2": "Send without signing in",
+ "n3": "No phone number asked",
+ "notifApp": "Buruda",
+ "notifTitle": "Please move your car",
+ "notifBody": "Your car is blocking the way. Press and hold to reply.",
+ "notifTime": "now",
+ "replyLab": "Reply · owner",
+ "reply": "I'll be right out",
+ "whenK": "When to use it",
+ "whenH": "There are six things you can send.",
+ "whenP1": "Enter the plate and pick one situation. That's it. ",
+ "whenP2": "There is no free-text box,",
+ "whenP3": " so insults and arguments can't get through. The person receiving it can open it without worry.",
+ "t1h": "Please move your car",
+ "t1p": "When a car in front or a double-parked car is blocking you",
+ "t2h": "Your hazard lights are on",
+ "t2p": "Before the battery runs down",
+ "t3h": "Your window is open",
+ "t3p": "When it's raining, or something left inside is visible",
+ "t4h": "Your trunk is open",
+ "t4p": "When the luggage is in plain view",
+ "t5h": "A tire looks wrong",
+ "t5p": "When it's flat or has a nail in it",
+ "t6h": "Something near your car looks unsafe",
+ "t6p": "Falling objects, roadworks, or rising water",
+ "fixed1": "If your situation isn't one of the six, there is ",
+ "fixedLink": "Send by voice",
+ "fixed2": ". It turns what you say into a polite sentence and asks you to confirm before sending.",
+ "howK": "How it works",
+ "howH": "Send, get a reply, keep a record.",
+ "s1n": "Send",
+ "s1h": "Enter the plate, pick the situation. That's all.",
+ "s1p": "You can send 3 a day without signing in, or 5 when signed in. If the other car is registered, the notification goes out right away.",
+ "s1chip": "Please move your car",
+ "s2n": "The owner replies",
+ "s2h": "Press and hold the notification to see the reply buttons.",
+ "s2p": "No need to open the app. When the owner replies, the sender is notified too.",
+ "r1": "I'll be right out",
+ "r2": "About 5 minutes",
+ "r3": "About 10 minutes",
+ "r4": "Can't right now",
+ "s3n": "History",
+ "s3h": "Everything sent and received stays in one place.",
+ "s3p": "See at a glance whether a reply has come. You can block people you don't want to hear from and report anything inappropriate.",
+ "qrK": "QR dashboard card · Free",
+ "qrH": "The other person doesn't need the app.",
+ "qrP1": "Print the card you make in the app and leave it on your dashboard. The other person scans the QR code with their camera and sends a notification ",
+ "qrP2": "on the spot",
+ "qrP3": ". No plate to type, no app to install.",
+ "cardTag": "Registered with Buruda",
+ "cardBig1": "Reach the owner",
+ "cardBig2": "right away",
+ "cardFoot1": "Scan the QR code with your camera",
+ "cardFoot2": "to send a notification",
+ "cardSmall": "No phone number needed",
+ "cardScan": "Scan to notify",
+ "q1": "Save it to Photos and print it at A6 (postcard) size. The card costs nothing.",
+ "q2": "The line of text you add to the card stays only on your phone and in the card image. It is not sent to the server.",
+ "q3": "Each QR code belongs to one car. If you delete the car, its QR code stops working.",
+ "voiceK": "Send by voice",
+ "beta": "Beta",
+ "voiceH": "Driving? Just say it.",
+ "voiceP1": "Say the plate number and the situation, and we ",
+ "voiceP2": "turn it into a polite sentence",
+ "voiceP3": ", then show it and read it back. The facts stay, the irritation goes.",
+ "v1b": "You see the sentence before it's sent.",
+ "v1": " After you say \"send\", you have 5 seconds to say \"cancel\".",
+ "v2": "Speech is turned into text on your device. No recording is saved.",
+ "v3": "Insults and threats are refused, not reworded. A threat is still a threat, however politely it's put.",
+ "said": "As spoken",
+ "saidTxt": "Ugh, ABC 1234, I've been waiting 20 minutes, move it already",
+ "arrow": "Reworded for you to check",
+ "outTpl": "Please move your car",
+ "outMsg": "I've been waiting for 20 minutes. Could you move your car?",
+ "send": "Send",
+ "rewrite": "Rewrite",
+ "privK": "What we protect",
+ "privH": "Your number is never revealed.",
+ "p1h": "We don't ask for your phone number",
+ "p1p": "You don't need one to sign up or to send. It isn't in the app or on our server.",
+ "p2h": "Plate numbers are matched only in encrypted form",
+ "p2p": "We don't store the plate number as written. It is used only to check whether a car is registered.",
+ "p3h": "The lock screen doesn't show the other car's plate",
+ "p3p": "The notification carries only the situation. Someone next to you can't tell whose car it is.",
+ "p4h": "We don't slip in promotion",
+ "p4p": "Messages to the other person carry no app name or link. A request goes out as a request, nothing more.",
+ "faqK": "FAQ",
+ "faqH": "Questions",
+ "f1q": "What if the other car isn't registered?",
+ "f1a": "No notification is sent. The car has to be registered with Buruda to receive one.",
+ "f2q": "How many can I send a day?",
+ "f2a": "3 without signing in, 5 when signed in. Through a QR card, one car can receive up to 10 a day. The limits are there to stop pranks and repeated notifications.",
+ "f3q": "Do I have to sign in?",
+ "f3a": "You can send without signing in. You need to sign in to register your car and receive notifications, or to get the other person's reply. You can use Apple, Google, or email.",
+ "f4q": "Can I use it on iPhone?",
+ "f4aPending": "The iPhone version is in App Store review. Once it is approved, an App Store button will appear on this page.",
+ "f4aLive": "Yes. It is on the App Store. The Android version is on Google Play.",
+ "f5q": "Is it free?",
+ "f5a": "Yes. Sending, registering your car, and the QR card are all free.",
+ "f6q": "How do I contact you?",
+ "f6a1": "In the app, go to Account → Contact us. Our contact details are also on the ",
+ "f6link": "support page",
+ "f6a2": ".",
+ "endH": "When a car is blocking you in, one message is enough.",
+ "fPrivacy": "Privacy Policy",
+ "fSupport": "Support",
+ "fMore": "More apps",
+ "fNote": "Supports plates from South Korea, Malaysia, Taiwan, Hong Kong, Singapore, Canada, Australia, New Zealand, the Philippines, India, Israel, and South Africa."
+},
+"zh": {
+ "navWhen": "使用時機",
+ "navHow": "使用方式",
+ "navQr": "QR 卡",
+ "navVoice": "語音傳送",
+ "navFaq": "常見問題",
+ "playShort": "Google Play",
+ "eyebrow": "用車牌聯絡車主",
+ "h1a": "請對方移車，",
+ "h1b": "不必交換電話。",
+ "lede": "被前面的車擋住出不去時，只要知道車牌就能聯絡。傳送的人和車主都不需要交換電話號碼。",
+ "play": "在 Google Play 下載",
+ "ios": "在 App Store 下載",
+ "pending": "iPhone 版正在 App Store 審核中",
+ "n1": "免費",
+ "n2": "不用登入也能傳送",
+ "n3": "不詢問電話號碼",
+ "notifApp": "Buruda",
+ "notifTitle": "請移車",
+ "notifBody": "您的車擋住出入口了。長按通知即可回覆。",
+ "notifTime": "現在",
+ "replyLab": "回覆 · 車主",
+ "reply": "我馬上出去",
+ "whenK": "使用時機",
+ "whenH": "可以傳送的訊息共有六種。",
+ "whenP1": "輸入車牌，選一個狀況就完成了。",
+ "whenP2": "沒有自由輸入的欄位，",
+ "whenP3": "所以不會出現辱罵或爭執。收到的人也能放心打開。",
+ "t1h": "請移車",
+ "t1p": "被前車或並排停車擋住，出不去的時候",
+ "t2h": "警示燈沒關",
+ "t2p": "趁電瓶還沒耗盡之前",
+ "t3h": "車窗沒關",
+ "t3p": "下雨了，或看得到留在車內的東西時",
+ "t4h": "後車廂沒關",
+ "t4p": "行李一覽無遺的時候",
+ "t5h": "輪胎有異狀",
+ "t5p": "輪胎沒氣或被釘子刺到時",
+ "t6h": "車輛周圍有危險",
+ "t6p": "有掉落物、施工或積水上升時",
+ "fixed1": "如果您的狀況不在這六種之內，可以使用",
+ "fixedLink": "語音傳送",
+ "fixed2": "。我們會把您說的話整理成有禮貌的句子給您看，傳送前會先請您確認。",
+ "howK": "使用方式",
+ "howH": "傳送、收到回覆、留下紀錄。",
+ "s1n": "傳送",
+ "s1h": "輸入車牌，選擇狀況。就這樣。",
+ "s1p": "不登入每天可傳送 3 則，登入後可傳送 5 則。如果對方的車輛已登記，通知會立即送出。",
+ "s1chip": "請移車",
+ "s2n": "車主回覆",
+ "s2h": "長按通知就會出現回覆按鈕。",
+ "s2p": "不需要打開 App。車主回覆後，傳送的人也會收到通知。",
+ "r1": "我馬上出去",
+ "r2": "大約需要 5 分鐘",
+ "r3": "大約需要 10 分鐘",
+ "r4": "現在不方便",
+ "s3n": "通知紀錄",
+ "s3h": "傳送和收到的通知都留在同一個地方。",
+ "s3p": "一眼就能看出對方是否已回覆。不想再收到的對象可以封鎖，有問題的內容可以檢舉。",
+ "qrK": "擋風玻璃 QR 卡 · 免費",
+ "qrH": "對方沒有 App 也沒關係。",
+ "qrP1": "把在 App 裡製作的卡片印出來，放在儀表板上。對方用相機掃描 QR Code，",
+ "qrP2": "當場",
+ "qrP3": "就能傳送通知。不必輸入車牌，也不必安裝 App。",
+ "cardTag": "Buruda 登記車輛",
+ "cardBig1": "可立即",
+ "cardBig2": "聯絡車主",
+ "cardFoot1": "用相機掃描 QR Code",
+ "cardFoot2": "即可傳送通知",
+ "cardSmall": "不需要知道電話號碼",
+ "cardScan": "掃描傳送通知",
+ "q1": "儲存到相簿後，以 A6（明信片）大小列印即可。卡片不收費。",
+ "q2": "印在卡片上的一行文字只會留在您的手機和卡片圖片中，不會傳送到伺服器。",
+ "q3": "QR Code 是該車輛專用的。刪除車輛後，QR Code 也會一併失效。",
+ "voiceK": "語音傳送",
+ "beta": "Beta",
+ "voiceH": "開車時，用說的就好。",
+ "voiceP1": "說出車牌號碼和狀況，我們會",
+ "voiceP2": "整理成有禮貌的句子",
+ "voiceP3": "，顯示並唸給您聽。保留事實，只去掉火氣。",
+ "v1b": "傳送前會先給您看句子。",
+ "v1": "說「傳送」之後的 5 秒內，只要說「取消」就不會送出。",
+ "v2": "語音會在裝置內轉成文字，不會儲存錄音檔。",
+ "v3": "辱罵和威脅不會幫您潤飾，而是直接拒絕。因為說得再客氣，威脅還是威脅。",
+ "said": "原本說的話",
+ "saidTxt": "吼，ABC 1234，我已經等 20 分鐘了，快點移走啦",
+ "arrow": "整理後給您確認",
+ "outTpl": "請移車",
+ "outMsg": "我已經等了 20 分鐘。可以請您移車嗎？",
+ "send": "傳送",
+ "rewrite": "重新修改",
+ "privK": "我們守護的事",
+ "privH": "電話號碼從頭到尾都不會曝光。",
+ "p1h": "不詢問電話號碼",
+ "p1p": "註冊和傳送都不需要電話號碼。App 和伺服器裡都沒有。",
+ "p2h": "車牌號碼只以加密形式比對",
+ "p2p": "不儲存車牌號碼原文，只用來比對車輛是否已登記。",
+ "p3h": "鎖定畫面不會顯示對方的車牌",
+ "p3p": "通知只包含狀況。旁邊的人看到，也不知道是誰的車。",
+ "p4h": "不夾帶宣傳",
+ "p4p": "傳給對方的訊息不會附上 App 名稱或連結。請求就只是請求。",
+ "faqK": "常見問題",
+ "faqH": "想知道的事",
+ "f1q": "如果對方的車輛沒有登記呢？",
+ "f1a": "通知不會送出。對方的車輛必須已在 Buruda 登記才能收到通知。",
+ "f2q": "一天可以傳送幾則？",
+ "f2a": "不登入 3 則，登入後 5 則。透過 QR 卡，一輛車每天最多可收到 10 則。這是為了防止惡作劇和重複通知而設的上限。",
+ "f3q": "一定要登入嗎？",
+ "f3a": "傳送不需要登入。若要登記自己的車輛以接收通知，或收到對方的回覆，則需要登入。可以選擇 Apple、Google 或電子郵件。",
+ "f4q": "iPhone 也能用嗎？",
+ "f4aPending": "iPhone 版目前正在 App Store 審核中。通過後，這個頁面會出現 App Store 按鈕。",
+ "f4aLive": "可以。請在 App Store 下載。Android 版在 Google Play。",
+ "f5q": "是免費的嗎？",
+ "f5a": "是的。傳送、登記車輛、QR 卡全部免費。",
+ "f6q": "要去哪裡詢問？",
+ "f6a1": "請在 App 內的「我的 → 聯絡我們」傳送訊息。",
+ "f6link": "支援頁面",
+ "f6a2": "也有聯絡方式。",
+ "endH": "被前面的車擋住出不去時，傳一則就夠了。",
+ "fPrivacy": "隱私權政策",
+ "fSupport": "支援",
+ "fMore": "查看其他 App",
+ "fNote": "支援的車牌：韓國、馬來西亞、台灣、香港、新加坡、加拿大、澳洲、紐西蘭、菲律賓、印度、以色列、南非。"
+}
+};
+var BURUDA_ATTR = {
+"en": {
+ "aNav": "Jump to section",
+ "altHero": "Buruda Notify screen with a plate entered and \"Please move your car\" selected",
+ "aNotif": "Notification arriving on the owner's lock screen",
+ "aReply": "The owner's reply",
+ "altSend": "Notify screen",
+ "altReply": "Owner's reply screen",
+ "altHistory": "History screen",
+ "aCard": "Buruda QR dashboard card",
+ "aQr": "QR code linking to the Buruda page",
+ "altCard": "Dashboard card screen"
+},
+"zh": {
+ "aNav": "跳至內容",
+ "altHero": "Buruda 通知車主畫面：已輸入車牌，並選擇「請移車」",
+ "aNotif": "車主鎖定畫面上收到的通知",
+ "aReply": "車主的回覆",
+ "altSend": "通知車主畫面",
+ "altReply": "車主的回覆畫面",
+ "altHistory": "通知紀錄畫面",
+ "aCard": "Buruda 擋風玻璃 QR 卡",
+ "aQr": "連結到 Buruda 介紹頁面的 QR Code",
+ "altCard": "製作擋風玻璃卡片的畫面"
+}
+};
+var BURUDA_META = {
+ "en": {
+  "title": "Buruda — contact a car's owner by plate",
+  "desc": "When a car is blocking you in, the plate number is all you need, and neither side shares a phone number. Buruda sends a notification to a car's owner by plate number.",
+  "ogTitle": "Buruda — ask a driver to move their car, no phone numbers shared",
+  "ogDesc": "When a car is blocking you in, the plate number is all you need. Neither side shares a phone number.",
+  "ogLocale": "en_US",
+  "brand": "Buruda",
+  "plate": "ABC 1234"
+ },
+ "zh": {
+  "title": "Buruda — 用車牌聯絡車主",
+  "desc": "被前面的車擋住出不去時，只要知道車牌就能聯絡，雙方都不需要交換電話號碼。Buruda 是用車牌號碼傳送通知給車主的 App。",
+  "ogTitle": "Buruda — 請對方移車，不必交換電話",
+  "ogDesc": "被前面的車擋住出不去時，只要知道車牌就能聯絡。雙方都不需要交換電話號碼。",
+  "ogLocale": "zh_TW",
+  "brand": "Buruda",
+  "plate": "ABC 1234"
+ }
+};
+
+(function () {
+  var L = BURUDA_LANG;
+  if (L === 'ko') return;
+  var T = BURUDA_TEXT[L], A = BURUDA_ATTR[L], M = BURUDA_META[L];
+  function each(sel, fn) { Array.prototype.forEach.call(document.querySelectorAll(sel), fn); }
+
+  each('[data-i]', function (el) { var v = T[el.getAttribute('data-i')]; if (v != null) el.textContent = v; });
+  each('[data-i-alt]', function (el) { var v = A[el.getAttribute('data-i-alt')]; if (v != null) el.setAttribute('alt', v); });
+  each('[data-i-aria]', function (el) { var v = A[el.getAttribute('data-i-aria')]; if (v != null) el.setAttribute('aria-label', v); });
+
+  // 이름·예시 번호판 — data-i 가 없는 자리
+  each('.brand span', function (el) { el.textContent = M.brand; });
+  each('.plate', function (el) { el.textContent = M.plate; });
+
+  // 한국 전용 기능(말로 보내기·미등록 차 문자 도우미)은 보여주지 않는다
+  each('#voice, nav.top a[href="#voice"], .fixed-note', function (el) { el.hidden = true; });
+
+  // 방침·지원 페이지는 언어별 파일로
+  each('a[href="privacy.html"]', function (a) { a.setAttribute('href', 'privacy-' + L + '.html'); });
+  each('a[href="support.html"]', function (a) { a.setAttribute('href', 'support.html?lang=' + L); });
+
+  document.title = M.title;
+  function meta(sel, v) { var el = document.querySelector(sel); if (el) el.setAttribute('content', v); }
+  meta('meta[name="description"]', M.desc);
+  meta('meta[property="og:title"]', M.ogTitle);
+  meta('meta[property="og:description"]', M.ogDesc);
+  meta('meta[property="og:locale"]', M.ogLocale);
+})();
+</script>
+
+<script>
 (function(){
   // iOS 출시 뒤 이 한 줄만 바꾸면 된다: App Store 버튼이 나오고 「심사 중」 표시가 사라진다.
   // 'https://apps.apple.com/kr/app/id6809695439'
-  var IOS_URL = 'https://apps.apple.com/kr/app/id6809695439';
+  var IOS_URL = (window.BURUDA_LANG && BURUDA_LANG !== 'ko') ? 'https://apps.apple.com/app/id6809695439' : 'https://apps.apple.com/kr/app/id6809695439';
   var ios = document.querySelectorAll('[data-store="ios"]'), pend = document.querySelectorAll('[data-ios-pending]');
   var ansP = document.querySelector('[data-ios-answer="pending"]'), ansL = document.querySelector('[data-ios-answer="live"]');
   if (IOS_URL) { ios.forEach(function(a){ a.href = IOS_URL; a.hidden = false; }); pend.forEach(function(el){ el.hidden = true; }); if (ansP) ansP.hidden = true; if (ansL) ansL.hidden = false; }
