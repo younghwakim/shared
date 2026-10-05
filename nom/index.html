@@ -2,27 +2,467 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Nom — Screenshot & File Cleaner</title>
-<meta name="description" content="Your screenshots pile up. Nom eats them. No subscription, no account, nothing leaves your phone.">
+<meta name="description" content="Feed your screenshots and downloads to Nom. Nothing is deleted until Nom digests it. No subscription, no account, nothing leaves your phone.">
+<meta name="theme-color" content="#FFF8E7">
+<meta name="apple-itunes-app" content="app-id=6815784303">
+<link rel="canonical" href="https://younghwakim.github.io/shared/nom/">
+<link rel="icon" href="assets/icon.webp">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nom — Screenshot & File Cleaner">
+<meta property="og:description" content="Feed your screenshots and downloads to Nom. Nothing is deleted until Nom digests it.">
+<meta property="og:image" content="https://younghwakim.github.io/shared/nom/assets/og.jpg">
+<meta property="og:url" content="https://younghwakim.github.io/shared/nom/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Jua&family=Zen+Maru+Gothic:wght@700;900&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
-  :root { color-scheme: light dark; }
-  body { font-family: -apple-system, "Segoe UI", Roboto, "Noto Sans KR", sans-serif; margin: 0; background: #F7E24A; color: #1C1C1C; }
-  main { max-width: 640px; margin: 0 auto; padding: 56px 24px 80px; text-align: center; }
-  h1 { font-size: 3rem; margin: 0; letter-spacing: -1px; }
-  p.lede { font-size: 1.25rem; line-height: 1.5; max-width: 30ch; margin: 12px auto 28px; }
-  .store { display: inline-block; background: #1C1C1C; color: #F7E24A; text-decoration: none; padding: 14px 28px; border-radius: 999px; font-weight: 700; }
-  .note { font-size: .9rem; opacity: .75; margin-top: 40px; }
-  a.small { color: #1C1C1C; }
+  /* 놈의 색 — 앱과 같은 값(brand.json). 화면이 하나의 세계라 밝은 판 하나만 둔다 */
+  :root{
+    --bg:#FFF8E7; --ink:#1C1C1C; --yellow:#FDDD43; --surface:#FFFFFF; --muted:#6B655A; --hole:#111111; --line:#EADFC4; --soft:#FFF1C2;
+    --display:"Fredoka","Jua","Zen Maru Gothic","PingFang TC","Noto Sans TC",system-ui,sans-serif;
+    --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Hiragino Sans","PingFang TC","Noto Sans TC","Segoe UI",sans-serif;
+    --maxw:1080px; --hard:6px 6px 0 var(--ink);
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--font); font-size:17px; line-height:1.6; letter-spacing:-.01em; word-break:keep-all; overflow-wrap:break-word; overflow-x:hidden}
+  html[lang="en"] body, html[lang="zh-Hant"] body{word-break:normal}
+  /* 일본어·중국어는 띄어쓰기가 없어 keep-all 이면 한 문장이 통째로 한 낱말이 된다(화면 밖으로 넘침) */
+  html[lang="ja"] body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif; word-break:normal; line-break:strict}
+  html[lang="ja"] h1{font-size:clamp(1.7rem,7.2vw,2.7rem); line-height:1.25}
+  html[lang="zh-Hant"] body{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
+  img,video{max-width:100%; height:auto; display:block}
+  a{color:inherit}
+  h1,h2,h3,p{margin:0}
+  h1,h2,h3{font-family:var(--display); font-weight:600; letter-spacing:-.02em; text-wrap:balance}
+  html[lang="ja"] h1, html[lang="ja"] h2, html[lang="ja"] h3{font-weight:900; letter-spacing:-.01em}
+  html[lang="zh-Hant"] h1, html[lang="zh-Hant"] h2, html[lang="zh-Hant"] h3, html[lang="zh-Hant"] .btn, html[lang="zh-Hant"] .say, html[lang="zh-Hant"] .belly{font-family:"Fredoka","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif; font-weight:700}
+  html[lang="ko"] h1, html[lang="ko"] h2, html[lang="ko"] h3, html[lang="ko"] .btn, html[lang="ko"] .say{font-family:"Fredoka","Jua",system-ui,sans-serif}
+  :focus-visible{outline:4px solid var(--ink); outline-offset:3px; border-radius:10px}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+  [hidden]{display:none !important}
+
+  /* 누르면 눌리는 두툼한 단추 — 앱의 ChunkyButton */
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; font-family:var(--display); font-weight:600; font-size:1.12rem; line-height:1; text-decoration:none; color:var(--ink); background:var(--yellow); border:4px solid var(--ink); border-radius:999px; padding:16px 26px; box-shadow:0 5px 0 var(--ink); cursor:pointer; transition:transform .08s, box-shadow .08s; white-space:nowrap}
+  .btn:hover{transform:translateY(-1px); box-shadow:0 6px 0 var(--ink)}
+  .btn:active{transform:translateY(4px); box-shadow:0 1px 0 var(--ink)}
+  .btn.white{background:var(--surface)}
+  .btn.small{font-size:.95rem; padding:10px 16px; border-width:3px; box-shadow:0 4px 0 var(--ink)}
+  .btn[disabled]{opacity:.4; cursor:default; transform:none; box-shadow:0 5px 0 var(--ink)}
+  .btn svg{width:20px; height:20px; flex:none}
+  @media(max-width:360px){ .btn{font-size:.98rem; padding:14px 16px} .eats{grid-template-columns:1fr !important} }
+
+  header{position:sticky; top:0; z-index:30; background:color-mix(in srgb, var(--bg) 88%, transparent); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px)}
+  .bar{display:flex; align-items:center; justify-content:space-between; gap:10px; height:68px}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none; font-family:var(--display); font-weight:700; font-size:1.5rem; letter-spacing:-.02em}
+  .brand img{width:36px; height:36px; border-radius:10px; border:2.5px solid var(--ink)}
+  .right{display:flex; align-items:center; gap:10px}
+  .langs{display:flex; gap:2px; background:var(--surface); border:3px solid var(--ink); padding:3px; border-radius:999px}
+  .langs button{border:0; background:transparent; color:var(--muted); font:inherit; font-size:.8rem; font-weight:700; padding:5px 9px; border-radius:999px; cursor:pointer; white-space:nowrap}
+  .langs button.on{background:var(--ink); color:var(--bg)}
+  @media(max-width:560px){ header .btn{display:none} .langs button{padding:5px 8px; font-size:.76rem} }
+
+  /* ── 첫 화면: 글 + 먹여 보는 놈 ── */
+  .hero{padding:28px 0 56px}
+  .hero-grid{display:grid; gap:36px; align-items:center}
+  @media(min-width:900px){ .hero{padding:48px 0 88px} .hero-grid{grid-template-columns:1fr 1fr; gap:48px} }
+  h1{font-size:clamp(2.05rem,7.4vw,4.3rem); line-height:1.08}
+  .hl{background:var(--yellow); border:4px solid var(--ink); border-radius:18px; padding:0 .18em; box-decoration-break:clone; -webkit-box-decoration-break:clone; white-space:nowrap}
+  .sub{margin-top:20px; font-size:clamp(1.05rem,2.3vw,1.22rem); color:var(--muted); max-width:34ch; line-height:1.65}
+  .cta{display:flex; flex-wrap:wrap; align-items:center; gap:14px 18px; margin-top:28px}
+  .cta-note{font-size:.92rem; color:var(--muted); font-weight:600}
+
+  .toy{position:relative; background:var(--surface); border:4px solid var(--ink); border-radius:34px; box-shadow:var(--hard); padding:18px 18px 16px; max-width:520px; width:100%; margin:0 auto; -webkit-user-select:none; user-select:none}
+  .stage{position:relative; height:300px; border-radius:22px; background:var(--bg); border:3px solid var(--ink); overflow:hidden; display:flex; align-items:flex-end; justify-content:center}
+  .nom{position:relative; width:230px; aspect-ratio:366/355; margin-bottom:26px; transform-origin:50% 100%; transition:transform .28s cubic-bezier(.3,1.5,.5,1)}
+  .nom .body{width:100%; height:100%; pointer-events:none}
+  .nom .eye{position:absolute; width:5.2%; aspect-ratio:1; border-radius:50%; background:var(--ink); transform:translate(-50%,-50%); transition:transform .12s ease-out, height .08s}
+  .nom .eye.l{left:30.1%; top:22.6%} .nom .eye.r{left:70.8%; top:23.5%}
+  .nom.blink .eye{height:1.4%; aspect-ratio:auto; border-radius:3px; width:8%}
+  .nom .mouth{position:absolute; left:51.55%; top:51.65%; width:86%; aspect-ratio:1; transform:translate(-50%,-50%) scale(0); transition:transform .14s cubic-bezier(.3,1.4,.5,1)}
+  .nom.open .mouth{transform:translate(-50%,-50%) scale(1)}
+  .nom.gulp{animation:gulp .22s ease-out}
+  @keyframes gulp{0%{transform:var(--fat) scale(1.07,.9)} 100%{transform:var(--fat)}}
+  .nom.burp{animation:burp .5s cubic-bezier(.3,1.5,.5,1)}
+  @keyframes burp{0%{transform:var(--fat)} 30%{transform:var(--fat) translateY(-18px) scale(.93,1.12)} 100%{transform:var(--fat)}}
+  .shadow{position:absolute; left:50%; bottom:16px; width:200px; height:22px; border-radius:50%; background:rgba(28,28,28,.13); transform:translateX(-50%)}
+  .cloud{position:absolute; right:16%; top:20%; width:74px; opacity:0; pointer-events:none}
+  .cloud.go{animation:cloud 1.1s ease-out}
+  @keyframes cloud{0%{opacity:0; transform:translate(-10px,16px) scale(.5)} 20%{opacity:1; transform:translate(0,0) scale(1)} 100%{opacity:0; transform:translate(22px,-46px) scale(1.05)}}
+  .say{position:absolute; left:50%; top:14px; transform:translateX(-50%); background:var(--surface); border:3px solid var(--ink); border-radius:14px; padding:4px 14px; font-family:var(--display); font-weight:600; font-size:1rem; white-space:nowrap; box-shadow:3px 3px 0 var(--ink)}
+  .belly{position:absolute; left:50%; top:64%; transform:translate(-50%,-50%) scale(0); font-family:var(--display); font-weight:700; text-align:center; line-height:1; transition:transform .2s cubic-bezier(.3,1.6,.5,1); pointer-events:none}
+  .belly.on{transform:translate(-50%,-50%) scale(1)}
+  .belly small{display:inline-block; font-size:.72rem; background:var(--surface); border:2.5px solid var(--ink); border-radius:999px; padding:2px 9px; margin-bottom:2px}
+  .belly b{display:block; font-size:2.5rem; font-variant-numeric:tabular-nums}
+  .tray{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:14px; touch-action:pan-y}
+  .tile{position:relative; aspect-ratio:1; padding:0; border:3px solid var(--ink); border-radius:14px; overflow:hidden; background:var(--surface); cursor:pointer; box-shadow:3px 3px 0 rgba(28,28,28,.18); transition:transform .12s, opacity .15s}
+  .tile img{width:100%; height:100%; object-fit:cover; pointer-events:none}
+  .tile:hover{transform:translateY(-2px)}
+  .tile.gone{opacity:0; pointer-events:none; transform:scale(.6)}
+  .tile.pop{animation:pop .3s cubic-bezier(.3,1.6,.5,1) backwards}
+  @keyframes pop{0%{transform:scale(0)} 100%{transform:scale(1)}}
+  .fly{position:fixed; z-index:60; border:3px solid var(--ink); border-radius:14px; overflow:hidden; background:var(--surface); pointer-events:none; will-change:transform}
+  .fly img{width:100%; height:100%; object-fit:cover}
+  .toy-foot{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:14px; min-height:44px}
+  .toy-msg{font-size:.92rem; font-weight:600; color:var(--muted); line-height:1.35}
+  .toy-btns{display:flex; gap:8px; flex:none}
+
+  section{padding:56px 0}
+  @media(min-width:900px){ section{padding:80px 0} }
+  h2{font-size:clamp(1.9rem,4.6vw,2.7rem); line-height:1.12}
+  .sec-h{margin-bottom:28px}
+
+  /* ── 쓰는 법: 영상 + 세 걸음 ── */
+  .how{display:grid; gap:28px; align-items:center}
+  @media(min-width:860px){ .how{grid-template-columns:auto 1fr; gap:56px} }
+  .reel{width:min(300px,78vw); aspect-ratio:400/712; margin:0 auto; border:4px solid var(--ink); border-radius:34px; overflow:hidden; background:var(--bg); box-shadow:var(--hard); transform:rotate(-2deg)}
+  .reel video{width:100%; height:100%; object-fit:cover}
+  .steps{display:grid; gap:14px; counter-reset:step; list-style:none; margin:0; padding:0}
+  .steps li{counter-increment:step; display:grid; grid-template-columns:auto 1fr; gap:4px 16px; background:var(--surface); border:4px solid var(--ink); border-radius:24px; padding:18px 20px; box-shadow:4px 4px 0 var(--ink)}
+  .steps li::before{content:counter(step); grid-row:1 / span 2; width:46px; height:46px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:var(--yellow); border:3.5px solid var(--ink); font-family:var(--display); font-weight:700; font-size:1.3rem}
+  .steps h3{font-size:1.3rem; align-self:end}
+  .steps p{color:var(--muted); font-size:1rem; line-height:1.55}
+
+  /* ── 먹는 것: 앱 홈의 타일 넷 ── */
+  .eats{display:grid; gap:14px; grid-template-columns:1fr 1fr}
+  @media(min-width:860px){ .eats{grid-template-columns:repeat(4,1fr)} }
+  .eat{background:var(--surface); border:4px solid var(--ink); border-radius:24px; padding:18px 18px 20px; box-shadow:0 5px 0 var(--ink)}
+  .eat .ic{width:52px; height:52px; border-radius:14px; background:var(--soft); border:3px solid var(--ink); display:flex; align-items:center; justify-content:center; margin-bottom:14px}
+  .eat .ic svg{width:28px; height:28px}
+  .eat h3{font-size:1.3rem}
+  .eat p{color:var(--muted); font-size:.95rem; line-height:1.5; margin-top:6px}
+
+  /* ── 안 하는 것 ── */
+  .keep{background:var(--yellow); border-top:4px solid var(--ink); border-bottom:4px solid var(--ink)}
+  .keep-grid{display:grid; gap:22px}
+  @media(min-width:860px){ .keep-grid{grid-template-columns:.8fr 1.2fr; gap:18px 56px; align-items:start} .keep-grid .nots{grid-column:2; grid-row:1 / span 2} .keep-grid .free{grid-column:1; grid-row:2} }
+  .nots{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+  .nots li{display:flex; gap:14px; align-items:flex-start; background:var(--surface); border:4px solid var(--ink); border-radius:20px; padding:14px 18px; font-weight:700; font-size:1.08rem; line-height:1.4}
+  .nots svg{width:26px; height:26px; flex:none; margin-top:1px}
+  .free{font-size:.98rem; line-height:1.6; font-weight:600}
+
+  /* ── 앱 화면 ── */
+  .shots{display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; padding:6px 20px 22px; margin:0 -20px; -webkit-overflow-scrolling:touch; scrollbar-width:thin}
+  .shots img{flex:none; width:min(250px,62vw); border:4px solid var(--ink); border-radius:26px; scroll-snap-align:center; box-shadow:4px 4px 0 var(--ink); background:var(--surface)}
+  @media(min-width:1100px){ .shots{overflow:visible; justify-content:space-between; margin:0; padding:6px 0 22px} .shots img{width:calc(25% - 14px)} }
+
+  .end{text-align:center; padding-bottom:72px}
+  .end .nom-s{width:150px; margin:0 auto 6px}
+  .end h2{margin-bottom:10px}
+  .end p{color:var(--muted); font-weight:600; margin-bottom:24px}
+  .search{display:inline-flex; align-items:center; gap:10px; background:var(--surface); border:4px solid var(--ink); border-radius:999px; padding:10px 22px; font-family:var(--display); font-weight:600; font-size:1.2rem; box-shadow:4px 4px 0 var(--ink); margin-bottom:22px}
+  .search svg{width:22px; height:22px}
+
+  footer{border-top:4px solid var(--ink); padding:28px 0 40px; font-size:.92rem; color:var(--muted)}
+  .foot{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; justify-content:space-between}
+  .foot nav{display:flex; flex-wrap:wrap; gap:8px 18px}
+  .foot a{font-weight:700; text-decoration:none; color:var(--ink)}
+  .foot a:hover{text-decoration:underline}
+
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .nom,.btn,.tile,.belly,.nom .mouth{transition:none}
+    .nom.gulp,.nom.burp,.cloud.go,.tile.pop{animation:none}
+  }
 </style>
 </head>
 <body>
-<main>
-  <h1>Nom</h1>
-  <p class="lede">Your screenshots pile up.<br>Nom eats them.</p>
-  <a class="store" href="#" id="store">App Store</a>
-  <p class="note">No subscription. No account. Nothing leaves your phone.<br>Free: 2 boards a day. Pay once for everything.</p>
-  <p class="note"><a class="small" href="support.html">Support</a> · <a class="small" href="privacy.html">Privacy</a></p>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top"><img src="assets/icon.webp" width="36" height="36" alt="">Nom</a>
+    <div class="right">
+      <div class="langs" id="langs" aria-label="Language">
+        <button data-lang="ko">한국어</button>
+        <button data-lang="en">EN</button>
+        <button data-lang="ja">日本語</button>
+        <button data-lang="zh">繁中</button>
+      </div>
+      <a class="btn small" data-store href="https://apps.apple.com/app/id6815784303">App Store</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1 id="h1"></h1>
+      <p class="sub" data-i="sub"></p>
+      <div class="cta">
+        <a class="btn" data-store href="https://apps.apple.com/app/id6815784303"><span data-i="cta"></span></a>
+        <span class="cta-note" data-i="ctaNote"></span>
+      </div>
+    </div>
+
+    <div class="toy" id="toy">
+      <div class="stage">
+        <div class="say" id="say"></div>
+        <svg class="cloud" id="cloud" viewBox="-18 -27 58 48" aria-hidden="true"><path d="M 0 0 c -10 -2 -12 -14 -2 -16 c 0 -10 14 -12 18 -4 c 10 -4 18 8 8 14 c 4 8 -8 14 -12 8 c -4 6 -14 4 -12 -2 z" fill="#FFFFFF" stroke="#1C1C1C" stroke-width="3"/></svg>
+        <div class="shadow"></div>
+        <div class="nom" id="nom" style="--fat:scale(1,1)">
+          <img class="body" src="assets/body.webp" width="732" height="710" alt="Nom">
+          <svg class="mouth" id="mouth" viewBox="-150 -150 300 300" aria-hidden="true"><path d="M 86.9 0.0 C 87.5 2.5 88.4 5.1 88.7 7.8 C 89.1 10.4 89.0 13.0 89.1 15.7 C 89.1 18.4 89.0 21.1 88.9 23.8 C 88.8 26.6 88.6 29.4 88.3 32.1 C 87.9 34.9 87.5 37.8 86.9 40.5 C 86.2 43.2 85.2 45.9 84.2 48.6 C 83.2 51.3 82.1 54.0 81.0 56.7 C 79.8 59.4 78.6 62.1 77.4 64.9 C 76.1 67.7 74.9 70.7 73.3 73.3 C 71.7 76.0 69.9 78.6 67.9 80.9 C 65.8 83.2 63.5 85.3 61.0 87.2 C 58.6 89.0 55.9 90.6 53.2 92.1 C 50.5 93.7 47.8 95.1 45.0 96.4 C 42.2 97.8 39.3 98.8 36.5 100.2 C 33.7 101.6 31.0 103.3 28.1 104.9 C 25.2 106.5 22.4 108.2 19.4 109.9 C 16.4 111.5 13.3 113.4 10.0 114.6 C 6.8 115.8 3.4 116.5 0.0 117.0 C -3.4 117.4 -6.9 117.5 -10.3 117.3 C -13.7 117.1 -17.1 116.6 -20.4 115.7 C -23.7 114.8 -27.2 114.3 -30.0 111.9 C -32.8 109.6 -35.0 105.2 -37.0 101.8 C -39.1 98.3 -40.8 94.4 -42.5 91.0 C -44.1 87.6 -45.1 83.8 -47.0 81.4 C -48.8 78.9 -51.2 77.9 -53.6 76.5 C -56.0 75.1 -58.7 74.3 -61.3 73.0 C -63.8 71.7 -66.4 70.4 -68.9 68.9 C -71.4 67.4 -74.2 66.0 -76.3 64.0 C -78.4 62.1 -80.0 59.5 -81.6 57.1 C -83.2 54.8 -84.8 52.3 -86.1 49.7 C -87.3 47.1 -88.3 44.3 -89.1 41.6 C -90.0 38.8 -90.7 36.0 -91.0 33.1 C -91.4 30.3 -91.5 27.4 -91.5 24.5 C -91.5 21.7 -91.3 18.8 -91.1 16.1 C -90.8 13.3 -90.4 10.5 -89.9 7.9 C -89.4 5.2 -88.7 2.6 -88.1 0.0 C -87.5 -2.6 -86.9 -5.1 -86.3 -7.5 C -85.7 -10.0 -84.8 -12.4 -84.6 -14.9 C -84.4 -17.5 -84.5 -19.9 -85.1 -22.8 C -85.7 -25.7 -87.2 -28.8 -88.2 -32.1 C -89.2 -35.4 -90.5 -39.0 -91.0 -42.5 C -91.6 -45.9 -91.8 -49.5 -91.4 -52.8 C -91.1 -56.1 -89.8 -59.0 -88.9 -62.3 C -88.1 -65.6 -87.6 -69.2 -86.5 -72.6 C -85.4 -75.9 -84.0 -79.3 -82.3 -82.3 C -80.6 -85.4 -78.7 -88.5 -76.2 -90.8 C -73.7 -93.2 -70.4 -94.6 -67.4 -96.3 C -64.4 -97.9 -61.2 -99.3 -58.1 -100.6 C -54.9 -101.8 -51.6 -102.8 -48.4 -103.8 C -45.2 -104.8 -42.0 -105.9 -38.8 -106.6 C -35.6 -107.3 -32.3 -107.9 -29.0 -108.3 C -25.7 -108.7 -22.5 -109.0 -19.2 -109.1 C -16.0 -109.1 -12.7 -108.9 -9.5 -108.4 C -6.3 -108.0 -3.1 -107.4 -0.0 -106.4 C 3.1 -105.4 6.1 -103.9 9.0 -102.5 C 11.8 -101.1 14.6 -99.4 17.3 -97.9 C 19.9 -96.3 22.4 -94.6 24.9 -93.1 C 27.5 -91.6 29.9 -90.2 32.3 -88.8 C 34.8 -87.4 37.2 -86.2 39.6 -84.9 C 42.0 -83.6 44.4 -82.3 46.7 -80.9 C 49.0 -79.5 51.3 -77.9 53.4 -76.3 C 55.6 -74.7 57.7 -73.0 59.7 -71.1 C 61.7 -69.3 63.6 -67.4 65.3 -65.3 C 66.9 -63.2 68.4 -60.8 69.7 -58.5 C 71.0 -56.1 72.0 -53.6 73.0 -51.1 C 73.9 -48.6 74.5 -45.9 75.3 -43.5 C 76.1 -41.0 77.0 -38.7 77.8 -36.3 C 78.6 -33.9 79.4 -31.5 80.1 -29.2 C 80.9 -26.8 81.6 -24.4 82.1 -22.0 C 82.6 -19.6 82.7 -17.1 83.2 -14.7 C 83.7 -12.2 84.3 -9.9 85.0 -7.4 C 85.6 -5.0 86.3 -2.5 86.9 0.0 Z" fill="#111111" stroke="#1C1C1C" stroke-width="5.5" stroke-linejoin="round"/></svg>
+          <i class="eye l"></i><i class="eye r"></i>
+          <div class="belly" id="belly"><small data-i="belly"></small><b id="bellyN">0</b></div>
+        </div>
+      </div>
+      <div class="tray" id="tray" aria-label="screenshots"></div>
+      <div class="toy-foot">
+        <span class="toy-msg" id="toyMsg" aria-live="polite"></span>
+        <span class="toy-btns">
+          <button class="btn small white" id="spit" disabled data-i="spit"></button>
+          <button class="btn small" id="digest" disabled data-i="digest"></button>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="howH">
+  <div class="wrap">
+    <h2 class="sec-h" id="howH" data-i="howH"></h2>
+    <div class="how">
+      <div class="reel"><video id="reel" muted loop playsinline preload="none"></video></div>
+      <ol class="steps">
+        <li><h3 data-i="s1t"></h3><p data-i="s1d"></p></li>
+        <li><h3 data-i="s2t"></h3><p data-i="s2d"></p></li>
+        <li><h3 data-i="s3t"></h3><p data-i="s3d"></p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="eatH" style="padding-top:8px">
+  <div class="wrap">
+    <h2 class="sec-h" id="eatH" data-i="eatH"></h2>
+    <div class="eats">
+      <div class="eat"><div class="ic"><svg viewBox="0 0 28 28" fill="none" stroke="#1C1C1C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="3" width="14" height="22" rx="3.5"/><path d="M12 6.5h4"/><path d="M10.5 12h7M10.5 16h5"/></svg></div><h3 data-i="e1t"></h3><p data-i="e1d"></p></div>
+      <div class="eat"><div class="ic"><svg viewBox="0 0 28 28" fill="none" stroke="#1C1C1C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.500" y="5" width="21" height="18" rx="4"/><circle cx="10" cy="11.500" r="2"/><path d="M4.500 20l6-5.500 4.500 4 3.500-3 5 4.500"/></svg></div><h3 data-i="e2t"></h3><p data-i="e2d"></p></div>
+      <div class="eat"><div class="ic"><svg viewBox="0 0 28 28" fill="none" stroke="#1C1C1C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.500" y="6" width="21" height="16" rx="4"/><path d="M12 10.500v7l6-3.500z" fill="#1C1C1C"/></svg></div><h3 data-i="e3t"></h3><p data-i="e3d"></p></div>
+      <div class="eat"><div class="ic"><svg viewBox="0 0 28 28" fill="none" stroke="#1C1C1C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.500h8l5 5V22a2.500 2.500 0 0 1-2.500 2.500h-10.500A2.500 2.500 0 0 1 5.500 22V6A2.500 2.500 0 0 1 8 3.500z"/><path d="M16 3.500v5h5"/><path d="M13.500 12v7m-3-3 3 3 3-3"/></svg></div><h3 data-i="e4t"></h3><p data-i="e4d"></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="keep" aria-labelledby="keepH">
+  <div class="wrap keep-grid">
+    <h2 id="keepH" data-i="keepH"></h2>
+    <ul class="nots" id="nots"></ul>
+    <p class="free" data-i="free"></p>
+  </div>
+</section>
+
+<section aria-labelledby="shotsH">
+  <div class="wrap">
+    <h2 class="sec-h" id="shotsH" data-i="shotsH"></h2>
+    <div class="shots" id="shots"></div>
+  </div>
+</section>
+
+<section class="end">
+  <div class="wrap">
+    <img class="nom-s" src="assets/body.webp" width="732" height="710" alt="" loading="lazy">
+    <h2 data-i="endH"></h2>
+    <p data-i="endS"></p>
+    <div><span class="search"><svg viewBox="0 0 24 24" fill="none" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round" aria-hidden="true"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500 21 21"/></svg>Nom screenshot</span></div>
+    <a class="btn" data-store href="https://apps.apple.com/app/id6815784303"><span data-i="cta"></span></a>
+  </div>
+</section>
 </main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 <a href="https://younghwakim.github.io/" data-i="by"></a></span>
+    <nav><a href="support.html" data-i="support"></a><a href="privacy.html" data-i="privacy"></a></nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ── 문구. ko 가 원문, 나머지는 그 언어로 새로 씀. 없는 언어는 영어 ──
+  var UI = {
+    ko:{ htmlLang:'ko', title:'Nom — 스크린샷·파일 정리', h1:'쌓인 스크린샷,<br><span class="hl">놈한테</span> 먹이세요.',
+      sub:'스크린샷과 받은 파일을 한눈에 보고 쭉 골라 놈에게 먹입니다. 먹여도 바로 지워지지 않아요.',
+      cta:'App Store에서 받기', ctaNote:'무료 · 구독 없음 · 계정 없음 · iPhone',
+      hungry:'배고파.', hint:'눌러서 먹여 보세요.', belly:'배 속', spit:'뱉기', digest:'소화',
+      fed:'아직 안 지워졌어요. 뱉으면 돌아옵니다.', digested:'소화 끝. 이때 진짜 지워져요.', burp:'꺼억.',
+      howH:'이렇게 씁니다',
+      s1t:'한눈에 보고 쭉 고르기', s1d:'사진 앱처럼 격자로 봅니다. 손가락으로 긋으면 수백 장이 한 번에 골라져요.',
+      s2t:'놈 배 속에 담기', s2d:'먹인 건 배 속에 그대로 있습니다. 마음이 바뀌면 뱉게 하면 돼요.',
+      s3t:'하루 한 번 소화', s3d:'소화를 눌러야 진짜 지워집니다. 사진은 그 뒤에도 30일 동안 「최근 삭제」에 남아요.',
+      eatH:'놈이 먹는 것',
+      e1t:'스크린샷', e1d:'달별로 묶여 있어 한 달을 통째로 고를 수 있어요.',
+      e2t:'그 밖의 사진', e2d:'메신저나 앱이 저장한 사진만 따로 모아 봅니다.',
+      e3t:'동영상', e3d:'큰 것부터 보여요. 화면 녹화는 따로 묶입니다.',
+      e4t:'받은 파일', e4d:'다운로드 폴더의 PDF·ZIP·설치 파일.',
+      keepH:'놈이 안 하는 것', nots:['구독을 받지 않습니다.','계정을 만들지 않습니다.','사진과 파일을 폰 밖으로 보내지 않습니다.','알아서 지우지 않습니다. 소화는 직접 누를 때만.'],
+      free:'무료로 100장까지 소화할 수 있고, 그 뒤로는 하루 20장입니다. 광고를 한 번 보면 그날 20장이 더 열려요.',
+      shotsH:'앱 화면', endH:'놈이 배고파요.', endS:'App Store에서 이렇게 검색하세요.', support:'문의', privacy:'개인정보 처리방침', by:'mubi labs' },
+    en:{ htmlLang:'en', title:'Nom — Screenshot & File Cleaner', h1:'Feed your screenshots<br>to <span class="hl">Nom.</span>',
+      sub:'See your screenshots and downloads at a glance, swipe to pick, and feed them to Nom. Nothing is deleted right away.',
+      cta:'Get it on the App Store', ctaNote:'Free · No subscription · No account · iPhone',
+      hungry:'Hungry.', hint:'Tap one to feed Nom.', belly:'In the belly', spit:'Spit out', digest:'Digest',
+      fed:'Not deleted yet. Spit them out to get them back.', digested:'Digested. This is when they are really deleted.', burp:'Burp.',
+      howH:'How it works',
+      s1t:'See everything, swipe to pick', s1d:'A grid like Photos. Drag a finger across and hundreds are picked at once.',
+      s2t:'Into Nom’s belly', s2d:'What you feed stays in the belly. Change your mind and Nom spits it back out.',
+      s3t:'Digest once a day', s3d:'Only Digest deletes for real. Photos then stay in Recently Deleted for 30 more days.',
+      eatH:'What Nom eats',
+      e1t:'Screenshots', e1d:'Grouped by month, so you can pick a whole month at once.',
+      e2t:'Other photos', e2d:'Just the images that messengers and apps saved.',
+      e3t:'Videos', e3d:'Biggest first. Screen recordings get their own group.',
+      e4t:'Downloads', e4d:'PDFs, ZIPs and installers in your Downloads folder.',
+      keepH:'What Nom doesn’t do', nots:['No subscription.','No account.','Photos and files never leave your phone.','Nothing is deleted on its own. Digest happens only when you tap it.'],
+      free:'Digest 100 items for free, then 20 a day. Watch one ad to open 20 more that day.',
+      shotsH:'Screens', endH:'Nom is hungry.', endS:'Search this on the App Store.', support:'Support', privacy:'Privacy', by:'mubi labs' },
+    ja:{ htmlLang:'ja', title:'Nom（ノム）— スクショ・ファイル整理', h1:'たまったスクショ、<br><span class="hl">ノムに</span>食べさせよう。',
+      sub:'スクショやダウンロードしたファイルを一覧で見て、なぞって選んでノムに食べさせます。食べさせてもすぐには消えません。',
+      cta:'App Store で入手', ctaNote:'無料・サブスクなし・アカウント不要・iPhone',
+      hungry:'おなかすいた。', hint:'タップして食べさせてみて。', belly:'おなか', spit:'出す', digest:'消化',
+      fed:'まだ消えていません。出せば元に戻ります。', digested:'消化完了。ここで本当に削除されます。', burp:'げふっ。',
+      howH:'使い方',
+      s1t:'一覧で見て、なぞって選ぶ', s1d:'写真アプリのようなグリッド。指でなぞると何百枚もまとめて選べます。',
+      s2t:'ノムのおなかへ', s2d:'食べさせたものはおなかの中に残ります。気が変わったら出してもらえます。',
+      s3t:'1日1回、消化', s3d:'「消化」を押したときだけ本当に削除。写真はその後も30日間「最近削除した項目」に残ります。',
+      eatH:'ノムが食べるもの',
+      e1t:'スクショ', e1d:'月ごとにまとまっているので、ひと月まるごと選べます。',
+      e2t:'その他の写真', e2d:'メッセージアプリなどが保存した画像だけを集めて表示。',
+      e3t:'動画', e3d:'大きい順に表示。画面収録は別グループ。',
+      e4t:'ダウンロード', e4d:'ダウンロードフォルダのPDF・ZIP・インストーラ。',
+      keepH:'ノムがしないこと', nots:['サブスクはありません。','アカウントは作りません。','写真やファイルを端末の外に送りません。','勝手に削除しません。消化は自分で押したときだけ。'],
+      free:'無料で100枚まで消化でき、その後は1日20枚。広告を1回見ると、その日は20枚増えます。',
+      shotsH:'アプリの画面', endH:'ノムはおなかがすいています。', endS:'App Store でこう検索。', support:'サポート', privacy:'プライバシー', by:'mubi labs' },
+    zh:{ htmlLang:'zh-Hant', title:'Nom — 截圖・檔案整理', h1:'堆積的截圖，<br>餵給 <span class="hl">Nom。</span>',
+      sub:'把截圖和下載的檔案一次看完，滑一下就選好，餵給 Nom。餵下去不會馬上刪。',
+      cta:'在 App Store 下載', ctaNote:'免費・沒有訂閱・不用帳號・iPhone',
+      hungry:'肚子餓。', hint:'點一下餵牠吃。', belly:'肚子裡', spit:'吐出來', digest:'消化',
+      fed:'還沒刪。吐出來就回來了。', digested:'消化完畢。這時候才真的刪除。', burp:'嗝。',
+      howH:'怎麼用',
+      s1t:'一眼看完，滑過就選', s1d:'像相簿一樣的格狀畫面。手指滑過去，幾百張一次選好。',
+      s2t:'放進 Nom 的肚子', s2d:'餵下去的都還在肚子裡。後悔了可以叫牠吐出來。',
+      s3t:'一天消化一次', s3d:'按下「消化」才會真的刪除。照片之後還會在「最近刪除」留 30 天。',
+      eatH:'Nom 吃什麼',
+      e1t:'截圖', e1d:'按月份分組，可以一次選一整個月。',
+      e2t:'其他照片', e2d:'只看通訊軟體和 App 存下來的圖片。',
+      e3t:'影片', e3d:'從最大的開始。螢幕錄影另外一組。',
+      e4t:'下載項目', e4d:'下載資料夾裡的 PDF、ZIP、安裝檔。',
+      keepH:'Nom 不做的事', nots:['沒有訂閱。','不用註冊帳號。','照片和檔案不會離開你的手機。','不會自己刪除。只有你按下消化的時候才刪。'],
+      free:'免費可以消化 100 張，之後每天 20 張。看一支廣告，當天多 20 張。',
+      shotsH:'App 畫面', endH:'Nom 肚子餓了。', endS:'在 App Store 這樣搜尋。', support:'支援', privacy:'隱私權', by:'mubi labs' }
+  };
+  var TILESET = { ko:'ko', en:'en', ja:'en', zh:'zh' };
+  var CHECK = '<svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="11" fill="#FDDD43" stroke="#1C1C1C" stroke-width="3"/><path d="M8 13.500l3.500 3.500 6.500-7" fill="none" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var LANG = 'en', N = 8;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function $(id){ return document.getElementById(id); }
+
+  // ── 먹여 보는 놈 ──
+  var nom = $('nom'), tray = $('tray'), mouth = $('mouth'), bellyEl = $('belly'), bellyN = $('bellyN'), msg = $('toyMsg'), say = $('say');
+  var eaten = [], flying = 0, busy = false;
+  function fat(){ var n = eaten.length; nom.style.setProperty('--fat', 'scale('+(1+n*0.024).toFixed(3)+','+(1+n*0.017).toFixed(3)+')'); nom.style.transform = 'var(--fat)'; }
+  function sync(){
+    var n = eaten.length;
+    bellyN.textContent = n; bellyEl.classList.toggle('on', n > 0);
+    $('spit').disabled = n === 0 || busy; $('digest').disabled = n === 0 || busy;
+    fat();
+  }
+  function note(key){ msg.textContent = UI[LANG][key]; msg.setAttribute('data-k', key); }
+  function mouthPoint(){ var r = mouth.getBoundingClientRect(); return { x:r.left + r.width/2, y:r.top + r.height/2 }; }
+  function flight(tile, toMouth, done){
+    var r = tile.getBoundingClientRect(), m = mouthPoint();
+    if (reduce){ done(); return; }
+    var f = document.createElement('div'); f.className = 'fly'; f.style.left = r.left+'px'; f.style.top = r.top+'px'; f.style.width = r.width+'px'; f.style.height = r.height+'px';
+    f.innerHTML = tile.innerHTML; document.body.appendChild(f);
+    var dx = m.x - (r.left + r.width/2), dy = m.y - (r.top + r.height/2), rot = (dx > 0 ? 1 : -1) * 40;
+    var a = { transform:'translate(0,0) scale(1) rotate(0deg)' }, mid = { transform:'translate('+(dx*0.35)+'px,'+(dy*0.35 - 46)+'px) scale(1.06) rotate('+(rot*0.4)+'deg)' }, b = { transform:'translate('+dx+'px,'+dy+'px) scale(.16) rotate('+rot+'deg)' };
+    var frames = toMouth ? [a, mid, b] : [b, mid, a];
+    var an = f.animate(frames, { duration: 430, easing: toMouth ? 'cubic-bezier(.5,0,.9,.5)' : 'cubic-bezier(.1,.6,.3,1)', fill:'forwards' });
+    an.onfinish = function(){ f.remove(); done(); };
+  }
+  function feed(tile){
+    if (busy || tile.classList.contains('gone')) return;
+    tile.classList.add('gone'); flying++; nom.classList.add('open'); say.hidden = true;
+    flight(tile, true, function(){
+      eaten.push(tile); flying--;
+      if (!flying) nom.classList.remove('open');
+      nom.classList.remove('gulp'); void nom.offsetWidth; nom.classList.add('gulp');
+      sync(); note('fed');
+    });
+  }
+  function spit(){
+    if (busy || !eaten.length) return; busy = true; sync();
+    var list = eaten.slice(); eaten = []; nom.classList.add('open');
+    var left = list.length;
+    list.forEach(function(tile, i){ setTimeout(function(){
+      flight(tile, false, function(){ tile.classList.remove('gone'); left--; if (!left){ nom.classList.remove('open'); busy = false; sync(); note('hint'); say.hidden = false; } });
+    }, reduce ? 0 : i * 70); });
+    bellyN.textContent = 0; bellyEl.classList.remove('on'); fat();
+  }
+  function digest(){
+    if (busy || !eaten.length) return; busy = true;
+    eaten = []; sync(); $('spit').disabled = true; $('digest').disabled = true;
+    nom.classList.remove('burp'); void nom.offsetWidth; nom.classList.add('burp');
+    var c = $('cloud'); c.classList.remove('go'); void c.getBoundingClientRect(); c.classList.add('go');
+    say.textContent = UI[LANG].burp; say.hidden = false; note('digested');
+    setTimeout(function(){ // 다 먹은 자리는 새 스크린샷으로 다시 찬다 — 계속 먹여 볼 수 있게
+      var gone = tray.querySelectorAll('.tile.gone');
+      gone.forEach(function(t, i){ t.classList.remove('gone'); t.classList.remove('pop'); void t.offsetWidth; t.style.animationDelay = (i*40)+'ms'; t.classList.add('pop'); });
+      say.textContent = UI[LANG].hungry; busy = false; sync();
+    }, reduce ? 600 : 2200);
+  }
+  function buildTray(){
+    var set = TILESET[LANG] || 'en', h = '';
+    for (var i = 1; i <= N; i++) h += '<button class="tile" type="button" aria-label="screenshot '+i+'"><img src="assets/tile-'+set+'-'+i+'.webp" width="220" height="220" alt=""></button>';
+    tray.innerHTML = h; eaten = []; busy = false; sync();
+  }
+  tray.addEventListener('click', function(e){ var t = e.target.closest('.tile'); if (t) feed(t); });
+  // 긋기: 누른 채 지나가는 칸을 전부 먹인다
+  var dragging = false;
+  tray.addEventListener('pointerdown', function(){ dragging = true; });
+  window.addEventListener('pointerup', function(){ dragging = false; });
+  window.addEventListener('pointercancel', function(){ dragging = false; });
+  tray.addEventListener('pointermove', function(e){ if (!dragging) return; var el = document.elementFromPoint(e.clientX, e.clientY); var t = el && el.closest ? el.closest('.tile') : null; if (t && tray.contains(t)) feed(t); });
+  $('spit').addEventListener('click', spit); $('digest').addEventListener('click', digest);
+  // 눈이 손가락을 따라간다 · 가끔 깜빡인다
+  var eyes = nom.querySelectorAll('.eye');
+  window.addEventListener('pointermove', function(e){ if (reduce) return; var r = nom.getBoundingClientRect(); var dx = e.clientX - (r.left + r.width/2), dy = e.clientY - (r.top + r.height*0.23); var d = Math.max(1, Math.hypot(dx, dy)); var k = Math.min(5, d/40); eyes.forEach(function(el){ el.style.transform = 'translate(calc(-50% + '+(dx/d*k).toFixed(1)+'px), calc(-50% + '+(dy/d*k).toFixed(1)+'px))'; }); }, { passive:true });
+  if (!reduce) setInterval(function(){ nom.classList.add('blink'); setTimeout(function(){ nom.classList.remove('blink'); }, 130); }, 3400);
+
+  // ── 언어 ──
+  function render(){
+    var u = UI[LANG];
+    document.documentElement.lang = u.htmlLang; document.title = u.title;
+    $('h1').innerHTML = u.h1;
+    document.querySelectorAll('[data-i]').forEach(function(el){ var v = u[el.getAttribute('data-i')]; if (typeof v === 'string') el.textContent = v; });
+    $('nots').innerHTML = u.nots.map(function(t){ return '<li>'+CHECK+'<span>'+t+'</span></li>'; }).join('');
+    $('shots').innerHTML = [1,2,3,4].map(function(i){ return '<img src="assets/shot-'+LANG+'-'+i+'.webp" width="480" height="1039" alt="'+u.shotsH+' '+i+'" loading="lazy">'; }).join('');
+    say.textContent = u.hungry; say.hidden = false;
+    buildTray(); note('hint');
+    var v = $('reel'), was = !v.paused; v.poster = 'assets/reel-'+LANG+'.webp'; v.setAttribute('data-src', 'assets/reel-'+LANG+'.mp4');
+    if (v.getAttribute('src')){ v.src = v.getAttribute('data-src'); if (was){ var p = v.play(); if (p && p.catch) p.catch(function(){}); } }
+  }
+  var buttons = document.querySelectorAll('#langs button');
+  function apply(lang, save){ LANG = UI[lang] ? lang : 'en'; render(); buttons.forEach(function(b){ b.classList.toggle('on', b.dataset.lang === LANG); }); if (save){ try{ localStorage.setItem('nom-lang', LANG); }catch(e){} } }
+  buttons.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.lang, true); }); });
+  var q = null; try{ q = new URLSearchParams(location.search).get('lang'); }catch(e){}
+  var saved = null; try{ saved = localStorage.getItem('nom-lang'); }catch(e){}
+  var sys = (navigator.language || 'en').slice(0,2).toLowerCase();
+  apply((q && UI[q]) ? q : (saved && UI[saved]) ? saved : (UI[sys] ? sys : 'en'), false);
+
+  // 영상은 보일 때만 받아서 튼다
+  var reel = $('reel');
+  if ('IntersectionObserver' in window && !reduce){
+    new IntersectionObserver(function(es){ es.forEach(function(e){
+      if (e.isIntersecting){ if (!reel.getAttribute('src')) reel.src = reel.getAttribute('data-src'); var p = reel.play(); if (p && p.catch) p.catch(function(){}); } else reel.pause();
+    }); }, { threshold:0.3 }).observe(reel);
+  } else { reel.controls = true; reel.src = reel.getAttribute('data-src'); }
+})();
+</script>
 </body>
 </html>
