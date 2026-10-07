@@ -828,9 +828,16 @@ var BURUDA_META = {
 
 <script>
 (function(){
-  // iOS 출시 뒤 이 한 줄만 바꾸면 된다: App Store 버튼이 나오고 「심사 중」 표시가 사라진다.
-  // 'https://apps.apple.com/kr/app/id6809695439'
-  var IOS_URL = (window.BURUDA_LANG && BURUDA_LANG !== 'ko') ? 'https://apps.apple.com/app/id6809695439' : 'https://apps.apple.com/kr/app/id6809695439';
+  // App Store 주소는 나라 코드가 꼭 있어야 한다 — apps.apple.com/app/id… 는 웹에서 404(2026-10-07 확인).
+  // 브라우저 지역(ko-KR, zh-TW, en-SG…)이 출시국이면 그 스토어, 아니면 언어별 기본(한국어 kr · 번체 tw · 영어 sg).
+  // 아이폰에서는 어느 나라 코드든 App Store 앱이 본인 스토어로 연다.
+  var IOS_URL = (function () {
+    var cc = {KR:'kr',TW:'tw',HK:'hk',MO:'hk',SG:'sg',MY:'my',CA:'ca',AU:'au',NZ:'nz',PH:'ph',IN:'in',IL:'il',ZA:'za'};
+    var list = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || ''];
+    for (var i = 0; i < list.length; i++) { var m = /[-_]([A-Za-z]{2})\b/.exec(String(list[i])); if (m && cc[m[1].toUpperCase()]) return 'https://apps.apple.com/' + cc[m[1].toUpperCase()] + '/app/id6809695439'; }
+    var L = window.BURUDA_LANG || 'ko';
+    return 'https://apps.apple.com/' + (L === 'zh' ? 'tw' : L === 'en' ? 'sg' : 'kr') + '/app/id6809695439';
+  })();
   var ios = document.querySelectorAll('[data-store="ios"]'), pend = document.querySelectorAll('[data-ios-pending]');
   var ansP = document.querySelector('[data-ios-answer="pending"]'), ansL = document.querySelector('[data-ios-answer="live"]');
   if (IOS_URL) { ios.forEach(function(a){ a.href = IOS_URL; a.hidden = false; }); pend.forEach(function(el){ el.hidden = true; }); if (ansP) ansP.hidden = true; if (ansL) ansL.hidden = false; }

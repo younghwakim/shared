@@ -227,8 +227,14 @@ button.tpl, button.primary-tpl { font-family: inherit; }
 (function () {
   var API = 'https://buruda-api-887421056838.asia-northeast3.run.app';
   var PLAY_STORE = 'https://play.google.com/store/apps/details?id=com.buruda.app';
-  // 나라 코드를 넣지 않는다 — 여는 사람의 스토어로 간다
-  var APP_STORE = 'https://apps.apple.com/app/id6809695439';
+  // App Store 주소는 나라 코드가 꼭 있어야 한다(없으면 웹에서 404). 브라우저 지역이 출시국이면 그 스토어, 아니면 언어별 기본.
+  var APP_STORE = (function () {
+    var cc = {KR:'kr',TW:'tw',HK:'hk',MO:'hk',SG:'sg',MY:'my',CA:'ca',AU:'au',NZ:'nz',PH:'ph',IN:'in',IL:'il',ZA:'za'};
+    var list = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || ''];
+    for (var i = 0; i < list.length; i++) { var m = /[-_]([A-Za-z]{2})\b/.exec(String(list[i])); if (m && cc[m[1].toUpperCase()]) return 'https://apps.apple.com/' + cc[m[1].toUpperCase()] + '/app/id6809695439'; }
+    var l = String((navigator.languages && navigator.languages[0]) || navigator.language || '').toLowerCase();
+    return 'https://apps.apple.com/' + (l.indexOf('zh') === 0 ? 'tw' : l.indexOf('ko') === 0 ? 'kr' : 'sg') + '/app/id6809695439';
+  })();
   var SITE = 'https://younghwakim.github.io/shared/buruda/';
 
   // ── 언어: 브라우저가 선호하는 순서대로 보며 우리가 가진 첫 언어를 고른다 ──
