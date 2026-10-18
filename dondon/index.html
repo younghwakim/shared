@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>돈돈 — 동전 합치기 머지 게임</title>
+<meta name="description" content="같은 돈 둘이 닿으면 한 단계 큰 돈. 1원에서 태산 1억까지 13단계. 무료 iPhone 게임.">
+<style>
+  :root { color-scheme: light; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, "Noto Sans KR", "Hiragino Sans", sans-serif; background: #F7F2E6; color: #2B2418; max-width: 760px; margin: 0 auto; padding: 44px 16px 80px; line-height: 1.7; text-align: center; }
+  h1 { font-size: 3rem; margin: 0; color: #2E7D5B; }
+  p.lead { font-size: 1.15rem; color: #6E6250; margin-top: 4px; }
+  .shots { display: flex; gap: 10px; justify-content: center; margin: 24px 0; overflow-x: auto; }
+  .shots img { width: 31%; min-width: 150px; border-radius: 18px; box-shadow: 0 6px 18px rgba(60,40,20,.15); }
+  .order { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 20px 0; }
+  .order span { background: #EDE6D4; border: 1.5px solid #DED4BE; border-radius: 999px; padding: 3px 11px; font-size: .88rem; }
+  .btn { display: inline-block; margin-top: 12px; padding: 14px 24px; border-radius: 16px; background: #2E7D5B; color: #fff; text-decoration: none; font-weight: 700; }
+  section + section { margin-top: 56px; padding-top: 32px; border-top: 1px solid #DED4BE; }
+  footer { margin-top: 48px; font-size: .85rem; color: #A39682; } footer a { color: #6E6250; }
+</style>
+</head>
+<body>
+<section>
+<h1>돈돈</h1>
+<p class="lead">같은 돈 둘이 닿으면 한 단계 큰 돈.<br>1원에서 태산 1억까지, 얼마나 모을 수 있을까요?</p>
+<div class="shots"><img src="img/ko-01-merge.jpg" alt="세종대왕 둘이 합쳐져 신사임당이 되는 화면"><img src="img/ko-02-top.jpg" alt="태산 1억을 완성한 화면"><img src="img/ko-03-book.jpg" alt="동전 13종 도감"></div>
+<div class="order"><span>1원</span><span>5원</span><span>10원</span><span>50원</span><span>100원</span><span>500원</span><span>1,000원</span><span>5,000원</span><span>10,000원</span><span>50,000원</span><span>금괴</span><span>다이아몬드</span><span>태산</span></div>
+<p>저금통에 돈을 떨어뜨리고, 같은 돈끼리 닿게 하면 합쳐져요. 막힐 땐 되돌리기·순서 바꾸기·하나 빼기 같은 아이템을 쓰고, 생수통·돼지 저금통·금고마다 쓸 수 있는 아이템이 달라요.<br>계정 없이 바로 시작해요. 게임 속 돈과 포인트는 점수이고 실제 돈으로 바꿀 수 없어요.</p>
+<p><a class="btn" href="#" data-store>App Store에서 받기</a><br><small data-soon>출시 준비 중이에요</small></p>
+</section>
+<section lang="en">
+<h1>DonDon</h1>
+<p class="lead">Two of the same money merge into the next one.<br>From ₩1 to the ₩100M Mountain — how far can you save?</p>
+<div class="shots"><img src="img/en-01-merge.jpg" alt="Two King Sejong bills merging into Shin Saimdang"><img src="img/en-02-top.jpg" alt="The Mountain is made"><img src="img/en-03-book.jpg" alt="Collection of 13 coins"></div>
+<p>Drop money into the jar and merge matching pieces. Use items like Undo, Swap and Remove when you're stuck; each jar — water jug, piggy bank, vault — unlocks different items. No account needed. Money and points are scores only and cannot be exchanged for real money.</p>
+<p><a class="btn" href="#" data-store>Download on the App Store</a></p>
+</section>
+<section lang="ja">
+<h1>ドンドン</h1>
+<p class="lead">同じお金が2つくっつくと、ひとつ上のお金に。<br>1ウォンから1億の山まで、どこまで貯められる？</p>
+<div class="shots"><img src="img/ja-01-merge.jpg" alt="世宗大王2人が申師任堂になる画面"><img src="img/ja-02-top.jpg" alt="1億の山が完成した画面"><img src="img/ja-03-book.jpg" alt="コイン13種の図鑑"></div>
+<p>貯金箱にお金を落として、同じお金どうしを合体させます。困ったときは戻す・入れ替え・取り出すなどのアイテムを。水ボトル・ブタの貯金箱・金庫ごとに使えるアイテムが違います。アカウント不要。ゲーム内のお金とポイントはスコアで、現金には交換できません。</p>
+<p><a class="btn" href="#" data-store>App Storeでダウンロード</a></p>
+</section>
+<footer><a href="privacy.html">개인정보 처리방침 · Privacy · プライバシー</a> · <a href="support.html">도움말 · Support · サポート</a></footer>
+<script>
+  // 출시 뒤 status.json 의 iosStoreUrl 만 채우면 버튼이 살아난다
+  fetch('status.json', { cache: 'no-store' }).then(r => r.json()).then(s => {
+    if (!s.iosStoreUrl) return;
+    document.querySelectorAll('[data-store]').forEach(a => { a.href = s.iosStoreUrl; });
+    document.querySelectorAll('[data-soon]').forEach(e => e.remove());
+  }).catch(() => {});
+</script>
+</body>
+</html>
