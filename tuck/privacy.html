@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tuck — Privacy Policy · 개인정보 처리방침</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, "Noto Sans KR", "Hiragino Sans", sans-serif; max-width: 680px; margin: 0 auto; padding: 32px 20px 80px; line-height: 1.7; }
+  h1 { font-size: 1.4rem; margin-bottom: 0; }
+  h2 { font-size: 1.15rem; margin-top: 2.2em; }
+  h3 { font-size: 1rem; margin-top: 1.6em; }
+  .updated { color: #888; font-size: .85rem; }
+  .summary { border-left: 4px solid #E1A052; padding: 2px 16px; margin: 1.5em 0; background: rgba(225,160,82,.08); }
+  ul { padding-left: 1.2em; }
+  a { color: #B87A2C; }
+  @media (prefers-color-scheme: dark) { a { color: #E1A052; } }
+  .lang { border-top: 1px solid #8884; margin-top: 3em; padding-top: 1em; }
+  nav button { margin-right: 8px; padding: 6px 14px; border: 1px solid #8886; border-radius: 999px; background: transparent; color: inherit; font-size: .9rem; cursor: pointer; }
+  nav button.on { background: #E1A052; border-color: #E1A052; color: #13161C; font-weight: 700; }
+  html.js section[hidden] { display: none; }
+  html.js .lang { border-top: 0; margin-top: 0; padding-top: 0; }
+</style>
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<h1>Tuck</h1>
+<p class="updated">Last updated / 최종 수정: 2026-10-17 · Effective from app release</p>
+<nav id="langnav">
+  <button data-lang="en">English</button>
+  <button data-lang="ko">한국어</button>
+  <button data-lang="ja">日本語</button>
+  <button data-lang="zh-Hant">繁體中文</button>
+  <button data-lang="de">Deutsch</button>
+  <button data-lang="fr">Français</button>
+</nav>
+
+<section id="en" lang="en" class="lang">
+<h2>Privacy Policy</h2>
+<p>Tuck is a photo and document vault that opens a different drawer for each PIN. This policy explains what the app stores, where, and who can read it.</p>
+<div class="summary">
+<p><strong>No account. No server. Nothing is sent.</strong> Tuck has no sign-up, and we run no server that receives your photos, documents, PINs or keys. Everything you put into Tuck is encrypted on your iPhone and stays there.</p>
+</div>
+<h3>1. What stays on your iPhone</h3>
+<ul>
+<li><strong>Photos, videos and documents</strong> you take or import. Each file is encrypted with AES-256-GCM using a key that belongs only to its drawer.</li>
+<li><strong>Drawer keys</strong> are stored only in wrapped form, wrapped with your PIN and a key held in your device’s Secure Enclave.</li>
+<li><strong>Your PINs are never stored.</strong> A correct PIN unwraps a key; there is no list of PINs to leak.</li>
+<li><strong>Item names and the positions of covered areas</strong> are encrypted with the drawer key. The delete-by date and whether an item is hidden or covered are not encrypted, so that automatic deletion also works while Tuck is locked.</li>
+</ul>
+<h3>2. What leaves your iPhone</h3>
+<p>Nothing. Tuck has no analytics, no crash reporting and no advertising SDK, and it shows no ads. When the app starts it only looks in your own iCloud for an earlier Tuck backup so it can offer to restore it; it reads, it does not send.</p>
+<h3>3. iCloud backup</h3>
+<p>This version does not offer backup, and Tuck stores nothing in iCloud. If backup is offered later and you turn it on, encrypted files and wrapped keys will go to the private CloudKit database of your own Apple ID, and a key will be kept in your iCloud Keychain. Files are encrypted before upload, so neither we nor Apple can read them.</p>
+<h3>4. Permissions</h3>
+<ul>
+<li><strong>Camera</strong> — photos and scans taken in Tuck go straight into the drawer, not into your Photos library.</li>
+<li><strong>Photos (read and write)</strong> — to bring in photos you choose, to find a screenshot you just took so you can move it into the drawer, and, only when you ask, to delete or hide the originals in Photos. Originals are touched only after Tuck checks that the copy in the drawer opens.</li>
+<li><strong>Photos (add only)</strong> — to save a copy to Photos when you tap Save.</li>
+<li><strong>Face ID / Touch ID</strong> — to open the one drawer you turned it on for.</li>
+</ul>
+<h3>5. Deletion</h3>
+<p>Delete an item, a drawer or the app, and the encrypted files are removed from your iPhone. Deleted items cannot be recovered. We hold no account and no data, so there is nothing for us to delete on our side.</p>
+<h3>6. Recovery key</h3>
+<p>When you make a drawer, Tuck shows that drawer’s own 28-character recovery key. We never see it. You can get a new one in the drawer’s settings (after entering its PIN); the old one then stops working. If you lose both the PIN and the recovery key, nobody can open that drawer — not even us.</p>
+<h3>7. Contact</h3>
+<p><a href="mailto:younghwa.kym@gmail.com?subject=Tuck">younghwa.kym@gmail.com</a></p>
+</section>
+
+<section id="ko" lang="ko" class="lang" hidden>
+<h2>개인정보 처리방침</h2>
+<p>Tuck은 번호마다 다른 서랍이 열리는 사진·문서 금고예요. 이 방침은 앱이 무엇을 어디에 저장하고, 누가 읽을 수 있는지 설명해요.</p>
+<div class="summary">
+<p><strong>계정 없음. 서버 없음. 보내는 것 없음.</strong> 회원가입이 없고, 사진·문서·번호·키를 받는 서버를 운영하지 않아요. Tuck에 넣은 것은 전부 아이폰 안에서 암호화되어 거기에만 있어요.</p>
+</div>
+<h3>1. 아이폰 안에만 있는 것</h3>
+<ul>
+<li><strong>사진·동영상·문서</strong>: 파일마다 그 서랍에만 있는 키로 AES-256-GCM 암호화해요.</li>
+<li><strong>서랍 키</strong>: 감싼 형태로만 저장해요. 번호와 기기 보안칩(Secure Enclave) 안의 키로 감싸요.</li>
+<li><strong>번호(PIN)는 저장하지 않아요.</strong> 맞는 번호가 키를 풀 뿐, 새어 나갈 번호 목록이 없어요.</li>
+<li><strong>항목 이름과 가린 자리</strong>는 서랍 키로 암호화해요. 삭제 예정일과 숨김·가림 여부는 잠긴 상태에서도 자동 삭제가 되도록 암호화하지 않아요.</li>
+</ul>
+<h3>2. 아이폰 밖으로 나가는 것</h3>
+<p>없어요. 분석 도구, 오류 보고, 광고 SDK가 없고 광고도 없어요. 앱을 켤 때 이용자 본인의 iCloud에 예전 Tuck 백업이 있는지만 확인해서 되찾기를 권해요. 읽기만 하고 보내지 않아요.</p>
+<h3>3. iCloud 백업</h3>
+<p>이 버전에는 백업이 없고, Tuck은 iCloud에 아무것도 저장하지 않아요. 나중에 백업이 생겨 켜면 암호화된 파일과 감싼 키가 이용자 본인 Apple ID의 CloudKit 프라이빗 데이터베이스에, 키 하나가 iCloud 키체인에 저장돼요. 파일은 올리기 전에 암호화되므로 저희도 애플도 읽을 수 없어요.</p>
+<h3>4. 권한</h3>
+<ul>
+<li><strong>카메라</strong>: Tuck에서 찍은 사진·스캔은 사진 앱이 아니라 서랍에 바로 들어가요.</li>
+<li><strong>사진(읽기·쓰기)</strong>: 고른 사진을 가져오고, 방금 찍은 스크린샷을 찾아 서랍으로 옮기고, 원할 때만 사진 앱의 원본을 삭제하거나 가려요. 원본은 서랍 사본이 열리는 걸 확인한 뒤에만 건드려요.</li>
+<li><strong>사진(추가만)</strong>: 저장을 누를 때 사진 앱에 사본을 저장해요.</li>
+<li><strong>Face ID / Touch ID</strong>: 켜 둔 서랍 하나를 열 때만 써요.</li>
+</ul>
+<h3>5. 삭제</h3>
+<p>항목·서랍·앱을 삭제하면 암호화된 파일이 아이폰에서 지워져요. 삭제한 항목은 되살릴 수 없어요. 저희는 계정도 데이터도 갖고 있지 않아 저희 쪽에서 지울 것이 없어요.</p>
+<h3>6. 복구 키</h3>
+<p>서랍을 만들 때 그 서랍 전용 28자 복구 키를 보여 드려요. 저희는 이 키를 모르고 볼 수도 없어요. 서랍 설정에서 번호를 넣고 새 키를 받을 수 있고, 그러면 이전 키는 쓸 수 없어요. 번호와 복구 키를 모두 잃으면 누구도, 저희도 그 서랍을 열 수 없어요.</p>
+<h3>7. 문의</h3>
+<p><a href="mailto:younghwa.kym@gmail.com?subject=Tuck">younghwa.kym@gmail.com</a></p>
+</section>
+
+<section id="ja" lang="ja" class="lang" hidden>
+<h2>プライバシーポリシー</h2>
+<p>Tuckは、番号ごとに別の引き出しが開く写真・書類の金庫アプリです。このポリシーは、アプリが何をどこに保存し、誰が読めるかを説明します。</p>
+<div class="summary">
+<p><strong>アカウントなし。サーバーなし。何も送信しません。</strong> 登録はなく、写真・書類・番号・鍵を受け取るサーバーも運営していません。Tuckに入れたものはすべてiPhone内で暗号化され、そこにだけあります。</p>
+</div>
+<h3>1. iPhoneの中だけにあるもの</h3>
+<ul>
+<li><strong>写真・動画・書類</strong>：ファイルごとに、その引き出しだけの鍵でAES-256-GCM暗号化します。</li>
+<li><strong>引き出しの鍵</strong>：包んだ形でのみ保存します。番号と端末のSecure Enclaveの鍵で包みます。</li>
+<li><strong>番号（PIN）は保存しません。</strong> 正しい番号が鍵を開けるだけで、漏れる番号リストはありません。</li>
+<li><strong>項目の名前と隠した場所</strong>は引き出しの鍵で暗号化します。削除予定日と、しまってあるか・隠してあるかは、ロック中でも自動削除できるよう暗号化しません。</li>
+</ul>
+<h3>2. iPhoneの外に出るもの</h3>
+<p>ありません。分析ツール、クラッシュ報告、広告SDKはなく、広告も表示しません。起動時に、ご自身のiCloudに以前のTuckのバックアップがあるかだけを確認し、復元を提案します。読むだけで、送信はしません。</p>
+<h3>3. iCloudバックアップ</h3>
+<p>このバージョンにはバックアップがなく、TuckはiCloudに何も保存しません。今後バックアップが追加されてオンにした場合、暗号化したファイルと包んだ鍵はご自身のApple IDのCloudKitプライベートデータベースに、鍵ひとつはiCloudキーチェーンに保存されます。ファイルは送信前に暗号化されるため、私たちもAppleも読めません。</p>
+<h3>4. 権限</h3>
+<ul>
+<li><strong>カメラ</strong>：Tuckで撮った写真・スキャンは、写真アプリではなく引き出しに直接入ります。</li>
+<li><strong>写真（読み書き）</strong>：選んだ写真の取り込み、撮ったばかりのスクリーンショットを見つけて引き出しへ移すこと、そして希望したときだけ写真アプリの原本の削除・非表示。原本は、引き出しの複製が開けることを確認してからだけ操作します。</li>
+<li><strong>写真（追加のみ）</strong>：保存をタップしたときに写真アプリへ複製を保存します。</li>
+<li><strong>Face ID / Touch ID</strong>：オンにした引き出しひとつを開くときだけ使います。</li>
+</ul>
+<h3>5. 削除</h3>
+<p>項目・引き出し・アプリを削除すると、暗号化ファイルはiPhoneから消えます。削除した項目は戻せません。私たちはアカウントもデータも持たないため、こちら側で削除するものはありません。</p>
+<h3>6. リカバリーキー</h3>
+<p>引き出しを作るときに、その引き出し専用の28文字のリカバリーキーを表示します。私たちはこのキーを知りません。引き出しの設定で番号を入れると新しいキーを受け取れ、古いキーは使えなくなります。番号とリカバリーキーの両方を失うと、誰も（私たちも）その引き出しを開けません。</p>
+<h3>7. お問い合わせ</h3>
+<p><a href="mailto:younghwa.kym@gmail.com?subject=Tuck">younghwa.kym@gmail.com</a></p>
+</section>
+
+<section id="zh-Hant" lang="zh-Hant" class="lang" hidden>
+<h2>隱私權政策</h2>
+<p>Tuck 是每組密碼打開不同抽屜的照片與文件保險箱。本政策說明 App 儲存了什麼、存在哪裡，以及誰能讀取。</p>
+<div class="summary">
+<p><strong>沒有帳號。沒有伺服器。不傳送任何東西。</strong> 不需註冊，我們也沒有接收照片、文件、密碼或金鑰的伺服器。放進 Tuck 的一切都在 iPhone 上加密，只留在那裡。</p>
+</div>
+<h3>1. 只留在 iPhone 上的東西</h3>
+<ul>
+<li><strong>照片、影片與文件</strong>：每個檔案都以該抽屜專屬的金鑰進行 AES-256-GCM 加密。</li>
+<li><strong>抽屜金鑰</strong>：只以包裝後的形式儲存，用你的密碼和裝置 Secure Enclave 中的金鑰包裝。</li>
+<li><strong>不會儲存密碼。</strong> 正確的密碼只是解開金鑰，沒有可外洩的密碼清單。</li>
+<li><strong>項目名稱與遮住的位置</strong>以抽屜金鑰加密。刪除日期，以及是否收起、是否遮住，為了讓鎖定時也能自動刪除，不加密。</li>
+</ul>
+<h3>2. 離開 iPhone 的東西</h3>
+<p>沒有。沒有分析工具、當機回報和廣告 SDK，也不顯示廣告。啟動時只會查看你自己的 iCloud 裡有沒有以前的 Tuck 備份，以便建議復原；只讀取，不傳送。</p>
+<h3>3. iCloud 備份</h3>
+<p>此版本沒有備份功能，Tuck 不會在 iCloud 儲存任何東西。日後若提供備份並由你開啟，加密的檔案與包裝的金鑰會存到你自己 Apple ID 的 CloudKit 私人資料庫，另有一把金鑰存在 iCloud 鑰匙圈。檔案在上傳前就已加密，我們和 Apple 都無法讀取。</p>
+<h3>4. 權限</h3>
+<ul>
+<li><strong>相機</strong>：在 Tuck 拍的照片與掃描會直接放進抽屜，不會存到「照片」。</li>
+<li><strong>照片（讀寫）</strong>：匯入你選的照片、找出剛拍的截圖以便移進抽屜，以及只在你要求時刪除或隱藏「照片」裡的原檔。只有確認抽屜裡的副本能打開後才會動原檔。</li>
+<li><strong>照片（僅新增）</strong>：點「儲存」時把副本存到「照片」。</li>
+<li><strong>Face ID / Touch ID</strong>：只用來打開你開啟此功能的那個抽屜。</li>
+</ul>
+<h3>5. 刪除</h3>
+<p>刪除項目、抽屜或 App 時，加密檔案會從 iPhone 上移除。刪除的項目無法復原。我們沒有帳號也沒有資料，所以我們這邊沒有東西需要刪除。</p>
+<h3>6. 復原金鑰</h3>
+<p>建立抽屜時，Tuck 會顯示該抽屜專屬的 28 字復原金鑰。我們看不到它。在抽屜設定中輸入密碼即可取得新的金鑰，舊的隨即失效。密碼和復原金鑰都遺失時，任何人（包括我們）都無法打開那個抽屜。</p>
+<h3>7. 聯絡</h3>
+<p><a href="mailto:younghwa.kym@gmail.com?subject=Tuck">younghwa.kym@gmail.com</a></p>
+</section>
+
+<section id="de" lang="de" class="lang" hidden>
+<h2>Datenschutzerklärung</h2>
+<p>Tuck ist ein Tresor für Fotos und Dokumente, bei dem jede PIN eine andere Schublade öffnet. Hier steht, was die App speichert, wo, und wer es lesen kann.</p>
+<div class="summary">
+<p><strong>Kein Konto. Kein Server. Es wird nichts gesendet.</strong> Es gibt keine Registrierung und keinen Server, der deine Fotos, Dokumente, PINs oder Schlüssel empfängt. Alles in Tuck wird auf deinem iPhone verschlüsselt und bleibt dort.</p>
+</div>
+<h3>1. Was auf deinem iPhone bleibt</h3>
+<ul>
+<li><strong>Fotos, Videos und Dokumente</strong>: Jede Datei wird mit AES-256-GCM verschlüsselt, mit einem Schlüssel, der nur zu ihrer Schublade gehört.</li>
+<li><strong>Schubladen-Schlüssel</strong> werden nur verpackt gespeichert – verpackt mit deiner PIN und einem Schlüssel in der Secure Enclave deines Geräts.</li>
+<li><strong>Deine PINs werden nie gespeichert.</strong> Eine richtige PIN entpackt einen Schlüssel; es gibt keine PIN-Liste, die abhandenkommen könnte.</li>
+<li><strong>Namen von Elementen und die Lage abgedeckter Stellen</strong> werden mit dem Schubladen-Schlüssel verschlüsselt. Das Löschdatum und ob ein Element verborgen oder abgedeckt ist, sind nicht verschlüsselt, damit das automatische Löschen auch bei gesperrter App funktioniert.</li>
+</ul>
+<h3>2. Was dein iPhone verlässt</h3>
+<p>Nichts. Tuck hat keine Analyse, keine Absturzberichte, kein Werbe-SDK und zeigt keine Werbung. Beim Start schaut die App nur in deiner eigenen iCloud nach einem früheren Tuck-Backup, um die Wiederherstellung anzubieten – sie liest, sie sendet nichts.</p>
+<h3>3. iCloud-Backup</h3>
+<p>Diese Version bietet kein Backup, und Tuck speichert nichts in iCloud. Wird später ein Backup angeboten und du schaltest es ein, landen verschlüsselte Dateien und verpackte Schlüssel in der privaten CloudKit-Datenbank deiner eigenen Apple-ID und ein Schlüssel in deinem iCloud-Schlüsselbund. Dateien werden vor dem Hochladen verschlüsselt; weder wir noch Apple können sie lesen.</p>
+<h3>4. Berechtigungen</h3>
+<ul>
+<li><strong>Kamera</strong> – Fotos und Scans aus Tuck kommen direkt in die Schublade, nicht in deine Fotos-Mediathek.</li>
+<li><strong>Fotos (lesen und schreiben)</strong> – um von dir gewählte Fotos hereinzuholen, ein gerade aufgenommenes Bildschirmfoto zu finden, damit du es in die Schublade verschieben kannst, und nur auf deinen Wunsch die Originale in Fotos zu löschen oder auszublenden. Originale werden erst angefasst, nachdem Tuck geprüft hat, dass sich die Kopie in der Schublade öffnen lässt.</li>
+<li><strong>Fotos (nur hinzufügen)</strong> – um beim Tippen auf „Sichern“ eine Kopie in Fotos zu speichern.</li>
+<li><strong>Face ID / Touch ID</strong> – um die eine Schublade zu öffnen, für die du es eingeschaltet hast.</li>
+</ul>
+<h3>5. Löschen</h3>
+<p>Löschst du ein Element, eine Schublade oder die App, werden die verschlüsselten Dateien von deinem iPhone entfernt. Gelöschtes lässt sich nicht wiederherstellen. Wir haben weder Konto noch Daten, also gibt es auf unserer Seite nichts zu löschen.</p>
+<h3>6. Wiederherstellungsschlüssel</h3>
+<p>Beim Anlegen einer Schublade zeigt Tuck ihren eigenen 28-stelligen Wiederherstellungsschlüssel. Wir sehen ihn nie. In den Einstellungen der Schublade bekommst du nach Eingabe der PIN einen neuen; der alte gilt dann nicht mehr. Verlierst du PIN und Schlüssel, kann niemand die Schublade öffnen – auch wir nicht.</p>
+<h3>7. Kontakt</h3>
+<p><a href="mailto:younghwa.kym@gmail.com?subject=Tuck">younghwa.kym@gmail.com</a></p>
+</section>
+
+<section id="fr" lang="fr" class="lang" hidden>
+<h2>Politique de confidentialité</h2>
+<p>Tuck est un coffre pour photos et documents où chaque code ouvre un tiroir différent. Cette politique explique ce que l’app conserve, où, et qui peut le lire.</p>
+<div class="summary">
+<p><strong>Pas de compte. Pas de serveur. Rien n’est envoyé.</strong> Aucune inscription, et nous n’exploitons aucun serveur qui recevrait vos photos, documents, codes ou clés. Tout ce que vous mettez dans Tuck est chiffré sur votre iPhone et y reste.</p>
+</div>
+<h3>1. Ce qui reste sur votre iPhone</h3>
+<ul>
+<li><strong>Photos, vidéos et documents</strong> : chaque fichier est chiffré en AES-256-GCM avec une clé propre à son tiroir.</li>
+<li><strong>Les clés des tiroirs</strong> ne sont conservées qu’enveloppées, avec votre code et une clé détenue dans la Secure Enclave de l’appareil.</li>
+<li><strong>Vos codes ne sont jamais enregistrés.</strong> Un code correct déverrouille une clé ; il n’existe aucune liste de codes susceptible de fuiter.</li>
+<li><strong>Les noms des éléments et l’emplacement des zones couvertes</strong> sont chiffrés avec la clé du tiroir. La date de suppression, et le fait qu’un élément soit rangé à part ou couvert, ne le sont pas, afin que la suppression automatique fonctionne même quand Tuck est verrouillé.</li>
+</ul>
+<h3>2. Ce qui quitte votre iPhone</h3>
+<p>Rien. Tuck n’a ni outil d’analyse, ni rapport de plantage, ni SDK publicitaire, et n’affiche aucune publicité. Au démarrage, l’app regarde seulement dans votre propre iCloud s’il existe une ancienne sauvegarde Tuck pour proposer de la restaurer ; elle lit, elle n’envoie rien.</p>
+<h3>3. Sauvegarde iCloud</h3>
+<p>Cette version ne propose pas de sauvegarde, et Tuck n’enregistre rien dans iCloud. Si une sauvegarde est proposée plus tard et que vous l’activez, les fichiers chiffrés et les clés enveloppées iront dans la base CloudKit privée de votre propre identifiant Apple, et une clé sera conservée dans votre trousseau iCloud. Les fichiers sont chiffrés avant l’envoi : ni nous ni Apple ne pouvons les lire.</p>
+<h3>4. Autorisations</h3>
+<ul>
+<li><strong>Appareil photo</strong> — les photos et scans pris dans Tuck vont directement dans le tiroir, pas dans votre photothèque.</li>
+<li><strong>Photos (lecture et écriture)</strong> — pour importer les photos que vous choisissez, retrouver une capture d’écran que vous venez de prendre afin de la déplacer dans le tiroir et, seulement si vous le demandez, supprimer ou masquer les originaux dans Photos. Les originaux ne sont touchés qu’après que Tuck a vérifié que la copie du tiroir s’ouvre.</li>
+<li><strong>Photos (ajout seulement)</strong> — pour enregistrer une copie dans Photos quand vous touchez Enregistrer.</li>
+<li><strong>Face ID / Touch ID</strong> — pour ouvrir le seul tiroir pour lequel vous l’avez activé.</li>
+</ul>
+<h3>5. Suppression</h3>
+<p>Si vous supprimez un élément, un tiroir ou l’app, les fichiers chiffrés sont effacés de votre iPhone. Ce qui est supprimé ne peut pas être récupéré. Nous n’avons ni compte ni données : il n’y a rien à effacer de notre côté.</p>
+<h3>6. Clé de secours</h3>
+<p>À la création d’un tiroir, Tuck affiche sa propre clé de secours de 28 caractères. Nous ne la voyons jamais. Dans les réglages du tiroir, après saisie du code, vous pouvez en obtenir une nouvelle ; l’ancienne cesse alors de fonctionner. Si vous perdez le code et la clé, personne ne peut ouvrir ce tiroir — pas même nous.</p>
+<h3>7. Contact</h3>
+<p><a href="mailto:younghwa.kym@gmail.com?subject=Tuck">younghwa.kym@gmail.com</a></p>
+</section>
+
+
+<script>
+(function(){
+  var nav=document.getElementById('langnav'), secs=document.querySelectorAll('section.lang');
+  function show(l){secs.forEach(function(s){s.hidden=s.id!==l});nav.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.dataset.lang===l)});try{localStorage.setItem('tuck-lang',l)}catch(e){}}
+  nav.addEventListener('click',function(e){var b=e.target.closest('button');if(b)show(b.dataset.lang)});
+  var l='en';try{l=localStorage.getItem('tuck-lang')||l}catch(e){}
+  if(!localStorage.getItem('tuck-lang')){var n=(navigator.language||'en').slice(0,2);if(n==='ko'||n==='ja'||n==='de'||n==='fr')l=n;if(n==='zh'&&/Hant|TW|HK|MO/i.test(navigator.language))l='zh-Hant';}
+  show(l);
+})();
+</script>
+</body>
+</html>
