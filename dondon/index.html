@@ -2,54 +2,492 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>돈돈 — 동전 합치기 머지 게임</title>
-<meta name="description" content="같은 돈 둘이 닿으면 한 단계 큰 돈. 1원에서 태산 1억까지 13단계. 무료 iPhone 게임.">
+<meta name="description" content="같은 돈 둘이 닿으면 한 단계 큰 돈. 1원에서 태산 1억까지 13단계. 계정 없이 바로 시작하는 무료 iPhone 게임.">
+<meta name="theme-color" content="#F7F2E6">
+<meta name="apple-itunes-app" content="app-id=6824332308">
+<link rel="canonical" href="https://younghwakim.github.io/shared/dondon/">
+<link rel="icon" href="assets/icon.webp">
+<meta property="og:type" content="website">
+<meta property="og:title" content="돈돈 — 동전 합치기 머지 게임">
+<meta property="og:description" content="같은 돈 둘이 닿으면 한 단계 큰 돈. 1원에서 태산 1억까지 13단계.">
+<meta property="og:image" content="https://younghwakim.github.io/shared/dondon/assets/og.jpg">
+<meta property="og:url" content="https://younghwakim.github.io/shared/dondon/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Fredoka:wght@500;600;700&family=Zen+Maru+Gothic:wght@700;900&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
-  :root { color-scheme: light; }
-  body { font-family: -apple-system, "Segoe UI", Roboto, "Noto Sans KR", "Hiragino Sans", sans-serif; background: #F7F2E6; color: #2B2418; max-width: 760px; margin: 0 auto; padding: 44px 16px 80px; line-height: 1.7; text-align: center; }
-  h1 { font-size: 3rem; margin: 0; color: #2E7D5B; }
-  p.lead { font-size: 1.15rem; color: #6E6250; margin-top: 4px; }
-  .shots { display: flex; gap: 10px; justify-content: center; margin: 24px 0; overflow-x: auto; }
-  .shots img { width: 31%; min-width: 150px; border-radius: 18px; box-shadow: 0 6px 18px rgba(60,40,20,.15); }
-  .order { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 20px 0; }
-  .order span { background: #EDE6D4; border: 1.5px solid #DED4BE; border-radius: 999px; padding: 3px 11px; font-size: .88rem; }
-  .btn { display: inline-block; margin-top: 12px; padding: 14px 24px; border-radius: 16px; background: #2E7D5B; color: #fff; text-decoration: none; font-weight: 700; }
-  section + section { margin-top: 56px; padding-top: 32px; border-top: 1px solid #DED4BE; }
-  footer { margin-top: 48px; font-size: .85rem; color: #A39682; } footer a { color: #6E6250; }
+  /* 돈돈의 색 — 앱과 같은 값(brand.json). 크림 종이 위에 지폐 초록, 포인트는 금, 저금통 안은 짙은 초록 펠트 */
+  :root{
+    --bg:#F7F2E6; --ink:#2B2418; --muted:#6E6250; --faint:#A39682; --surface:#FFFFFF; --soft:#EDE6D4; --line:#DED4BE;
+    --green:#2E7D5B; --green-deep:#1F5C42; --gold:#E2A91E; --gold-soft:#F7E6A3; --felt:#24544A; --felt-deep:#173B33; --felt-line:#8FC7B0; --danger:#D6453D;
+    --display:"Jua","Fredoka","Zen Maru Gothic",system-ui,sans-serif;
+    --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Hiragino Sans","Segoe UI",sans-serif;
+    --maxw:1080px; --r:22px;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--font); font-size:17px; line-height:1.6; letter-spacing:-.01em; word-break:keep-all; overflow-wrap:break-word; overflow-x:hidden}
+  html[lang="en"] body{word-break:normal}
+  html[lang="ja"] body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif; word-break:normal; line-break:strict}
+  img,video,canvas{max-width:100%; height:auto; display:block}
+  a{color:inherit}
+  h1,h2,h3,p{margin:0}
+  h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:0; text-wrap:balance}
+  html[lang="en"] h1, html[lang="en"] h2, html[lang="en"] h3, html[lang="en"] .disp{font-family:"Fredoka",system-ui,sans-serif; font-weight:600; letter-spacing:-.02em}
+  html[lang="ja"] h1, html[lang="ja"] h2, html[lang="ja"] h3, html[lang="ja"] .disp{font-family:"Zen Maru Gothic","Hiragino Sans",sans-serif; font-weight:900}
+  :focus-visible{outline:3px solid var(--green); outline-offset:3px; border-radius:10px}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+  [hidden]{display:none !important}
+
+  /* 단추 — 앱의 둥근 초록 단추 */
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; font-family:var(--display); font-size:1.15rem; line-height:1; text-decoration:none; color:#fff; background:var(--green); border:0; border-radius:16px; padding:17px 26px; cursor:pointer; box-shadow:0 4px 0 var(--green-deep); transition:transform .12s, box-shadow .12s; white-space:nowrap}
+  html[lang="en"] .btn{font-weight:600}
+  .btn:hover{transform:translateY(-1px); box-shadow:0 5px 0 var(--green-deep)}
+  .btn:active{transform:translateY(3px); box-shadow:0 1px 0 var(--green-deep)}
+  .btn.ghost{background:var(--surface); color:var(--ink); box-shadow:0 4px 0 var(--line); border:1.5px solid var(--line)}
+  .btn.ghost:hover{box-shadow:0 5px 0 var(--line)} .btn.ghost:active{box-shadow:0 1px 0 var(--line)}
+  .btn.small{font-size:.98rem; padding:11px 16px; border-radius:12px; box-shadow:0 3px 0 var(--green-deep)}
+  .btn svg{width:20px; height:20px; flex:none}
+
+  header{position:sticky; top:0; z-index:30; background:color-mix(in srgb, var(--bg) 86%, transparent); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); border-bottom:1px solid color-mix(in srgb, var(--line) 60%, transparent)}
+  .bar{display:flex; align-items:center; justify-content:space-between; gap:10px; height:66px}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none; font-family:var(--display); font-size:1.55rem; color:var(--green)}
+  .brand img{width:36px; height:36px; border-radius:10px}
+  .right{display:flex; align-items:center; gap:10px}
+  .langs{display:flex; gap:2px; background:var(--surface); border:1.5px solid var(--line); padding:3px; border-radius:999px}
+  .langs button{border:0; background:transparent; color:var(--muted); font:inherit; font-size:.8rem; font-weight:700; padding:5px 10px; border-radius:999px; cursor:pointer; white-space:nowrap}
+  .langs button.on{background:var(--ink); color:var(--bg)}
+  @media(max-width:560px){ header .btn{display:none} }
+
+  /* ── 첫 화면 ── */
+  .hero{padding:28px 0 56px}
+  .hero-grid{display:grid; gap:34px; align-items:center}
+  @media(min-width:900px){ .hero{padding:52px 0 88px} .hero-grid{grid-template-columns:1.05fr .95fr; gap:48px} }
+  h1{font-size:clamp(2.1rem,7.2vw,4rem); line-height:1.14}
+  h1 .hl{color:var(--green)}
+  .sub{margin-top:18px; font-size:clamp(1.05rem,2.2vw,1.2rem); color:var(--muted); max-width:36ch; line-height:1.65}
+  .cta{display:flex; flex-wrap:wrap; align-items:center; gap:14px 18px; margin-top:26px}
+  .cta-note{font-size:.92rem; color:var(--muted); font-weight:600}
+  .order{display:flex; flex-wrap:wrap; gap:6px; margin-top:26px}
+  .order span{display:inline-flex; align-items:center; gap:6px; background:var(--surface); border:1.5px solid var(--line); border-radius:999px; padding:4px 10px 4px 5px; font-size:.86rem; font-weight:700; color:var(--muted)}
+  .order img{width:22px; height:22px}
+  .order b{color:var(--ink); font-weight:800}
+
+  /* 떨어뜨려 보는 저금통 */
+  .toy{position:relative; background:var(--surface); border:1.5px solid var(--line); border-radius:30px; box-shadow:0 10px 30px rgba(43,36,24,.08); padding:14px 14px 12px; max-width:440px; width:100%; margin:0 auto}
+  .toy-top{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:4px 6px 10px}
+  .toy-score{font-family:var(--display); font-size:1.7rem; line-height:1; font-variant-numeric:tabular-nums}
+  html[lang="en"] .toy-score{font-weight:600}
+  .toy-score small{display:block; font-family:var(--font); font-size:.72rem; color:var(--faint); font-weight:700; margin-bottom:4px; letter-spacing:0}
+  .next{display:flex; align-items:center; gap:8px; background:var(--soft); border-radius:14px; padding:6px 10px; font-size:.78rem; font-weight:700; color:var(--muted)}
+  .next img{width:30px; height:30px}
+  .jar{position:relative; border-radius:22px; overflow:hidden; background:radial-gradient(120% 90% at 50% 20%, #2C6A5C 0%, var(--felt) 55%, var(--felt-deep) 100%); border:5px solid #DCEFE6; box-shadow:inset 0 0 0 2px rgba(0,0,0,.15); touch-action:none; cursor:crosshair}
+  .jar canvas{width:100%; height:auto; display:block}
+  .over{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; background:rgba(23,59,51,.78); color:#fff; text-align:center; padding:20px}
+  .over h3{font-size:1.6rem; color:#fff}
+  .over p{font-size:.95rem; opacity:.85}
+  .toy-foot{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:12px; min-height:30px; padding:0 4px}
+  .toy-msg{font-size:.9rem; font-weight:600; color:var(--muted)}
+  .pop{position:absolute; font-family:var(--display); color:#FFE27A; font-size:1.2rem; text-shadow:0 1px 3px rgba(0,0,0,.5); pointer-events:none; animation:pop .9s ease-out forwards; transform:translate(-50%,-50%)}
+  @keyframes pop{0%{opacity:1; transform:translate(-50%,-50%) scale(.7)} 20%{transform:translate(-50%,-70%) scale(1.1)} 100%{opacity:0; transform:translate(-50%,-140%) scale(1)}}
+
+  section{padding:56px 0}
+  @media(min-width:900px){ section{padding:84px 0} }
+  h2{font-size:clamp(1.8rem,4.4vw,2.6rem); line-height:1.15}
+  .sec-h{margin-bottom:10px}
+  .sec-p{color:var(--muted); margin-bottom:28px; max-width:60ch}
+
+  /* ── 13단계 ── */
+  .ladder{display:flex; gap:10px; overflow-x:auto; padding:10px 20px 18px; margin:0 -20px; scroll-snap-type:x proximity; scrollbar-width:thin; align-items:flex-end}
+  .step{flex:none; width:118px; text-align:center; scroll-snap-align:start; background:var(--surface); border:1.5px solid var(--line); border-radius:20px; padding:12px 8px 12px; position:relative}
+  .step img{margin:0 auto 8px; width:var(--s); height:var(--s)}
+  .step b{display:block; font-family:var(--display); font-size:1.05rem; line-height:1.2}
+  html[lang="en"] .step b{font-weight:600}
+  .step small{display:block; color:var(--faint); font-size:.74rem; font-weight:700; margin-top:2px; line-height:1.3}
+  .step i{position:absolute; top:8px; left:10px; font-style:normal; font-size:.7rem; font-weight:800; color:var(--faint)}
+  .step.top{background:linear-gradient(180deg,#FFF7DB,#F7E6A3); border-color:var(--gold)}
+  .arrow{flex:none; align-self:center; color:var(--faint); font-size:1.2rem; margin:0 -4px 20px}
+
+  /* ── 하는 법 ── */
+  .how{display:grid; gap:14px; counter-reset:step; list-style:none; margin:0; padding:0}
+  @media(min-width:860px){ .how{grid-template-columns:repeat(3,1fr); gap:18px} }
+  .how li{counter-increment:step; background:var(--surface); border:1.5px solid var(--line); border-radius:var(--r); padding:22px 22px 22px}
+  .how li::before{content:counter(step); display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background:var(--gold); color:var(--ink); font-family:var(--display); font-size:1.2rem; margin-bottom:14px}
+  .how h3{font-size:1.3rem}
+  .how p{color:var(--muted); font-size:1rem; line-height:1.55; margin-top:6px}
+
+  /* ── 저금통 셋 ── */
+  .jars{display:grid; gap:16px}
+  @media(min-width:760px){ .jars{grid-template-columns:repeat(3,1fr)} }
+  .jarcard{background:var(--surface); border:1.5px solid var(--line); border-radius:var(--r); padding:22px 20px 20px; text-align:center}
+  .jarcard img{height:150px; width:auto; margin:0 auto 12px}
+  .jarcard h3{font-size:1.35rem}
+  .jarcard .cost{display:inline-block; font-size:.78rem; font-weight:800; color:var(--muted); background:var(--soft); border-radius:999px; padding:3px 10px; margin:8px 0 10px}
+  .jarcard p{color:var(--muted); font-size:.95rem; line-height:1.55}
+  .jarcard .tag{display:inline-block; margin-top:10px; font-size:.82rem; font-weight:800; color:var(--green)}
+
+  /* ── 아이템 ── */
+  .items{display:grid; gap:12px; grid-template-columns:1fr 1fr}
+  @media(min-width:760px){ .items{grid-template-columns:repeat(3,1fr)} }
+  .item{display:flex; gap:14px; align-items:flex-start; background:var(--surface); border:1.5px solid var(--line); border-radius:18px; padding:16px}
+  .item .ic{flex:none; width:44px; height:44px; border-radius:12px; background:var(--soft); display:flex; align-items:center; justify-content:center}
+  .item .ic svg{width:24px; height:24px}
+  .item h3{font-size:1.1rem}
+  .item p{color:var(--muted); font-size:.9rem; line-height:1.5; margin-top:3px}
+  @media(max-width:420px){ .items{grid-template-columns:1fr} }
+
+  /* ── 안 하는 것 ── */
+  .keep{background:var(--felt); color:#fff}
+  .keep h2{color:#fff}
+  .keep .sec-p{color:var(--felt-line)}
+  .nots{list-style:none; margin:0; padding:0; display:grid; gap:12px}
+  @media(min-width:760px){ .nots{grid-template-columns:repeat(3,1fr)} }
+  .nots li{display:flex; gap:12px; align-items:flex-start; background:rgba(255,255,255,.08); border:1.5px solid rgba(255,255,255,.14); border-radius:18px; padding:16px 18px; font-weight:600; line-height:1.5}
+  .nots svg{width:24px; height:24px; flex:none; margin-top:2px}
+
+  /* ── 앱 화면 ── */
+  .shots{display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; padding:6px 20px 22px; margin:0 -20px; -webkit-overflow-scrolling:touch; scrollbar-width:thin}
+  .shots img{flex:none; width:min(240px,62vw); border-radius:26px; scroll-snap-align:center; box-shadow:0 10px 30px rgba(43,36,24,.12); background:var(--surface)}
+  @media(min-width:1100px){ .shots{overflow:visible; justify-content:space-between; margin:0; padding:6px 0 22px} .shots img{width:calc(20% - 13px)} }
+
+  .end{text-align:center; padding-bottom:72px}
+  .end img{width:120px; margin:0 auto 10px}
+  .end h2{margin-bottom:10px}
+  .end p{color:var(--muted); font-weight:600; margin-bottom:24px}
+
+  footer{border-top:1.5px solid var(--line); padding:28px 0 40px; font-size:.92rem; color:var(--muted)}
+  .foot{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; justify-content:space-between}
+  .foot nav{display:flex; flex-wrap:wrap; gap:8px 18px}
+  .foot a{font-weight:700; text-decoration:none; color:var(--ink)}
+  .foot a:hover{text-decoration:underline}
+  .foot small{display:block; width:100%; color:var(--faint); font-size:.82rem; margin-top:8px}
+
+  @media(prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .btn{transition:none} .pop{animation-duration:.01s} }
 </style>
 </head>
 <body>
-<section>
-<h1>돈돈</h1>
-<p class="lead">같은 돈 둘이 닿으면 한 단계 큰 돈.<br>1원에서 태산 1억까지, 얼마나 모을 수 있을까요?</p>
-<div class="shots"><img src="img/ko-01-merge.jpg" alt="세종대왕 둘이 합쳐져 신사임당이 되는 화면"><img src="img/ko-02-top.jpg" alt="태산 1억을 완성한 화면"><img src="img/ko-03-book.jpg" alt="동전 13종 도감"></div>
-<div class="order"><span>1원</span><span>5원</span><span>10원</span><span>50원</span><span>100원</span><span>500원</span><span>1,000원</span><span>5,000원</span><span>10,000원</span><span>50,000원</span><span>금괴</span><span>다이아몬드</span><span>태산</span></div>
-<p>저금통에 돈을 떨어뜨리고, 같은 돈끼리 닿게 하면 합쳐져요. 막힐 땐 되돌리기·순서 바꾸기·하나 빼기 같은 아이템을 쓰고, 생수통·돼지 저금통·금고마다 쓸 수 있는 아이템이 달라요.<br>계정 없이 바로 시작해요. 게임 속 돈과 포인트는 점수이고 실제 돈으로 바꿀 수 없어요.</p>
-<p><a class="btn" href="#" data-store>App Store에서 받기</a><br><small data-soon>출시 준비 중이에요</small></p>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top"><img src="assets/icon.webp" width="36" height="36" alt=""><span data-i="brand">돈돈</span></a>
+    <div class="right">
+      <div class="langs" id="langs" aria-label="Language">
+        <button data-lang="ko">한국어</button>
+        <button data-lang="en">EN</button>
+        <button data-lang="ja">日本語</button>
+      </div>
+      <a class="btn small" href="https://apps.apple.com/app/id6824332308">App Store</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1 id="h1"></h1>
+      <p class="sub" data-i="sub"></p>
+      <div class="cta">
+        <a class="btn" href="https://apps.apple.com/app/id6824332308"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.5 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.2-.9-1.7 0-3.2 1-4.1 2.5-1.7 3-.4 7.5 1.3 9.9.8 1.2 1.8 2.5 3.1 2.5 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.5-1-2.5-3.9zM14 5.3c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.8-1.4z"/></svg><span data-i="cta"></span></a>
+        <span class="cta-note" data-i="ctaNote"></span>
+      </div>
+      <div class="order" id="order" aria-label="order"></div>
+    </div>
+
+    <div class="toy" id="toy">
+      <div class="toy-top">
+        <div class="toy-score"><small data-i="score"></small><span id="score">₩0</span></div>
+        <div class="next"><span data-i="next"></span><img id="nextImg" src="assets/items/w10.webp" width="30" height="30" alt=""></div>
+      </div>
+      <div class="jar" id="jar">
+        <canvas id="cv" width="400" height="460" aria-label="jar"></canvas>
+        <div class="over" id="over" hidden><h3 data-i="overH"></h3><p id="overScore"></p><button class="btn small" id="again" type="button" data-i="again"></button></div>
+      </div>
+      <div class="toy-foot"><span class="toy-msg" id="toyMsg" aria-live="polite"></span><span class="toy-msg" id="bestMsg"></span></div>
+    </div>
+  </div>
 </section>
-<section lang="en">
-<h1>DonDon</h1>
-<p class="lead">Two of the same money merge into the next one.<br>From ₩1 to the ₩100M Mountain — how far can you save?</p>
-<div class="shots"><img src="img/en-01-merge.jpg" alt="Two King Sejong bills merging into Shin Saimdang"><img src="img/en-02-top.jpg" alt="The Mountain is made"><img src="img/en-03-book.jpg" alt="Collection of 13 coins"></div>
-<p>Drop money into the jar and merge matching pieces. Use items like Undo, Swap and Remove when you're stuck; each jar — water jug, piggy bank, vault — unlocks different items. No account needed. Money and points are scores only and cannot be exchanged for real money.</p>
-<p><a class="btn" href="#" data-store>Download on the App Store</a></p>
+
+<section aria-labelledby="ladH">
+  <div class="wrap">
+    <h2 class="sec-h" id="ladH" data-i="ladH"></h2>
+    <p class="sec-p" data-i="ladP"></p>
+    <div class="ladder" id="ladder"></div>
+  </div>
 </section>
-<section lang="ja">
-<h1>ドンドン</h1>
-<p class="lead">同じお金が2つくっつくと、ひとつ上のお金に。<br>1ウォンから1億の山まで、どこまで貯められる？</p>
-<div class="shots"><img src="img/ja-01-merge.jpg" alt="世宗大王2人が申師任堂になる画面"><img src="img/ja-02-top.jpg" alt="1億の山が完成した画面"><img src="img/ja-03-book.jpg" alt="コイン13種の図鑑"></div>
-<p>貯金箱にお金を落として、同じお金どうしを合体させます。困ったときは戻す・入れ替え・取り出すなどのアイテムを。水ボトル・ブタの貯金箱・金庫ごとに使えるアイテムが違います。アカウント不要。ゲーム内のお金とポイントはスコアで、現金には交換できません。</p>
-<p><a class="btn" href="#" data-store>App Storeでダウンロード</a></p>
+
+<section aria-labelledby="howH" style="padding-top:8px">
+  <div class="wrap">
+    <h2 class="sec-h" id="howH" data-i="howH"></h2>
+    <p class="sec-p" data-i="howP"></p>
+    <ol class="how">
+      <li><h3 data-i="s1t"></h3><p data-i="s1d"></p></li>
+      <li><h3 data-i="s2t"></h3><p data-i="s2d"></p></li>
+      <li><h3 data-i="s3t"></h3><p data-i="s3d"></p></li>
+    </ol>
+  </div>
 </section>
-<footer><a href="privacy.html">개인정보 처리방침 · Privacy · プライバシー</a> · <a href="support.html">도움말 · Support · サポート</a></footer>
+
+<section aria-labelledby="jarH" style="padding-top:8px">
+  <div class="wrap">
+    <h2 class="sec-h" id="jarH" data-i="jarH"></h2>
+    <p class="sec-p" data-i="jarP"></p>
+    <div class="jars">
+      <div class="jarcard"><img src="assets/jars/water.webp" alt="" loading="lazy"><h3 data-i="j1t"></h3><div class="cost" data-i="j1c"></div><p data-i="j1d"></p></div>
+      <div class="jarcard"><img src="assets/jars/pig.webp" alt="" loading="lazy"><h3 data-i="j2t"></h3><div class="cost" data-i="j2c"></div><p data-i="j2d"></p></div>
+      <div class="jarcard"><img src="assets/jars/vault.webp" alt="" loading="lazy"><h3 data-i="j3t"></h3><div class="cost" data-i="j3c"></div><p data-i="j3d"></p><span class="tag" data-i="j3tag"></span></div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="itemH" style="padding-top:8px">
+  <div class="wrap">
+    <h2 class="sec-h" id="itemH" data-i="itemH"></h2>
+    <p class="sec-p" data-i="itemP"></p>
+    <div class="items" id="items"></div>
+  </div>
+</section>
+
+<section class="keep" aria-labelledby="keepH">
+  <div class="wrap">
+    <h2 class="sec-h" id="keepH" data-i="keepH"></h2>
+    <p class="sec-p" data-i="keepP"></p>
+    <ul class="nots" id="nots"></ul>
+  </div>
+</section>
+
+<section aria-labelledby="shotsH">
+  <div class="wrap">
+    <h2 class="sec-h" id="shotsH" data-i="shotsH"></h2>
+    <div class="shots" id="shots"></div>
+  </div>
+</section>
+
+<section class="end">
+  <div class="wrap">
+    <img src="assets/items/mountain.webp" width="120" height="120" alt="" loading="lazy">
+    <h2 data-i="endH"></h2>
+    <p data-i="endS"></p>
+    <a class="btn" href="https://apps.apple.com/app/id6824332308"><span data-i="cta"></span></a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 <a href="https://younghwakim.github.io/">mubi labs</a></span>
+    <nav><a href="support.html" data-i="support"></a><a href="privacy.html" data-i="privacy"></a></nav>
+    <small data-i="disclaimer"></small>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js" crossorigin="anonymous"></script>
 <script>
-  // 출시 뒤 status.json 의 iosStoreUrl 만 채우면 버튼이 살아난다
-  fetch('status.json', { cache: 'no-store' }).then(r => r.json()).then(s => {
-    if (!s.iosStoreUrl) return;
-    document.querySelectorAll('[data-store]').forEach(a => { a.href = s.iosStoreUrl; });
-    document.querySelectorAll('[data-soon]').forEach(e => e.remove());
-  }).catch(() => {});
+(function(){
+  // ── 돈 13종: 앱의 game/items.ts 와 같은 순서·반지름(통 너비 대비) ──
+  var ITEMS = [
+    { id:'w1', v:1, r:.040 }, { id:'w5', v:5, r:.050 }, { id:'w10', v:10, r:.060 }, { id:'w50', v:50, r:.073 }, { id:'w100', v:100, r:.087 }, { id:'w500', v:500, r:.103 },
+    { id:'w1000', v:1000, r:.120 }, { id:'w5000', v:5000, r:.139 }, { id:'w10000', v:10000, r:.159 }, { id:'w50000', v:50000, r:.181 },
+    { id:'gold', v:1000000, r:.205 }, { id:'diamond', v:10000000, r:.232 }, { id:'mountain', v:100000000, r:.262 }
+  ];
+  var UI = {
+    ko:{ htmlLang:'ko', title:'돈돈 — 동전 합치기 머지 게임', brand:'돈돈',
+      h1:'같은 돈 둘이 닿으면<br><span class="hl">한 단계 큰 돈.</span>', sub:'10원 둘이면 50원, 세종대왕 둘이면 신사임당. 저금통에 돈을 떨어뜨려 1원에서 태산 1억까지 키워 보세요.',
+      cta:'App Store에서 받기', ctaNote:'무료 · 계정 없음 · iPhone',
+      score:'모은 돈', next:'다음', overH:'저금통이 넘쳤어요', again:'다시 하기', hint:'저금통을 눌러 떨어뜨려 보세요.', playing:'같은 돈끼리 닿게 해 보세요.', best:'최고 ',
+      names:['1원','5원','10원','50원','100원','500원','1,000원','5,000원','10,000원','50,000원','금괴','다이아몬드','태산 1억'],
+      faces:['무궁화','거북선','다보탑','벼 이삭','이순신','학','퇴계 이황','율곡 이이','세종대왕','신사임당','','','한 판의 끝'],
+      ladH:'1원에서 태산까지, 13단계', ladP:'돈은 누구나 순서를 알아요. 외울 게 없어서 바로 시작할 수 있어요. 만든 돈은 도감에 남아요.',
+      howH:'이렇게 합니다', howP:'한 판은 2분에서 5분. 짧게 머리 식히기에 맞아요.',
+      s1t:'자리를 고르고 떨어뜨리기', s1d:'손가락을 좌우로 움직여 자리를 고르고, 떼면 떨어져요. 다음에 올 돈이 미리 보여요.',
+      s2t:'같은 돈끼리 닿으면 합치기', s2d:'닿는 순간 한 단계 큰 돈이 돼요. 연달아 합치면 콤보로 포인트를 더 받아요.',
+      s3t:'선을 넘기지 않기', s3d:'돈이 위쪽 점선 위에 오래 머물면 저금통이 넘쳐요. 넘치면 한 판에 한 번 이어서 할 수 있어요.',
+      jarH:'저금통마다 다른 판', jarP:'판을 하며 모은 포인트로 저금통을 열어요. 통이 올라갈수록 아이템을 더 쓸 수 있어요.',
+      j1t:'생수통', j1c:'처음부터', j1d:'되돌리기 2번 · 순서 바꾸기 2번 · 하나 빼기 1번',
+      j2t:'돼지 저금통', j2c:'500P', j2d:'아이템이 하나씩 늘고, 흔들기가 열려요',
+      j3t:'금고', j3c:'3,000P', j3d:'잔돈 쓸기까지 전부. 벽을 겨냥해 튕겨 넣는 조준 쏘기는 금고에서만', j3tag:'조준 쏘기',
+      itemH:'막힐 때 쓰는 아이템', itemP:'포인트는 아이템이 실제로 작동할 때만 빠져요. 모자라면 광고를 보고 한 번 더 쓸 수 있어요.',
+      items:[['되돌리기','마지막 한 수를 무릅니다.'],['순서 바꾸기','지금 돈과 다음 돈을 바꿉니다.'],['하나 빼기','걸리적거리는 돈 하나를 뺍니다.'],['흔들기','통을 흔들어 틈을 메웁니다.'],['잔돈 쓸기','10원 이하 잔돈을 한 번에 치웁니다.'],['조준 쏘기','벽에 튕겨 원하는 자리에 넣습니다. 금고 전용.']],
+      keepH:'돈돈이 안 하는 것', keepP:'게임 속 돈과 포인트는 점수예요. 실제 돈과는 아무 관계가 없어요.',
+      nots:['계정을 만들지 않아요. 열면 바로 시작해요.','실제 돈을 주거나 받지 않아요. 결제도 없어요.','인터넷이 없어도 할 수 있어요. 광고는 연결됐을 때만 나와요.'],
+      shotsH:'앱 화면', endH:'어디까지 모을 수 있을까?', endS:'티끌 모아 태산까지.',
+      support:'문의', privacy:'개인정보 처리방침', disclaimer:'게임 속 ₩와 포인트는 점수이며 실제 화폐·현금 보상과 무관합니다.' },
+    en:{ htmlLang:'en', title:'DonDon — Coin Merge Puzzle', brand:'DonDon',
+      h1:'Two of the same money<br>merge into <span class="hl">the next one.</span>', sub:'Two ₩10 coins make ₩50. Two King Sejongs make Shin Saimdang. Drop money into the jar and grow it from ₩1 to the ₩100M Mountain.',
+      cta:'Get it on the App Store', ctaNote:'Free · No account · iPhone',
+      score:'In the jar', next:'Next', overH:'The jar overflowed', again:'Play again', hint:'Tap the jar to drop a coin.', playing:'Make the same money touch.', best:'Best ',
+      names:['₩1','₩5','₩10','₩50','₩100','₩500','₩1,000','₩5,000','₩10,000','₩50,000','Gold bar','Diamond','Mountain ₩100M'],
+      faces:['Hibiscus','Turtle ship','Dabotap pagoda','Rice ear','Yi Sun-sin','Crane','Yi Hwang','Yi I','King Sejong','Shin Saimdang','','','The top'],
+      ladH:'13 steps from ₩1 to the Mountain', ladP:'Everyone already knows the order of money, so there is nothing to memorize. Everything you make stays in your collection.',
+      howH:'How to play', howP:'A game takes two to five minutes. Good for a short break.',
+      s1t:'Pick a spot and drop', s1d:'Slide your finger left and right, release to drop. You can see what comes next.',
+      s2t:'Same money merges', s2d:'The moment they touch, they become the next one. Chain merges for combo points.',
+      s3t:'Stay under the line', s3d:'If money rests above the dotted line too long, the jar overflows. You can continue once per game.',
+      jarH:'Every jar plays differently', jarP:'Unlock jars with points you earn by playing. Higher jars let you use more items.',
+      j1t:'Water jug', j1c:'From the start', j1d:'Undo ×2 · Swap ×2 · Remove ×1',
+      j2t:'Piggy bank', j2c:'500P', j2d:'One more of each item, and Shake is unlocked',
+      j3t:'Vault', j3c:'3,000P', j3d:'Everything, including Sweep. Aim shot, which bounces off the wall into the spot you want, is vault only', j3tag:'Aim shot',
+      itemH:'Items for when you are stuck', itemP:'Points are only spent when an item actually works. Out of points? Watch an ad to use one more.',
+      items:[['Undo','Take back your last drop.'],['Swap','Swap the current coin with the next one.'],['Remove','Take out one coin that is in the way.'],['Shake','Shake the jar to fill the gaps.'],['Sweep','Clear all small change up to ₩10 at once.'],['Aim shot','Bounce off the wall into the exact spot. Vault only.']],
+      keepH:'What DonDon does not do', keepP:'The money and points in the game are scores. They have nothing to do with real money.',
+      nots:['No account. Open the app and play.','No real money in or out. No purchases.','Works offline. Ads only appear when you are connected.'],
+      shotsH:'Screens', endH:'How far can you save?', endS:'Little by little, a mountain.',
+      support:'Support', privacy:'Privacy', disclaimer:'₩ and points in the game are scores, unrelated to real currency or cash rewards.' },
+    ja:{ htmlLang:'ja', title:'ドンドン — コイン合体パズル', brand:'ドンドン',
+      h1:'同じお金が2つくっつくと、<br><span class="hl">ひとつ上のお金に。</span>', sub:'10ウォン2枚で50ウォン、世宗大王2人で申師任堂。貯金箱にお金を落として、1ウォンから1億の山まで育ててみてください。',
+      cta:'App Store で入手', ctaNote:'無料・アカウント不要・iPhone',
+      score:'貯金箱の中', next:'次', overH:'貯金箱があふれました', again:'もう一回', hint:'貯金箱をタップして落としてみて。', playing:'同じお金どうしをくっつけよう。', best:'ベスト ',
+      names:['1ウォン','5ウォン','10ウォン','50ウォン','100ウォン','500ウォン','1,000ウォン','5,000ウォン','10,000ウォン','50,000ウォン','金塊','ダイヤ','山 1億'],
+      faces:['ムクゲ','亀甲船','多宝塔','稲穂','李舜臣','鶴','李滉','李珥','世宗大王','申師任堂','','','ゴール'],
+      ladH:'1ウォンから山まで、13段階', ladP:'お金の順番はだれでも知っています。覚えることがないので、すぐ遊べます。作ったお金は図鑑に残ります。',
+      howH:'遊び方', howP:'1ゲームは2〜5分。ちょっとした息抜きに。',
+      s1t:'場所を決めて落とす', s1d:'指を左右に動かして場所を決め、離すと落ちます。次に来るお金が見えています。',
+      s2t:'同じお金が触れると合体', s2d:'触れた瞬間、ひとつ上のお金に。続けて合体するとコンボでポイントが増えます。',
+      s3t:'線を越えない', s3d:'お金が上の点線の上に長くとどまると、貯金箱があふれます。1ゲームに1回だけ続きから遊べます。',
+      jarH:'貯金箱ごとに違う遊び方', jarP:'遊んで貯めたポイントで貯金箱を開けます。上の貯金箱ほどアイテムを多く使えます。',
+      j1t:'水ボトル', j1c:'最初から', j1d:'戻す2回・入れ替え2回・取り出す1回',
+      j2t:'ブタの貯金箱', j2c:'500P', j2d:'アイテムがひとつずつ増え、「ゆらす」が使えます',
+      j3t:'金庫', j3c:'3,000P', j3d:'小銭そうじまで全部。壁をねらって跳ね返す「ねらい撃ち」は金庫だけ', j3tag:'ねらい撃ち',
+      itemH:'困ったときのアイテム', itemP:'ポイントはアイテムが実際に働いたときだけ減ります。足りなければ広告を見てもう1回。',
+      items:[['戻す','最後の1手を取り消します。'],['入れ替え','今のお金と次のお金を入れ替えます。'],['取り出す','じゃまなお金を1枚取り出します。'],['ゆらす','貯金箱をゆらしてすき間を埋めます。'],['小銭そうじ','10ウォン以下の小銭を一度に片づけます。'],['ねらい撃ち','壁に当てて狙った場所へ。金庫だけ。']],
+      keepH:'ドンドンがしないこと', keepP:'ゲーム内のお金とポイントはスコアです。現金とは関係ありません。',
+      nots:['アカウントは作りません。開いてすぐ遊べます。','現金のやり取りはありません。課金もありません。','オフラインでも遊べます。広告は接続時のみ。'],
+      shotsH:'アプリの画面', endH:'どこまで貯められる？', endS:'塵も積もれば山となる。',
+      support:'サポート', privacy:'プライバシーポリシー', disclaimer:'ゲーム内の₩とポイントはスコアであり、実際の通貨や現金報酬とは無関係です。' }
+  };
+  var ICONS = [
+    '<svg viewBox="0 0 24 24" fill="none" stroke="#2B2418" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="#2B2418" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h11l-3-3"/><path d="M17 17H6l3 3"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="#2B2418" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="#2B2418" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9"/><path d="M3 9h18M8 5h8"/><path d="M9 13l1 2M15 13l-1 2"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="#2B2418" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l6-6"/><path d="M14 4l6 6-8 8-6-6z"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="#2B2418" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>'
+  ];
+  var CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#E2A91E"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#2B2418" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var LANG = 'ko';
+  function $(id){ return document.getElementById(id); }
+  function fmt(n){ return '₩' + n.toLocaleString('en-US'); }
+
+  // ── 떨어뜨려 보는 저금통 (matter-js, 앱과 같은 규칙: 같은 돈이 닿으면 다음 돈, 선 위에 1.5초 머물면 끝) ──
+  var M = window.Matter, cv = $('cv'), ctx = cv.getContext('2d'), jarEl = $('jar');
+  var W = 400, H = 460, LINE = 92, STEP = 1000/60;
+  var imgs = ITEMS.map(function(it){ var im = new Image(); im.src = 'assets/items/' + it.id + '.webp'; return im; });
+  var engine, world, bodies = [], score = 0, banked = 0, best = 0, nextTier = 2, curTier = 2, canDrop = true, over = false, aimX = W/2, pending = [], pops = [];
+  try{ best = Number(localStorage.getItem('dondon-best') || 0); }catch(e){}
+  function radius(t){ return ITEMS[t-1].r * W; }
+  function pick(){ var r = Math.random(); return r < .06 ? 1 : r < .14 ? 2 : r < .55 ? 3 : r < .8 ? 4 : r < .94 ? 5 : 6; }
+  function make(t, x, y){
+    var b = M.Bodies.circle(x, y, radius(t), { restitution:.12, friction:.55, frictionStatic:.9, frictionAir:.008, density:.0012 });
+    b.tier = t; b.settled = false; b.overMs = 0; bodies.push(b); M.Composite.add(world, b); return b;
+  }
+  function reset(){
+    if (engine) M.Engine.clear(engine);
+    engine = M.Engine.create({ enableSleeping:true }); world = engine.world; bodies = []; score = 0; banked = 0; over = false; pending = []; pops = [];
+    var wall = 60;
+    M.Composite.add(world, [
+      M.Bodies.rectangle(W/2, H + wall/2, W + wall*2, wall, { isStatic:true, friction:.8, label:'floor' }),
+      M.Bodies.rectangle(-wall/2, H/2, wall, H*3, { isStatic:true, friction:.12, label:'wall' }),
+      M.Bodies.rectangle(W + wall/2, H/2, wall, H*3, { isStatic:true, friction:.12, label:'wall' })
+    ]);
+    M.Events.on(engine, 'collisionStart', function(ev){
+      ev.pairs.forEach(function(p){
+        var a = p.bodyA, b = p.bodyB, wallish = a.label === 'wall' || b.label === 'wall';
+        if (!wallish){ if (a.tier && !a.settled) a.settled = true; if (b.tier && !b.settled) b.settled = true; }
+        if (a.tier && b.tier && a.tier === b.tier) pending.push([a, b]);
+      });
+    });
+    curTier = pick(); nextTier = pick(); canDrop = true; $('over').hidden = true; sync();
+  }
+  function remove(b){ M.Composite.remove(world, b); bodies = bodies.filter(function(x){ return x !== b; }); }
+  function merges(){
+    if (!pending.length) return;
+    var used = {}, list = pending; pending = [];
+    list.forEach(function(pr){
+      var a = pr[0], b = pr[1];
+      if (used[a.id] || used[b.id] || bodies.indexOf(a) < 0 || bodies.indexOf(b) < 0) return;
+      used[a.id] = used[b.id] = true;
+      var x = (a.position.x + b.position.x)/2, y = (a.position.y + b.position.y)/2, t = a.tier;
+      remove(a); remove(b);
+      bodies.forEach(function(o){ M.Sleeping.set(o, false); });
+      if (t >= 13){ banked += 200000000; pop(x, y, '+' + fmt(200000000)); return; }
+      var n = make(t + 1, x, Math.min(H - radius(t+1), y)); n.settled = true;
+      var gain = ITEMS[t].v - 2 * ITEMS[t-1].v; if (gain > 0) pop(x, y, '+' + fmt(gain));
+    });
+  }
+  function pop(x, y, text){ var el = document.createElement('div'); el.className = 'pop'; el.textContent = text; var r = jarEl.getBoundingClientRect(); el.style.left = (x / W * 100) + '%'; el.style.top = (y / H * 100) + '%'; jarEl.appendChild(el); setTimeout(function(){ el.remove(); }, 900); }
+  function sync(){
+    var tot = banked; bodies.forEach(function(b){ tot += ITEMS[b.tier-1].v; }); score = tot;
+    $('score').textContent = fmt(score); $('nextImg').src = 'assets/items/' + ITEMS[nextTier-1].id + '.webp';
+    $('bestMsg').textContent = best > 0 ? UI[LANG].best + fmt(best) : '';
+  }
+  function endGame(){
+    over = true; canDrop = false;
+    if (score > best){ best = score; try{ localStorage.setItem('dondon-best', String(best)); }catch(e){} }
+    $('overScore').textContent = fmt(score); $('over').hidden = false; sync();
+  }
+  var last = 0;
+  function frame(now){
+    requestAnimationFrame(frame);
+    var dt = last ? Math.min(50, now - last) : STEP; last = now;
+    if (!over){ M.Engine.update(engine, STEP); merges(); }
+    var danger = false;
+    bodies.forEach(function(b){
+      if (b.settled && b.position.y - radius(b.tier) < LINE){ danger = true; if (!over && b.speed < 1.5){ b.overMs += dt; if (b.overMs >= 1500) endGame(); } }
+      else b.overMs = 0;
+    });
+    draw(danger);
+  }
+  function draw(danger){
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    if (cv.width !== W*dpr){ cv.width = W*dpr; cv.height = H*dpr; }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+    // 끝 선
+    ctx.setLineDash([8, 8]); ctx.lineWidth = 2; ctx.strokeStyle = danger ? '#FF6B5E' : 'rgba(143,199,176,.7)'; ctx.beginPath(); ctx.moveTo(14, LINE); ctx.lineTo(W-14, LINE); ctx.stroke(); ctx.setLineDash([]);
+    // 미리보기
+    if (!over && canDrop){ var r0 = radius(curTier); ctx.globalAlpha = .95; ctx.drawImage(imgs[curTier-1], aimX - r0, 44 - r0, r0*2, r0*2); ctx.globalAlpha = .25; ctx.strokeStyle = '#fff'; ctx.setLineDash([4, 8]); ctx.beginPath(); ctx.moveTo(aimX, 44 + r0); ctx.lineTo(aimX, H - 6); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1; }
+    bodies.forEach(function(b){
+      var r = radius(b.tier), im = imgs[b.tier-1]; if (!im.complete) return;
+      ctx.save(); ctx.translate(b.position.x, b.position.y); ctx.rotate(b.angle); ctx.drawImage(im, -r, -r, r*2, r*2); ctx.restore();
+    });
+  }
+  function clampX(x){ var r = radius(curTier) + 2; return Math.max(r, Math.min(W - r, x)); }
+  function toX(e){ var rc = jarEl.getBoundingClientRect(); return (e.clientX - rc.left) / rc.width * W; }
+  jarEl.addEventListener('pointerdown', function(e){ if (over) return; aimX = clampX(toX(e)); jarEl.setPointerCapture(e.pointerId); });
+  jarEl.addEventListener('pointermove', function(e){ if (over) return; aimX = clampX(toX(e)); });
+  jarEl.addEventListener('pointerup', function(e){
+    if (over || !canDrop) return;
+    aimX = clampX(toX(e)); make(curTier, aimX, 44); canDrop = false; $('toyMsg').textContent = UI[LANG].playing;
+    setTimeout(function(){ curTier = nextTier; nextTier = pick(); canDrop = true; sync(); }, 600); sync();
+  });
+  $('again').addEventListener('click', function(){ reset(); $('toyMsg').textContent = UI[LANG].hint; });
+  if (M){ reset(); requestAnimationFrame(frame); } else { jarEl.hidden = true; }
+
+  // ── 언어 ──
+  function render(){
+    var u = UI[LANG];
+    document.documentElement.lang = u.htmlLang; document.title = u.title;
+    $('h1').innerHTML = u.h1;
+    document.querySelectorAll('[data-i]').forEach(function(el){ var v = u[el.getAttribute('data-i')]; if (typeof v === 'string') el.textContent = v; });
+    $('order').innerHTML = [2, 3, 5, 8, 12].map(function(i){ return '<span><img src="assets/items/'+ITEMS[i].id+'.webp" alt=""><b>'+u.names[i]+'</b></span>'; }).join('<span style="background:none;border:0;padding:0;color:#A39682">→</span>') + '<span style="background:none;border:0;padding:0 4px;color:#A39682">…</span>';
+    $('ladder').innerHTML = ITEMS.map(function(it, i){ var s = 40 + i*4; return '<div class="step'+(i===12?' top':'')+'" style="--s:'+s+'px"><i>'+(i+1)+'</i><img src="assets/items/'+it.id+'.webp" width="'+s+'" height="'+s+'" alt="" loading="lazy"><b>'+u.names[i]+'</b><small>'+(u.faces[i]||'&nbsp;')+'</small></div>'; }).join('<span class="arrow">›</span>');
+    $('items').innerHTML = u.items.map(function(t, i){ return '<div class="item"><div class="ic">'+ICONS[i]+'</div><div><h3>'+t[0]+'</h3><p>'+t[1]+'</p></div></div>'; }).join('');
+    $('nots').innerHTML = u.nots.map(function(t){ return '<li>'+CHECK+'<span>'+t+'</span></li>'; }).join('');
+    $('shots').innerHTML = [1,2,3,4,5].map(function(i){ return '<img src="assets/shot-'+LANG+'-'+i+'.webp" width="480" height="1039" alt="'+u.shotsH+' '+i+'" loading="lazy">'; }).join('');
+    $('toyMsg').textContent = u.hint; sync();
+  }
+  var buttons = document.querySelectorAll('#langs button');
+  function apply(lang, save){ LANG = UI[lang] ? lang : 'en'; render(); buttons.forEach(function(b){ b.classList.toggle('on', b.dataset.lang === LANG); }); if (save){ try{ localStorage.setItem('dondon-lang', LANG); }catch(e){} } }
+  buttons.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.lang, true); }); });
+  var q = null; try{ q = new URLSearchParams(location.search).get('lang'); }catch(e){}
+  var saved = null; try{ saved = localStorage.getItem('dondon-lang'); }catch(e){}
+  var sys = (navigator.language || 'en').slice(0,2).toLowerCase();
+  apply((q && UI[q]) ? q : (saved && UI[saved]) ? saved : (UI[sys] ? sys : 'en'), false);
+})();
 </script>
 </body>
 </html>
