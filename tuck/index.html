@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tuck — Private Photo Vault</title>
+<meta name="description" content="A different drawer for every PIN. Hide photos, videos and documents. No subscription, no account, no server. Your photos never leave your phone.">
+<meta name="theme-color" content="#10131F">
+<meta name="apple-itunes-app" content="app-id=6824168879">
+<link rel="canonical" href="https://younghwakim.github.io/shared/tuck/">
+<link rel="icon" href="assets/icon.webp">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tuck — Private Photo Vault">
+<meta property="og:description" content="A different drawer for every PIN. No subscription, no account, no server.">
+<meta property="og:image" content="https://younghwakim.github.io/shared/tuck/assets/og.jpg">
+<meta property="og:url" content="https://younghwakim.github.io/shared/tuck/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  /* Tuck 의 색 — 앱과 같은 값(brand.json). 늘 밤 서랍(다크). 강조색은 화면마다 하나, 지금 열린 서랍의 색 */
+  :root{
+    --bg:#10131F; --surface:#181D2D; --raised:#212739; --line:#2B3248; --ink:#F3F6FC; --muted:#A3AAC2; --faint:#6E7692;
+    --amber:#D9A24B; --amber-ink:#14140F; --glow:#4C6FD8; --key:#1C2236;
+    --work:#3F6FA8; --personal:#7460B8; --family:#BF5A38; --moss:#4F8456; --rose:#B24E6A;
+    --tint:var(--amber);
+    --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Hiragino Sans","Segoe UI",sans-serif;
+    --maxw:1080px; --r:22px;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--font); font-size:17px; line-height:1.6; letter-spacing:-.01em; word-break:keep-all; overflow-wrap:break-word; overflow-x:hidden}
+  html:not([lang="ko"]) body{word-break:normal}
+  html[lang="ja"] body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif; line-break:strict}
+  html[lang="zh-Hant"] body{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif}
+  img,video{max-width:100%; height:auto; display:block}
+  a{color:inherit}
+  h1,h2,h3,p{margin:0}
+  h1,h2,h3{font-weight:800; letter-spacing:-.03em; text-wrap:balance}
+  :focus-visible{outline:3px solid var(--amber); outline-offset:3px; border-radius:10px}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+  [hidden]{display:none !important}
+
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; font-weight:800; font-size:1.08rem; line-height:1; text-decoration:none; color:var(--amber-ink); background:linear-gradient(180deg,#F3B95F,#D6922B); border:0; border-radius:14px; padding:17px 26px; cursor:pointer; transition:transform .12s, filter .12s; white-space:nowrap}
+  .btn:hover{transform:translateY(-1px); filter:brightness(1.05)}
+  .btn:active{transform:translateY(1px)}
+  .btn.ghost{background:var(--raised); color:var(--ink); border:1.5px solid var(--line)}
+  .btn.small{font-size:.95rem; padding:11px 16px; border-radius:11px}
+  .btn svg{width:20px; height:20px; flex:none}
+
+  header{position:sticky; top:0; z-index:30; background:color-mix(in srgb, var(--bg) 84%, transparent); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); border-bottom:1px solid color-mix(in srgb, var(--line) 70%, transparent)}
+  .bar{display:flex; align-items:center; justify-content:space-between; gap:10px; height:66px}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:900; font-size:1.4rem; letter-spacing:-.03em}
+  .brand img{width:36px; height:36px; border-radius:10px}
+  .right{display:flex; align-items:center; gap:10px}
+  .langs{display:flex; gap:1px; background:var(--surface); border:1.5px solid var(--line); padding:3px; border-radius:999px; overflow-x:auto; scrollbar-width:none}
+  .langs button{border:0; background:transparent; color:var(--muted); font:inherit; font-size:.78rem; font-weight:700; padding:5px 9px; border-radius:999px; cursor:pointer; white-space:nowrap}
+  .langs button.on{background:var(--ink); color:var(--bg)}
+  @media(max-width:640px){ header .btn{display:none} .langs button{padding:5px 7px; font-size:.74rem} }
+
+  /* ── 첫 화면 ── */
+  .hero{padding:28px 0 56px}
+  .hero-grid{display:grid; gap:34px; align-items:center}
+  @media(min-width:900px){ .hero{padding:56px 0 92px} .hero-grid{grid-template-columns:1.05fr .95fr; gap:52px} }
+  h1{font-size:clamp(2.2rem,7.2vw,4rem); line-height:1.1}
+  h1 .hl{color:var(--amber)}
+  .sub{margin-top:18px; font-size:clamp(1.05rem,2.2vw,1.2rem); color:var(--muted); max-width:36ch; line-height:1.65}
+  .cta{display:flex; flex-wrap:wrap; align-items:center; gap:14px 18px; margin-top:26px}
+  .cta-note{font-size:.92rem; color:var(--muted); font-weight:600}
+  .promise{display:flex; flex-wrap:wrap; gap:8px; margin-top:26px}
+  .promise span{display:inline-flex; align-items:center; gap:7px; background:var(--surface); border:1.5px solid var(--line); border-radius:999px; padding:6px 12px; font-size:.86rem; font-weight:700; color:var(--muted)}
+  .promise svg{width:16px; height:16px; color:var(--amber)}
+
+  /* 열어 보는 서랍 */
+  .toy{position:relative; background:var(--surface); border:1.5px solid var(--line); border-radius:30px; padding:18px; max-width:420px; width:100%; margin:0 auto; transition:box-shadow .5s, border-color .5s; box-shadow:0 0 0 0 color-mix(in srgb, var(--tint) 0%, transparent)}
+  .toy.open{border-color:color-mix(in srgb, var(--tint) 60%, var(--line)); box-shadow:0 0 70px -10px color-mix(in srgb, var(--tint) 55%, transparent)}
+  .lock{display:grid; gap:14px; justify-items:center}
+  .chest{width:150px; height:150px; position:relative}
+  .chest img{position:absolute; inset:0; width:100%; height:100%; transition:opacity .35s}
+  .chest img.on{opacity:1} .chest img:not(.on){opacity:0}
+  .lock-msg{min-height:24px; font-size:.95rem; font-weight:600; color:var(--muted); text-align:center}
+  .dots{display:flex; gap:12px; height:14px}
+  .dots i{width:12px; height:12px; border-radius:50%; background:var(--line); transition:background .15s, transform .15s}
+  .dots i.on{background:var(--glow); transform:scale(1.15)}
+  .toy.shake .dots{animation:shake .4s}
+  @keyframes shake{0%,100%{transform:translateX(0)} 25%{transform:translateX(-7px)} 75%{transform:translateX(7px)}}
+  .pad{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; width:100%; max-width:270px}
+  .pad button{height:58px; border:0; border-radius:16px; background:var(--key); color:var(--ink); font:inherit; font-size:1.35rem; font-weight:700; cursor:pointer; transition:transform .08s, background .12s}
+  .pad button:hover{background:var(--raised)} .pad button:active{transform:scale(.95)}
+  .pad button.dim{background:transparent; color:var(--muted); font-size:1rem}
+  .pad button.wide{grid-column:2}
+  .hintpins{display:flex; gap:6px; flex-wrap:wrap; justify-content:center; margin-top:4px}
+  .hintpins button{border:1.5px solid var(--line); background:transparent; color:var(--muted); font:inherit; font-size:.8rem; font-weight:700; border-radius:999px; padding:4px 10px; cursor:pointer; display:inline-flex; align-items:center; gap:6px}
+  .hintpins button:hover{color:var(--ink); border-color:var(--muted)}
+  .hintpins i{width:10px; height:10px; border-radius:50%; display:inline-block}
+
+  .drawer{display:none; gap:12px}
+  .toy.open .lock{display:none} .toy.open .drawer{display:grid}
+  .dtop{display:flex; align-items:center; justify-content:space-between; gap:10px}
+  .dname{display:flex; align-items:center; gap:10px; font-weight:800; font-size:1.15rem}
+  .dname i{width:14px; height:14px; border-radius:50%; background:var(--tint); display:inline-block; box-shadow:0 0 12px var(--tint)}
+  .dname small{color:var(--muted); font-weight:600; font-size:.85rem}
+  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
+  .tile{position:relative; aspect-ratio:1; border-radius:14px; overflow:hidden; background:var(--raised); border:1.5px solid var(--line); animation:pop .35s cubic-bezier(.3,1.5,.5,1) backwards}
+  .tile:nth-child(2){animation-delay:.04s} .tile:nth-child(3){animation-delay:.08s} .tile:nth-child(4){animation-delay:.12s} .tile:nth-child(5){animation-delay:.16s} .tile:nth-child(6){animation-delay:.2s}
+  @keyframes pop{0%{transform:scale(.6); opacity:0} 100%{transform:scale(1); opacity:1}}
+  .tile svg{position:absolute; inset:0; width:100%; height:100%}
+  .tile .bar{position:absolute; left:14%; height:11%; border-radius:3px; background:#0B0D14}
+  .tile .badge{position:absolute; right:7px; bottom:7px; font-size:.62rem; font-weight:800; background:rgba(11,13,20,.75); color:var(--ink); border-radius:999px; padding:2px 7px}
+  .dmsg{font-size:.9rem; color:var(--muted); line-height:1.5; min-height:44px}
+  .dbtns{display:flex; gap:8px; justify-content:flex-end}
+
+  section{padding:56px 0}
+  @media(min-width:900px){ section{padding:84px 0} }
+  h2{font-size:clamp(1.8rem,4.4vw,2.5rem); line-height:1.15}
+  .sec-h{margin-bottom:10px}
+  .sec-p{color:var(--muted); margin-bottom:28px; max-width:62ch}
+
+  /* ── 약속 ── */
+  .keep{background:var(--surface); border-top:1.5px solid var(--line); border-bottom:1.5px solid var(--line)}
+  .nots{list-style:none; margin:0; padding:0; display:grid; gap:12px; grid-template-columns:1fr 1fr}
+  @media(min-width:760px){ .nots{grid-template-columns:repeat(4,1fr)} }
+  .nots li{display:flex; gap:12px; align-items:flex-start; background:var(--raised); border:1.5px solid var(--line); border-radius:18px; padding:16px 18px; font-weight:700; line-height:1.45}
+  .nots svg{width:24px; height:24px; flex:none; margin-top:1px}
+  .free{margin-top:18px; color:var(--muted); font-weight:600; line-height:1.6}
+  .free b{color:var(--ink)}
+
+  /* ── 하는 일 ── */
+  .feats{display:grid; gap:14px}
+  @media(min-width:760px){ .feats{grid-template-columns:1fr 1fr} }
+  @media(min-width:1000px){ .feats{grid-template-columns:repeat(3,1fr)} }
+  .feat{background:var(--surface); border:1.5px solid var(--line); border-radius:var(--r); padding:22px 22px 22px; position:relative; overflow:hidden}
+  .feat::before{content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:var(--c, var(--amber))}
+  .feat .ic{width:46px; height:46px; border-radius:14px; background:color-mix(in srgb, var(--c, var(--amber)) 22%, var(--raised)); display:flex; align-items:center; justify-content:center; margin-bottom:14px}
+  .feat .ic svg{width:26px; height:26px; color:var(--ink)}
+  .feat h3{font-size:1.25rem}
+  .feat p{color:var(--muted); font-size:.98rem; line-height:1.55; margin-top:6px}
+
+  /* ── 무료·Pro ── */
+  .plans{display:grid; gap:14px}
+  @media(min-width:760px){ .plans{grid-template-columns:1fr 1fr} }
+  .plan{background:var(--surface); border:1.5px solid var(--line); border-radius:var(--r); padding:24px}
+  .plan.pro{border-color:color-mix(in srgb, var(--amber) 55%, var(--line))}
+  .plan h3{font-size:1.4rem; display:flex; align-items:center; gap:10px}
+  .plan h3 small{font-size:.8rem; font-weight:800; color:var(--amber-ink); background:var(--amber); border-radius:999px; padding:3px 9px}
+  .plan ul{margin:14px 0 0; padding:0; list-style:none; display:grid; gap:8px}
+  .plan li{display:flex; gap:10px; align-items:flex-start; color:var(--muted); font-weight:600; line-height:1.5}
+  .plan li svg{width:20px; height:20px; flex:none; margin-top:3px}
+  .plan p{margin-top:14px; font-size:.9rem; color:var(--faint); line-height:1.5}
+
+  /* ── 앱 화면 ── */
+  .shots{display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; padding:6px 20px 22px; margin:0 -20px; -webkit-overflow-scrolling:touch; scrollbar-width:thin}
+  .shots img{flex:none; width:min(230px,60vw); border-radius:26px; scroll-snap-align:center; border:1.5px solid var(--line); background:var(--surface)}
+  @media(min-width:1100px){ .shots{overflow:visible; justify-content:space-between; margin:0; padding:6px 0 22px} .shots img{width:calc(16.66% - 14px)} }
+
+  .end{text-align:center; padding-bottom:72px}
+  .end img{width:110px; margin:0 auto 12px}
+  .end h2{margin-bottom:10px}
+  .end p{color:var(--muted); font-weight:600; margin-bottom:24px}
+
+  footer{border-top:1.5px solid var(--line); padding:28px 0 40px; font-size:.92rem; color:var(--muted)}
+  .foot{display:flex; flex-wrap:wrap; gap:10px 22px; align-items:center; justify-content:space-between}
+  .foot nav{display:flex; flex-wrap:wrap; gap:8px 18px}
+  .foot a{font-weight:700; text-decoration:none; color:var(--ink)}
+  .foot a:hover{text-decoration:underline}
+
+  @media(prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .btn,.toy,.dots i{transition:none} .tile,.toy.shake .dots{animation:none} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top"><img src="assets/icon.webp" width="36" height="36" alt="">Tuck</a>
+    <div class="right">
+      <div class="langs" id="langs" aria-label="Language">
+        <button data-lang="en">EN</button>
+        <button data-lang="ko">한국어</button>
+        <button data-lang="ja">日本語</button>
+        <button data-lang="zh">繁中</button>
+        <button data-lang="de">DE</button>
+        <button data-lang="fr">FR</button>
+      </div>
+      <a class="btn small" href="https://apps.apple.com/app/id6824168879">App Store</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1 id="h1"></h1>
+      <p class="sub" data-i="sub"></p>
+      <div class="cta">
+        <a class="btn" href="https://apps.apple.com/app/id6824168879"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.5 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.2-.9-1.7 0-3.2 1-4.1 2.5-1.7 3-.4 7.5 1.3 9.9.8 1.2 1.8 2.5 3.1 2.5 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.5-1-2.5-3.9zM14 5.3c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.8-1.4z"/></svg><span data-i="cta"></span></a>
+        <span class="cta-note" data-i="ctaNote"></span>
+      </div>
+      <div class="promise" id="promise"></div>
+    </div>
+
+    <div class="toy" id="toy">
+      <div class="lock">
+        <div class="chest">
+          <img src="assets/drawer-mark-closed.webp" width="480" height="480" alt="" class="on" data-d="closed">
+          <img src="assets/drawer-open-0.webp" width="480" height="480" alt="" data-d="0">
+          <img src="assets/drawer-open-1.webp" width="480" height="480" alt="" data-d="1">
+          <img src="assets/drawer-open-2.webp" width="480" height="480" alt="" data-d="2">
+        </div>
+        <div class="lock-msg" id="lockMsg" aria-live="polite"></div>
+        <div class="dots" id="dots"><i></i><i></i><i></i><i></i></div>
+        <div class="pad" id="pad">
+          <button type="button">1</button><button type="button">2</button><button type="button">3</button>
+          <button type="button">4</button><button type="button">5</button><button type="button">6</button>
+          <button type="button">7</button><button type="button">8</button><button type="button">9</button>
+          <button type="button" class="wide">0</button><button type="button" class="dim" data-k="del">⌫</button>
+        </div>
+        <div class="hintpins" id="hintpins"></div>
+      </div>
+      <div class="drawer">
+        <div class="dtop"><div class="dname"><i></i><span id="dName"></span><small id="dCount"></small></div><button class="btn small ghost" id="lockBtn" type="button" data-i="lockBtn"></button></div>
+        <div class="grid" id="grid"></div>
+        <p class="dmsg" id="dMsg"></p>
+        <div class="dbtns"><button class="btn small ghost" id="switchBtn" type="button" data-i="switchBtn"></button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="keep" aria-labelledby="keepH">
+  <div class="wrap">
+    <h2 class="sec-h" id="keepH" data-i="keepH"></h2>
+    <p class="sec-p" data-i="keepP"></p>
+    <ul class="nots" id="nots"></ul>
+    <p class="free" id="free"></p>
+  </div>
+</section>
+
+<section aria-labelledby="featH">
+  <div class="wrap">
+    <h2 class="sec-h" id="featH" data-i="featH"></h2>
+    <p class="sec-p" data-i="featP"></p>
+    <div class="feats" id="feats"></div>
+  </div>
+</section>
+
+<section aria-labelledby="planH" style="padding-top:8px">
+  <div class="wrap">
+    <h2 class="sec-h" id="planH" data-i="planH"></h2>
+    <p class="sec-p" data-i="planP"></p>
+    <div class="plans">
+      <div class="plan"><h3 data-i="freeH"></h3><ul id="freeList"></ul></div>
+      <div class="plan pro"><h3><span data-i="proH"></span><small data-i="proTag"></small></h3><ul id="proList"></ul><p data-i="proNote"></p></div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="shotsH" style="padding-top:8px">
+  <div class="wrap">
+    <h2 class="sec-h" id="shotsH" data-i="shotsH"></h2>
+    <div class="shots" id="shots"></div>
+  </div>
+</section>
+
+<section class="end">
+  <div class="wrap">
+    <img src="assets/drawer-mark.webp" width="720" height="720" alt="" loading="lazy">
+    <h2 data-i="endH"></h2>
+    <p data-i="endS"></p>
+    <a class="btn" href="https://apps.apple.com/app/id6824168879"><span data-i="cta"></span></a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 <a href="https://younghwakim.github.io/">mubi labs</a></span>
+    <nav><a href="support.html" data-i="support"></a><a href="privacy.html" data-i="privacy"></a></nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var UI = {
+    en:{ htmlLang:'en', title:'Tuck — Private Photo Vault',
+      h1:'A different drawer<br>for <span class="hl">every PIN.</span>', sub:'Type 1111 and your work drawer opens. Type 2222 and only your personal drawer is there. The lock screen never shows how many drawers exist.',
+      cta:'Get it on the App Store', ctaNote:'Free · No subscription · No account · iPhone',
+      promise:['No subscription','No ads','No account','No server'],
+      lockHint:'Try a PIN. Each one opens a different drawer.', wrong:'No drawer has that PIN. Nothing is revealed.', tryPins:'Try', drawers:['Work','Personal','Family'], items:'items',
+      dMsg:'Everything else stays invisible. Hand over your phone with just this drawer open.', idBadge:'Covered', lockBtn:'Lock', switchBtn:'Open another drawer',
+      keepH:'What Tuck does not do', keepP:'Privacy is only real if it does not depend on a company. So Tuck has nothing on its side.',
+      nots:['No subscription. One purchase, if you ever want it.','No ads. An ad SDK has no place in a vault.','No account. Open the app and it is yours.','No server. Your photos never leave your phone.'],
+      free:'<b>If you stop paying, nothing is taken away.</b> Drawers, auto cover, timed deletion and export all keep working for free.',
+      featH:'What Tuck does', featP:'Photos, videos and documents, locked on your phone, in drawers that only exist for the person who knows the PIN.',
+      feats:[['A drawer for every PIN','Each drawer has its own PIN and colour. Open one and the whole app takes its colour. Other drawers do not exist until their PIN is typed.'],
+        ['Auto cover','Add an ID card, a contract or a receipt. Tuck finds faces, phone numbers, card numbers and national IDs and asks what to cover. Mosaic or black box, done on the phone.'],
+        ['Originals handled safely','Photos imported from your library are only deleted or hidden there after the copy in the drawer opens correctly. You choose the rule per drawer.'],
+        ['Documents too','PDFs, scans and files go in the same drawer as photos. Import from Files, or scan with the built-in scanner.'],
+        ['Hide inside a drawer','Hidden items vanish from the list without a trace. Type the PIN once more to see them. For when someone is looking over your shoulder.'],
+        ['Delete on a date','Set a drawer or a single item to delete itself after 1, 7 or 30 days. No reminders, no questions.']],
+      planH:'Free, and one purchase', planP:'There is no subscription. The free app is the whole app.',
+      freeH:'Free', freeList:['2 drawers, 100 items each','Auto cover and timed deletion','Face ID for one drawer','Recovery key and full export'],
+      proH:'Pro', proTag:'One purchase', proList:['Unlimited drawers','Encrypted iCloud backup to your own iCloud','A master PIN that opens every drawer'], proNote:'Purchase is coming to the App Store soon. Everything free stays free afterwards.',
+      shotsH:'Screens', endH:'Your photos, your phone.', endS:'Tuck them in a drawer.',
+      support:'Support', privacy:'Privacy' },
+    ko:{ htmlLang:'ko', title:'Tuck — 사진 숨기기·비밀 앨범 금고',
+      h1:'번호마다<br><span class="hl">다른 서랍.</span>', sub:'1111을 누르면 회사 서랍, 2222를 누르면 내 서랍이 열려요. 잠금 화면은 서랍이 몇 개인지조차 보여 주지 않아요.',
+      cta:'App Store에서 받기', ctaNote:'무료 · 구독 없음 · 계정 없음 · iPhone',
+      promise:['구독 없음','광고 없음','계정 없음','서버 없음'],
+      lockHint:'번호를 눌러 보세요. 번호마다 다른 서랍이 열려요.', wrong:'그 번호의 서랍은 없어요. 아무것도 드러나지 않아요.', tryPins:'눌러 보기', drawers:['회사','개인','가족'], items:'개',
+      dMsg:'다른 서랍은 보이지 않아요. 이 서랍만 열어 둔 채로 폰을 건넬 수 있어요.', idBadge:'가림', lockBtn:'잠그기', switchBtn:'다른 서랍 열기',
+      keepH:'Tuck이 안 하는 것', keepP:'회사에 기대지 않아야 진짜 사생활이에요. 그래서 Tuck은 우리 쪽에 아무것도 두지 않아요.',
+      nots:['구독이 없어요. 원하면 한 번만 사요.','광고가 없어요. 금고에 광고 SDK는 어울리지 않아요.','계정이 없어요. 열면 바로 내 것이에요.','서버가 없어요. 사진은 폰 밖으로 안 나가요.'],
+      free:'<b>결제를 멈춰도 사진은 그대로예요.</b> 서랍, 자동 가림, 정한 날에 지워지기, 전부 꺼내기가 무료로 계속 돼요.',
+      featH:'Tuck이 하는 일', featP:'사진·동영상·문서를 폰 안에 잠가요. 번호를 아는 사람에게만 있는 서랍에요.',
+      feats:[['번호마다 다른 서랍','서랍마다 번호와 색이 따로 있어요. 열면 앱 전체가 그 색으로 물들고, 다른 서랍은 번호를 넣기 전까지 존재하지 않아요.'],
+        ['자동 가림','신분증·계약서·영수증을 넣으면 얼굴, 전화번호, 카드번호, 주민번호를 찾아 가릴지 물어요. 모자이크나 검은 상자로, 전부 폰 안에서 처리해요.'],
+        ['사진 앱 원본은 안전하게','사진 앱에서 가져온 사진은 서랍 사본이 제대로 열리는지 확인한 뒤에만 원본을 삭제하거나 가려요. 서랍마다 방식을 정해 둘 수 있어요.'],
+        ['문서도 함께','PDF·스캔·파일도 사진과 같은 서랍에 넣어요. 파일 앱에서 가져오거나 내장 스캐너로 바로 넣어요.'],
+        ['서랍 안에서 숨기기','숨긴 항목은 목록에서 흔적 없이 사라져요. 번호를 한 번 더 넣어야 보여요. 누가 옆에서 볼 때를 위한 거예요.'],
+        ['정한 날에 지우기','서랍이나 항목 하나에 1·7·30일을 정해 두면 그날 알아서 지워져요. 알림도 질문도 없어요.']],
+      planH:'무료, 그리고 한 번 결제', planP:'구독이 없어요. 무료 앱이 곧 앱 전체예요.',
+      freeH:'무료', freeList:['서랍 2개, 서랍마다 100개','자동 가림과 정한 날에 지우기','서랍 하나에 Face ID','복구 키와 전부 꺼내기'],
+      proH:'Pro', proTag:'한 번 결제', proList:['서랍 무제한','내 iCloud로 암호화 백업','모든 서랍을 여는 관리 번호'], proNote:'결제는 곧 App Store에 열려요. 무료였던 것은 그 뒤에도 무료예요.',
+      shotsH:'앱 화면', endH:'내 사진은 내 폰에.', endS:'서랍에 넣어 두세요.',
+      support:'문의', privacy:'개인정보 처리방침' },
+    ja:{ htmlLang:'ja', title:'Tuck — 写真を隠す・秘密のアルバム',
+      h1:'番号ごとに<br><span class="hl">別の引き出し。</span>', sub:'1111を入れると仕事の引き出し、2222を入れると自分の引き出しが開きます。ロック画面は引き出しがいくつあるかさえ見せません。',
+      cta:'App Store で入手', ctaNote:'無料・サブスクなし・アカウント不要・iPhone',
+      promise:['サブスクなし','広告なし','アカウント不要','サーバーなし'],
+      lockHint:'番号を押してみてください。番号ごとに別の引き出しが開きます。', wrong:'その番号の引き出しはありません。何も表示されません。', tryPins:'試す', drawers:['仕事','自分','家族'], items:'件',
+      dMsg:'ほかの引き出しは見えません。この引き出しだけ開けたままスマホを渡せます。', idBadge:'隠し済み', lockBtn:'ロック', switchBtn:'別の引き出しを開く',
+      keepH:'Tuckがしないこと', keepP:'会社に頼らないからこそ本当のプライバシー。だからTuckは私たちの側に何も置きません。',
+      nots:['サブスクなし。必要なら一度だけ購入。','広告なし。金庫に広告SDKは似合いません。','アカウント不要。開いたらすぐ自分のもの。','サーバーなし。写真はスマホの外に出ません。'],
+      free:'<b>支払いをやめても写真はそのまま。</b>引き出し、自動で隠す、期限で消す、すべて書き出し、どれも無料で使い続けられます。',
+      featH:'Tuckがすること', featP:'写真・動画・書類をスマホの中に。番号を知る人にだけ存在する引き出しです。',
+      feats:[['番号ごとに別の引き出し','引き出しごとに番号と色があります。開くとアプリ全体がその色になり、ほかの引き出しは番号を入れるまで存在しません。'],
+        ['自動で隠す','身分証・契約書・レシートを入れると、顔・電話番号・カード番号・個人番号を見つけて隠すか聞きます。モザイクか黒塗りで、すべて端末内で処理。'],
+        ['写真アプリの原本も安全に','写真アプリから取り込んだ写真は、引き出しのコピーが正しく開けることを確かめてから、原本を削除または非表示にします。引き出しごとに方法を決められます。'],
+        ['書類も一緒に','PDF・スキャン・ファイルも写真と同じ引き出しへ。「ファイル」から取り込むか、内蔵スキャナで直接。'],
+        ['引き出しの中で隠す','隠した項目は一覧から跡形もなく消えます。もう一度番号を入れると見えます。誰かがそばで見ているときのために。'],
+        ['期限で消す','引き出しや項目に1・7・30日を設定すると、その日に自動で削除。通知も確認もありません。']],
+      planH:'無料、そして一度だけの購入', planP:'サブスクはありません。無料アプリがアプリのすべてです。',
+      freeH:'無料', freeList:['引き出し2つ、各100件','自動で隠す・期限で消す','引き出しひとつにFace ID','復旧キーとすべて書き出し'],
+      proH:'Pro', proTag:'買い切り', proList:['引き出し無制限','自分のiCloudへ暗号化バックアップ','すべての引き出しを開くマスター番号'], proNote:'購入は近日App Storeで。無料だったものはその後も無料です。',
+      shotsH:'アプリの画面', endH:'自分の写真は自分のスマホに。', endS:'引き出しにしまっておこう。',
+      support:'サポート', privacy:'プライバシーポリシー' },
+    zh:{ htmlLang:'zh-Hant', title:'Tuck — 隱藏照片・私密相簿',
+      h1:'一組密碼，<br><span class="hl">一個抽屜。</span>', sub:'輸入 1111 打開工作抽屜，輸入 2222 只會出現你的私人抽屜。鎖定畫面連有幾個抽屜都不會透露。',
+      cta:'在 App Store 下載', ctaNote:'免費・沒有訂閱・不用帳號・iPhone',
+      promise:['沒有訂閱','沒有廣告','不用帳號','沒有伺服器'],
+      lockHint:'試試輸入密碼。每組密碼打開不同的抽屜。', wrong:'沒有這組密碼的抽屜。什麼都不會顯示。', tryPins:'試試', drawers:['工作','私人','家人'], items:'項',
+      dMsg:'其他抽屜看不見。只開著這一個，就能把手機交給別人。', idBadge:'已遮', lockBtn:'鎖上', switchBtn:'打開另一個抽屜',
+      keepH:'Tuck 不做的事', keepP:'不依賴公司，隱私才是真的。所以 Tuck 這邊什麼都沒有。',
+      nots:['沒有訂閱。想要的話只買一次。','沒有廣告。保險箱裡不該有廣告 SDK。','不用帳號。打開就是你的。','沒有伺服器。照片不會離開你的手機。'],
+      free:'<b>停止付費也不會被拿走任何東西。</b>抽屜、自動遮蔽、到期刪除、全部匯出，都會一直免費。',
+      featH:'Tuck 做的事', featP:'把照片、影片和文件鎖在手機裡，放進只對知道密碼的人存在的抽屜。',
+      feats:[['每組密碼一個抽屜','每個抽屜有自己的密碼和顏色。打開後整個 App 都是那個顏色，其他抽屜在輸入密碼前根本不存在。'],
+        ['自動遮蔽','放進身分證、合約或收據，Tuck 會找出臉孔、電話、卡號和身分證號，問你要不要遮。馬賽克或黑塊，全部在手機上完成。'],
+        ['照片 App 的原檔也安全','從照片 App 匯入的照片，要確認抽屜裡的副本能正常打開，才會刪除原檔或在照片 App 中隱藏。每個抽屜都能設定自己的方式。'],
+        ['文件也能放','PDF、掃描檔和檔案與照片放同一個抽屜。從「檔案」匯入，或用內建掃描直接放進來。'],
+        ['在抽屜裡再隱藏','隱藏的項目會從列表消失，看不出它存在。再輸入一次密碼才看得到。給有人在旁邊看的時候用。'],
+        ['到期自動刪除','為抽屜或單一項目設定 1、7 或 30 天，時間到就自己刪除。沒有提醒，也不會再問。']],
+      planH:'免費，以及買一次', planP:'沒有訂閱。免費版就是整個 App。',
+      freeH:'免費', freeList:['2 個抽屜，每個 100 項','自動遮蔽與到期刪除','一個抽屜可用 Face ID','復原金鑰與全部匯出'],
+      proH:'Pro', proTag:'買一次', proList:['抽屜無上限','加密備份到你自己的 iCloud','能打開所有抽屜的主密碼'], proNote:'購買即將在 App Store 開放。免費的部分之後也一樣免費。',
+      shotsH:'App 畫面', endH:'你的照片，留在你的手機。', endS:'收進抽屜裡。',
+      support:'支援', privacy:'隱私權政策' },
+    de:{ htmlLang:'de', title:'Tuck — Fotos sicher verstecken',
+      h1:'Eine PIN,<br><span class="hl">eine Schublade.</span>', sub:'Gib 1111 ein und deine Arbeitsschublade öffnet sich. Gib 2222 ein und nur deine private Schublade ist da. Der Sperrbildschirm zeigt nicht einmal, wie viele es gibt.',
+      cta:'Im App Store laden', ctaNote:'Kostenlos · Kein Abo · Kein Konto · iPhone',
+      promise:['Kein Abo','Keine Werbung','Kein Konto','Kein Server'],
+      lockHint:'Probier eine PIN. Jede öffnet eine andere Schublade.', wrong:'Keine Schublade hat diese PIN. Nichts wird verraten.', tryPins:'Probieren', drawers:['Arbeit','Privat','Familie'], items:'Elemente',
+      dMsg:'Alles andere bleibt unsichtbar. Gib dein iPhone weiter, nur mit dieser Schublade offen.', idBadge:'Abgedeckt', lockBtn:'Sperren', switchBtn:'Andere Schublade öffnen',
+      keepH:'Was Tuck nicht tut', keepP:'Privatsphäre ist nur echt, wenn sie nicht von einer Firma abhängt. Deshalb hat Tuck auf seiner Seite nichts.',
+      nots:['Kein Abo. Ein Kauf, falls du ihn je willst.','Keine Werbung. Ein Werbe-SDK gehört nicht in einen Tresor.','Kein Konto. Öffnen, fertig.','Kein Server. Deine Fotos verlassen dein iPhone nie.'],
+      free:'<b>Wenn du nicht mehr zahlst, wird dir nichts weggenommen.</b> Schubladen, automatisches Abdecken, zeitgesteuertes Löschen und Export bleiben kostenlos.',
+      featH:'Was Tuck tut', featP:'Fotos, Videos und Dokumente, auf deinem iPhone verschlossen, in Schubladen, die nur für den existieren, der die PIN kennt.',
+      feats:[['Eine Schublade pro PIN','Jede Schublade hat eigene PIN und Farbe. Öffnest du eine, nimmt die ganze App ihre Farbe an. Andere Schubladen existieren erst mit ihrer PIN.'],
+        ['Automatisch abdecken','Lege einen Ausweis, Vertrag oder Beleg hinein. Tuck findet Gesichter, Telefon-, Karten- und Ausweisnummern und fragt, was abgedeckt werden soll. Mosaik oder schwarzer Kasten, auf dem iPhone.'],
+        ['Originale sicher behandelt','Aus der Mediathek importierte Fotos werden dort erst gelöscht oder ausgeblendet, wenn die Kopie in der Schublade korrekt öffnet. Die Regel wählst du pro Schublade.'],
+        ['Auch Dokumente','PDFs, Scans und Dateien kommen in dieselbe Schublade wie Fotos. Aus „Dateien“ importieren oder mit dem eingebauten Scanner.'],
+        ['In der Schublade verstecken','Versteckte Elemente verschwinden spurlos aus der Liste. Noch einmal die PIN, und sie sind wieder da. Für den Fall, dass jemand mitschaut.'],
+        ['Zu einem Datum löschen','Lass eine Schublade oder ein Element nach 1, 7 oder 30 Tagen von selbst verschwinden. Keine Erinnerung, keine Rückfrage.']],
+      planH:'Kostenlos, plus ein Kauf', planP:'Es gibt kein Abo. Die kostenlose App ist die ganze App.',
+      freeH:'Kostenlos', freeList:['2 Schubladen mit je 100 Elementen','Automatisch abdecken und zeitgesteuert löschen','Face ID für eine Schublade','Wiederherstellungsschlüssel und voller Export'],
+      proH:'Pro', proTag:'Ein Kauf', proList:['Unbegrenzt viele Schubladen','Verschlüsseltes Backup in deine eigene iCloud','Eine Master-PIN, die jede Schublade öffnet'], proNote:'Der Kauf kommt bald in den App Store. Alles Kostenlose bleibt danach kostenlos.',
+      shotsH:'Bildschirme', endH:'Deine Fotos, dein iPhone.', endS:'Ab in die Schublade.',
+      support:'Support', privacy:'Datenschutz' },
+    fr:{ htmlLang:'fr', title:'Tuck — Cacher photos & coffre',
+      h1:'Un code,<br><span class="hl">un tiroir.</span>', sub:'Tapez 1111 et votre tiroir travail s’ouvre. Tapez 2222 et seul votre tiroir personnel apparaît. L’écran de verrouillage ne montre même pas combien il y en a.',
+      cta:'Télécharger dans l’App Store', ctaNote:'Gratuit · Sans abonnement · Sans compte · iPhone',
+      promise:['Sans abonnement','Sans publicité','Sans compte','Sans serveur'],
+      lockHint:'Essayez un code. Chacun ouvre un tiroir différent.', wrong:'Aucun tiroir n’a ce code. Rien n’est révélé.', tryPins:'Essayer', drawers:['Travail','Perso','Famille'], items:'éléments',
+      dMsg:'Tout le reste reste invisible. Prêtez votre iPhone avec ce seul tiroir ouvert.', idBadge:'Masqué', lockBtn:'Verrouiller', switchBtn:'Ouvrir un autre tiroir',
+      keepH:'Ce que Tuck ne fait pas', keepP:'La vie privée n’est réelle que si elle ne dépend pas d’une entreprise. Tuck n’a donc rien de son côté.',
+      nots:['Sans abonnement. Un seul achat, si vous le voulez un jour.','Sans publicité. Un SDK publicitaire n’a rien à faire dans un coffre.','Sans compte. Ouvrez, c’est à vous.','Sans serveur. Vos photos ne quittent jamais votre iPhone.'],
+      free:'<b>Si vous arrêtez de payer, rien ne vous est retiré.</b> Tiroirs, masquage automatique, suppression programmée et export restent gratuits.',
+      featH:'Ce que Tuck fait', featP:'Photos, vidéos et documents, verrouillés sur votre iPhone, dans des tiroirs qui n’existent que pour celui qui connaît le code.',
+      feats:[['Un tiroir par code','Chaque tiroir a son code et sa couleur. Ouvrez-en un et toute l’app prend sa couleur. Les autres n’existent pas tant que leur code n’est pas tapé.'],
+        ['Masquage automatique','Ajoutez une pièce d’identité, un contrat ou un reçu. Tuck repère visages, numéros de téléphone, de carte et d’identité et demande quoi masquer. Mosaïque ou cache noir, sur l’iPhone.'],
+        ['Originaux traités avec soin','Les photos importées de votre photothèque n’y sont supprimées ou masquées qu’une fois la copie du tiroir vérifiée. Vous choisissez la règle par tiroir.'],
+        ['Les documents aussi','PDF, scans et fichiers vont dans le même tiroir que les photos. Importez depuis Fichiers ou scannez directement.'],
+        ['Cacher dans le tiroir','Les éléments cachés disparaissent de la liste sans trace. Retapez le code pour les revoir. Pour quand quelqu’un regarde par-dessus votre épaule.'],
+        ['Supprimer à une date','Réglez un tiroir ou un élément pour qu’il s’efface après 1, 7 ou 30 jours. Sans rappel, sans question.']],
+      planH:'Gratuit, plus un achat', planP:'Il n’y a pas d’abonnement. L’app gratuite est l’app entière.',
+      freeH:'Gratuit', freeList:['2 tiroirs de 100 éléments','Masquage automatique et suppression programmée','Face ID pour un tiroir','Clé de récupération et export complet'],
+      proH:'Pro', proTag:'Achat unique', proList:['Tiroirs illimités','Sauvegarde chiffrée dans votre propre iCloud','Un code maître qui ouvre tous les tiroirs'], proNote:'L’achat arrive bientôt sur l’App Store. Tout ce qui est gratuit le reste ensuite.',
+      shotsH:'Écrans', endH:'Vos photos, votre iPhone.', endS:'Rangez-les dans un tiroir.',
+      support:'Assistance', privacy:'Confidentialité' }
+  };
+  var COLORS = ['#3F6FA8', '#7460B8', '#BF5A38'], PINS = ['1111', '2222', '3333'];
+  var CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#D9A24B"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#14140F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var TICK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="#D9A24B" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var FICON = [
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 12h16M12 8h.01M12 16h.01"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.2"/><path d="M14 10h4M14 14h4M6 17h6"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 6.3A9 9 0 0 1 21 12s-1.5 3-4.3 4.8M6.5 8.3A10.6 10.6 0 0 0 3 12s3 6 9 6c1.2 0 2.3-.2 3.3-.6"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 3h6"/></svg>'
+  ];
+  var LANG = 'en';
+  function $(id){ return document.getElementById(id); }
+
+  // ── 열어 보는 서랍 ──
+  var toy = $('toy'), pad = $('pad'), dots = $('dots').children, lockMsg = $('lockMsg'), typed = '', busy = false, open = -1;
+  function showChest(d){ toy.querySelectorAll('.chest img').forEach(function(im){ im.classList.toggle('on', im.getAttribute('data-d') === String(d)); }); }
+  function paintDots(){ for (var i = 0; i < 4; i++) dots[i].classList.toggle('on', i < typed.length); }
+  function tileSvg(i){
+    var hues = [[COLORS[open], '#223'], ['#E9D8B0', '#A58C5A'], ['#9FB3C8', '#3D5068'], ['#D7A1A1', '#6E3B3B'], ['#B9D6B1', '#4A6B45'], ['#CFC3E8', '#5E4F8C']];
+    var c = hues[i % hues.length];
+    return '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="g'+open+i+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+c[0]+'"/><stop offset="1" stop-color="'+c[1]+'"/></linearGradient></defs><rect width="100" height="100" fill="url(#g'+open+i+')"/><circle cx="'+(28+i*7)+'" cy="34" r="10" fill="rgba(255,255,255,.35)"/><path d="M0 100 L35 55 L55 75 L70 60 L100 100 Z" fill="rgba(0,0,0,.25)"/></svg>';
+  }
+  function openDrawer(i){
+    var u = UI[LANG]; open = i; typed = ''; paintDots();
+    toy.style.setProperty('--tint', COLORS[i]); showChest(i);
+    $('dName').textContent = u.drawers[i]; $('dCount').textContent = (i === 0 ? 24 : i === 1 ? 57 : 12) + ' ' + u.items;
+    var tiles = '';
+    for (var k = 0; k < 6; k++){
+      var isId = (k === 1);
+      tiles += '<div class="tile">' + tileSvg(k) + (isId ? '<span class="bar" style="top:30%;width:52%"></span><span class="bar" style="top:52%;width:40%"></span><span class="badge">'+u.idBadge+'</span>' : '') + '</div>';
+    }
+    $('grid').innerHTML = tiles; $('dMsg').textContent = u.dMsg;
+    setTimeout(function(){ toy.classList.add('open'); busy = false; }, 420);
+  }
+  function lock(){ toy.classList.remove('open'); toy.style.setProperty('--tint', 'var(--amber)'); showChest('closed'); open = -1; typed = ''; paintDots(); lockMsg.textContent = UI[LANG].lockHint; }
+  function submit(){
+    busy = true;
+    var i = PINS.indexOf(typed);
+    if (i >= 0){ lockMsg.textContent = ''; openDrawer(i); return; }
+    toy.classList.remove('shake'); void toy.offsetWidth; toy.classList.add('shake');
+    lockMsg.textContent = UI[LANG].wrong;
+    setTimeout(function(){ typed = ''; paintDots(); busy = false; }, 500);
+  }
+  pad.addEventListener('click', function(e){
+    var b = e.target.closest('button'); if (!b || busy || open >= 0) return;
+    if (b.getAttribute('data-k') === 'del'){ typed = typed.slice(0, -1); paintDots(); return; }
+    if (typed.length >= 4) return;
+    typed += b.textContent; paintDots();
+    if (typed.length === 4) setTimeout(submit, 120);
+  });
+  $('hintpins').addEventListener('click', function(e){ var b = e.target.closest('button'); if (!b || busy || open >= 0) return; typed = b.getAttribute('data-pin'); paintDots(); setTimeout(submit, 150); });
+  $('lockBtn').addEventListener('click', lock);
+  $('switchBtn').addEventListener('click', lock);
+
+  // ── 언어 ──
+  function render(){
+    var u = UI[LANG];
+    document.documentElement.lang = u.htmlLang; document.title = u.title;
+    $('h1').innerHTML = u.h1;
+    document.querySelectorAll('[data-i]').forEach(function(el){ var v = u[el.getAttribute('data-i')]; if (typeof v === 'string') el.textContent = v; });
+    $('promise').innerHTML = u.promise.map(function(t){ return '<span>'+CHECK.replace('viewBox', 'width="16" height="16" viewBox')+t+'</span>'; }).join('');
+    $('hintpins').innerHTML = PINS.map(function(p, i){ return '<button type="button" data-pin="'+p+'"><i style="background:'+COLORS[i]+'"></i>'+p+' · '+u.drawers[i]+'</button>'; }).join('');
+    $('nots').innerHTML = u.nots.map(function(t){ return '<li>'+CHECK+'<span>'+t+'</span></li>'; }).join('');
+    $('free').innerHTML = u.free;
+    $('feats').innerHTML = u.feats.map(function(f, i){ return '<div class="feat" style="--c:'+[COLORS[0],COLORS[1],'#4F8456',COLORS[2],'#B24E6A','#D9A24B'][i]+'"><div class="ic">'+FICON[i]+'</div><h3>'+f[0]+'</h3><p>'+f[1]+'</p></div>'; }).join('');
+    $('freeList').innerHTML = u.freeList.map(function(t){ return '<li>'+TICK+'<span>'+t+'</span></li>'; }).join('');
+    $('proList').innerHTML = u.proList.map(function(t){ return '<li>'+TICK+'<span>'+t+'</span></li>'; }).join('');
+    $('shots').innerHTML = [1,2,3,4,5,6].map(function(i){ return '<img src="assets/shot-'+LANG+'-'+i+'.webp" width="480" height="1039" alt="'+u.shotsH+' '+i+'" loading="lazy">'; }).join('');
+    if (open >= 0) openDrawer(open); else lockMsg.textContent = u.lockHint;
+  }
+  var buttons = document.querySelectorAll('#langs button');
+  function apply(lang, save){ LANG = UI[lang] ? lang : 'en'; render(); buttons.forEach(function(b){ b.classList.toggle('on', b.dataset.lang === LANG); }); if (save){ try{ localStorage.setItem('tuck-lang', LANG); }catch(e){} } }
+  buttons.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.lang, true); }); });
+  var q = null; try{ q = new URLSearchParams(location.search).get('lang'); }catch(e){}
+  var saved = null; try{ saved = localStorage.getItem('tuck-lang'); }catch(e){}
+  var sys = (navigator.language || 'en').toLowerCase(); var sys2 = sys.slice(0,2);
+  var guess = sys.indexOf('zh') === 0 ? 'zh' : (UI[sys2] ? sys2 : 'en');
+  apply((q && UI[q]) ? q : (saved && UI[saved]) ? saved : guess, false);
+})();
+</script>
+</body>
+</html>
