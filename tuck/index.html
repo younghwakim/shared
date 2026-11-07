@@ -169,6 +169,9 @@
   .foot nav{display:flex;flex-wrap:wrap;gap:0 18px}
   .foot a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;font-weight:600;text-decoration:none}
   .foot a:hover{text-decoration:underline}
+/* Safari 15 이하(아이폰 7 등)는 컨테이너 단위(cqw)·color-mix 를 모른다. 1cqw = 화면 너비의 1/100 (--q, 아래 스크립트가 잰다) */
+@supports not (width:1cqw){.screen{--q:3px}.phone{border-radius:clamp(40px,14vw,50px)}.lock{padding-top:calc(var(--q)*15)}.ch{width:calc(var(--q)*46)}.msg{font-size:calc(var(--q)*4.7);margin-top:calc(var(--q)*1.5);padding:0 calc(var(--q)*6)}.dots{gap:calc(var(--q)*4);margin:calc(var(--q)*3.5) 0 calc(var(--q)*5)}.dots i{width:calc(var(--q)*3.6);height:calc(var(--q)*3.6)}.keys{grid-template-columns:repeat(3,calc(var(--q)*19.5));gap:calc(var(--q)*2.6) calc(var(--q)*6)}.keys button{font-size:calc(var(--q)*7.2)}.keys .ghost{font-size:calc(var(--q)*5.4)}}
+@supports not (background:color-mix(in srgb,red 50%,transparent)){.pin{background:var(--bg)}}
 </style>
 </head>
 <body>
@@ -465,5 +468,6 @@
   if(reduce)openDrawer(0);
 })();
 </script>
+<script>/* cqw 를 모르는 브라우저(Safari 15 이하)에서 폰 화면 1/100 너비를 --q 로 */(function(){if(window.CSS&&CSS.supports&&CSS.supports("width","1cqw"))return;var s=document.querySelector(".screen");if(!s)return;var f=function(){s.style.setProperty("--q",s.clientWidth/100+"px")};f();addEventListener("resize",f);addEventListener("load",f)})();</script>
 </body>
 </html>
