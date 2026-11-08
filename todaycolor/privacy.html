@@ -31,7 +31,7 @@
 <script>(function(){var a=document.querySelector('#mubi-home a');function c(){var b=document.querySelector('button[data-lang].on,button[data-lang].active,button[data-lang][aria-pressed="true"],button[data-lang][aria-selected="true"]');var l=String(b?b.getAttribute('data-lang'):document.documentElement.lang).slice(0,2).toLowerCase();a.href='https://younghwakim.github.io/'+(/^(ko|en|ja|zh)$/.test(l)?'?lang='+l:'')}document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('button[data-lang]'))setTimeout(c,0)});new MutationObserver(c).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});addEventListener('load',c);c()})();</script>
 
 <h1>투데이컬러 · Todaycolor</h1>
-<p class="updated">시행일 / Effective date / 施行日 / 生效日期: 2026-11-07</p>
+<p class="updated">시행일 / Effective date / 施行日 / 生效日期: 2026-11-08</p>
 <nav id="langnav">
   <button data-lang="ko">한국어</button>
   <button data-lang="en">English</button>
@@ -82,11 +82,13 @@ mubi labs는 이 ID가 누구인지 알 수 없습니다. 남긴 그림은 다�
 <li>앱을 삭제하면 계정에 접근할 수 없게 되므로, 남긴 그림을 지우려면 아래 연락처로 알려 주세요. 그림 날짜와 닉네임을 적어 주시면 찾을 수 있습니다.</li>
 <li>신고된 그림은 즉시 숨겨지고 사람이 검토합니다. 규칙에 어긋나면 삭제하며, 반복되면 해당 계정은 더 올릴 수 없게 됩니다.</li>
 <li>사용 통계는 최대 1년, 오류 정보는 최대 90일 보관합니다. 광고 쪽 정보는 Google 방침을 따릅니다.</li>
+<li>사고에 대비한 데이터베이스·그림 사본은 암호화해 7일 보관한 뒤 지웁니다. 지운 그림과 계정은 그 기간 안에 사본에서도 사라집니다.</li>
 </ul>
 
 <h3>4. 처리 위탁과 국외 이전</h3>
 <p>데이터는 <a href="https://supabase.com">Supabase</a>(서버·데이터베이스·이미지 저장, 서울 리전)에 저장됩니다. 서울 리전은 대한민국 안에 있지만 Supabase는 미국 회사이므로, 운영·지원 과정에서 국외에서 접근될 수 있습니다. 개인정보 보호 수준은 Supabase의 방침을 따릅니다.</p>
-<p>광고 노출은 <strong>Google LLC(AdMob, 미국)</strong>에 위탁합니다. 위탁 범위는 광고 송출에 한하며, 앱이 저장한 그림·계정 정보를 Google에 넘기지 않습니다.</p>
+<p>광고 노출은 <strong>Google LLC(AdMob, 미국)</strong>에 위탁합니다. 위탁 범위는 광고 송출에 한하며, 앱이 저장한 그림·계정 정보를 광고에 쓰도록 Google에 넘기지 않습니다.</p>
+<p>사고에 대비한 사본은 <strong>Google Cloud(Google LLC, 서울 리전)</strong>에 보관합니다. 보내기 전에 암호화하므로 Google은 내용을 읽을 수 없습니다.</p>
 <p>사용 통계는 PostHog, Inc.(미국), 오류 정보는 Functional Software, Inc.(Sentry, 미국)가 처리합니다. 보내는 항목은 2-3·2-4에 적었고, 앱을 쓸 때 인터넷으로 암호화해 보냅니다. 앱을 지우면 멈춥니다.</p>
 
 <h3>5. 이용자의 권리</h3>
@@ -146,11 +148,13 @@ mubi labs cannot tell who is behind an ID. Drawings you save are public to other
 <li>If you delete the app, the account can no longer be reached from a device. To remove drawings you saved, write to the contact below with the date and nickname.</li>
 <li>Reported drawings are hidden immediately and reviewed by a person. Drawings that break the rules are deleted; repeated violations stop the account from posting.</li>
 <li>Usage events are kept for up to 1 year and error reports for up to 90 days. Ad-related data follows Google's policies.</li>
+<li>Encrypted backup copies of the database and drawings are kept for 7 days and then deleted, so deleted drawings and accounts disappear from backups within that time.</li>
 </ul>
 
 <h3>4. Processors and international transfer</h3>
 <p>Data is stored with <a href="https://supabase.com">Supabase</a> (server, database, image storage) in the Seoul region. Supabase is a US company, so data may be accessed from outside your country for operations and support, under Supabase's own privacy terms.</p>
-<p>Ad delivery is handled by <strong>Google LLC (AdMob, United States)</strong>. That is limited to serving ads — the drawings and account data the app stores are never passed to Google.</p>
+<p>Ad delivery is handled by <strong>Google LLC (AdMob, United States)</strong>. That is limited to serving ads — the drawings and account data the app stores are never passed to Google for advertising.</p>
+<p>Backup copies are kept on <strong>Google Cloud (Google LLC, Seoul region)</strong>. They are encrypted before upload, so Google cannot read them.</p>
 <p>Usage events are processed by PostHog, Inc. (US) and error reports by Functional Software, Inc. (Sentry, US). What is sent is listed in 2-3 and 2-4; it is encrypted and sent over the internet while you use the app. Deleting the app stops this.</p>
 
 <h3>5. Your rights</h3>
@@ -210,11 +214,13 @@ mubi labsはIDが誰のものか分かりません。残した絵はほかの利
 <li>アプリを削除するとアカウントに端末からアクセスできなくなります。残した絵を消したい場合は、日付とニックネームを添えて下記の連絡先までお知らせください。</li>
 <li>報告された絵はすぐに非表示になり、人が確認します。ルールに反する絵は削除し、繰り返すとそのアカウントは投稿できなくなります。</li>
 <li>利用イベントは最長1年、エラー情報は最長90日保存します。広告に関する情報はGoogleのポリシーに従います。</li>
+<li>障害に備えたデータベースと絵のバックアップは暗号化して7日間保存し、その後削除します。削除した絵やアカウントは、その期間内にバックアップからも消えます。</li>
 </ul>
 
 <h3>4. 委託と国外移転</h3>
 <p>データは<a href="https://supabase.com">Supabase</a>（サーバー・データベース・画像保存、ソウルリージョン）に保存されます。Supabaseは米国の会社であるため、運用・サポートの過程で国外からアクセスされることがあります。保護の水準はSupabaseのポリシーに従います。</p>
-<p>広告の配信は<strong>Google LLC（AdMob、米国）</strong>に委託しています。委託の範囲は広告の配信に限られ、アプリが保存した絵やアカウント情報をGoogleに渡すことはありません。</p>
+<p>広告の配信は<strong>Google LLC（AdMob、米国）</strong>に委託しています。委託の範囲は広告の配信に限られ、アプリが保存した絵やアカウント情報を広告のためにGoogleに渡すことはありません。</p>
+<p>障害に備えたバックアップは<strong>Google Cloud（Google LLC、ソウルリージョン）</strong>に保存します。送る前に暗号化するため、Googleは内容を読めません。</p>
 <p>利用イベントはPostHog, Inc.（米国）、エラー情報はFunctional Software, Inc.（Sentry、米国）が処理します。送る項目は2-3・2-4のとおりで、アプリの利用時にインターネット経由で暗号化して送ります。アプリを削除すると止まります。</p>
 
 <h3>5. 利用者の権利</h3>
@@ -274,11 +280,13 @@ mubi labs 無法得知這個 ID 是誰。留下的畫會公開給其他使用者
 <li>刪除 App 後就無法再進入帳號。如要刪除留下的畫，請透過下方聯絡方式告訴我們作畫日期和暱稱。</li>
 <li>被檢舉的畫會立即隱藏，並由人工審查。違反規則的畫會被刪除，重複違規的帳號將無法再上傳。</li>
 <li>使用統計最長保存 1 年，錯誤資訊最長保存 90 天。廣告相關資訊依 Google 的政策辦理。</li>
+<li>為防範事故而備份的資料庫與畫作會加密保存 7 天後刪除。你刪除的畫和帳號，會在這段期間內從備份中消失。</li>
 </ul>
 
 <h3>4. 委託處理與跨境傳輸</h3>
 <p>資料儲存在 <a href="https://supabase.com">Supabase</a>（伺服器、資料庫、圖片儲存，首爾區域）。首爾區域位於韓國，但 Supabase 是美國公司，因此在營運和支援過程中可能從境外存取。保護水準依 Supabase 的政策辦理。</p>
-<p>廣告投放委託 <strong>Google LLC（AdMob，美國）</strong>處理。委託範圍僅限於投放廣告，App 儲存的畫和帳號資訊不會交給 Google。</p>
+<p>廣告投放委託 <strong>Google LLC（AdMob，美國）</strong>處理。委託範圍僅限於投放廣告，App 儲存的畫和帳號資訊不會為了廣告交給 Google。</p>
+<p>為防範事故而備份的資料存放在 <strong>Google Cloud（Google LLC，首爾區域）</strong>。上傳前會先加密，Google 無法讀取內容。</p>
 <p>使用統計由 PostHog, Inc.（美國）處理，錯誤資訊由 Functional Software, Inc.（Sentry，美國）處理。傳送的項目寫在 2-3、2-4，會在使用 App 時透過網路加密傳送。刪除 App 後就會停止。</p>
 
 <h3>5. 使用者的權利</h3>
