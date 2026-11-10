@@ -62,7 +62,7 @@
 <p><strong>Your location.</strong> If you allow it, your location is used to find nearby car washes, gas stations and parking, and to show where you are on the insurance screen. It is not stored: we use it only while handling the request, and nothing remains afterwards. The address on the insurance screen comes from your phone's own location service.</p>
 <p><strong>Send by voice (말로 보내기).</strong> This applies only if you use the feature:</p>
 <ul>
-  <li>Your voice is used only to turn speech into text, and no audio file is stored. It uses your device's built-in speech recognition, which may go through Google's speech recognition service depending on your device settings.</li>
+  <li>Your voice is used only to turn speech into text, and we do not store any audio file. Your phone's own speech recognition does the work. On iPhone this is Apple's speech recognition, which may run on the device or send your voice to Apple's servers (iOS decides which). On Android it may go through Google's speech recognition service, depending on your device settings.</li>
   <li>The resulting sentence goes through our server to an AI service (Google Gemini API) to be rephrased politely. We do not store that sentence or the rephrased result on our server. Only the wording you choose to send stays in the message history.</li>
 </ul>
 <p>If you do not use Send by voice, neither of these is collected, and you can still type a plate and pick a situation as usual.</p>
@@ -93,6 +93,7 @@
   <tr><td>Neon, Inc.</td><td>Database</td><td>Singapore</td><td>Accounts, plates (encrypted), messages, reports, consent records</td></tr>
   <tr><td>Expo (650 Industries, Inc.), Apple Push Notification service, Firebase Cloud Messaging (Google)</td><td>Delivers push notifications</td><td>United States</td><td>Push token, notification title and text</td></tr>
   <tr><td>Google (Gmail)</td><td>Sends the sign-in code email</td><td>United States</td><td>Your email address and the one-time code</td></tr>
+  <tr><td>Apple (iPhone), Google (Android)</td><td>Turns your voice into text for Send by voice, on the device or on their servers</td><td>United States</td><td>Your voice while you use Send by voice</td></tr>
   <tr><td>Google Gemini API (Google LLC)</td><td>Rephrases sentences from Send by voice</td><td>United States</td><td>The sentence you entered. While we use the free tier, Google may use the sentences it receives to improve its services</td></tr>
   <tr><td>Kakao Local API (Kakao Corp.)</td><td>Finds nearby places</td><td>South Korea</td><td>Search coordinates</td></tr>
   <tr><td>Apple, Google</td><td>Sign in with Apple / Google</td><td>United States</td><td>The account ID they give us</td></tr>
@@ -132,6 +133,7 @@
 <h2>11. Changes</h2>
 <p>If we change this policy in a way that matters, we will tell you in the app at least 30 days before the change takes effect. The current version and its effective date are always at the top of this page.</p>
 <p>This version (2026-11-07) adds location, Send by voice, Gemini, Kakao Local and nearby-place taps to this policy. It describes what Buruda already does; it does not start any new processing.</p>
+<p>Added on 10 November 2026: on iPhone, your voice in Send by voice may be turned into text on Apple's servers, and Apple and Google are now listed as providers for speech recognition. This was already the case; nothing new starts, and the effective date stays 7 December 2026.</p>
 
 <h2>12. Information for specific countries and regions</h2>
 
